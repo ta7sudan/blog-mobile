@@ -1,3 +1,12 @@
 module.exports = {
-	presets: ['@vue/app']
+	plugins: [
+		'array-includes'
+	],
+	presets: [
+		[
+			'@vue/app', {
+				loose: true
+			}
+		]
+	]
 };
