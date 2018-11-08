@@ -4,7 +4,8 @@
   "description": "todo",
   "private": true,
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --modern --report",
+    "build-ci": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint",
     "inspect": "jsinspect src",
     "format": "prettier --config .prettierrc.js --write src/**/*.js",
