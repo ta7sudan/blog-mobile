@@ -1,12 +1,28 @@
 {
   "name": "blog-mobile",
   "version": "0.1.0",
+  "description": "todo",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "inspect": "jsinspect src",
+    "format": "prettier --config .prettierrc.js --write src/**/*.js",
+    "start": "concurrently \"vue-cli-service serve\" \"pock\""
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ta7sudan/blog-mobile.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "ta7sudan",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ta7sudan/blog-mobile/issues"
+  },
+  "homepage": "https://github.com/ta7sudan/blog-mobile#readme",
   "dependencies": {
     "apiz-browser-client": "^0.1.10",
     "apiz-ng": "^0.1.5",
@@ -19,10 +35,15 @@
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-array-includes": "^2.0.3",
+    "concurrently": "^4.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "jsinspect": "^0.12.7",
     "lint-staged": "^7.2.2",
+    "pock": "^0.3.3",
+    "prettier": "^1.15.1",
     "vue-template-compiler": "^2.5.17"
   },
   "gitHooks": {
@@ -30,12 +51,10 @@
   },
   "lint-staged": {
     "*.js": [
-      "vue-cli-service lint",
-      "git add"
+      "vue-cli-service lint"
     ],
     "*.vue": [
-      "vue-cli-service lint",
-      "git add"
+      "vue-cli-service lint"
     ]
   }
 }
