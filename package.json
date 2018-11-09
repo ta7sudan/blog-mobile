@@ -41,6 +41,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "image-webpack-loader": "^4.5.0",
     "jsinspect": "^0.12.7",
     "lint-staged": "^7.2.2",
     "pock": "^0.3.3",
@@ -51,7 +52,9 @@
     "postcss-sprites": "^4.2.1",
     "precss": "^3.1.2",
     "prettier": "^1.15.1",
-    "vue-template-compiler": "^2.5.17"
+    "svg-url-loader": "^2.3.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack-deep-scope-plugin": "^1.6.0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

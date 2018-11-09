@@ -5,15 +5,18 @@ module.exports = {
 		browser: true,
 		node: true
 	},
-
+	globals: {
+		DEBUG: true
+	},
 	extends: ['plugin:vue/essential'],
-	// plugins: ['prettier'],
+	plugins: ['prettier'],
 	parserOptions: {
 		parser: 'babel-eslint',
 		ecmaVersion: 2018,
 		sourceType: 'module'
 	},
 	rules: {
+		'no-undef': 'error',
 		'no-console': 'off',
 		'no-debugger': 'off',
 		'no-extra-boolean-cast': 'off',
