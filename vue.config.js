@@ -1,6 +1,8 @@
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const { compressCSS, compressHTML, compressJS } = require('./compress');
+
 module.exports = {
-	baseUrl: process.env.PUBLIC_PATH,
+	baseUrl: process.env.CDN || '/',
 	css: {
 		sourceMap: true
 	},
@@ -68,6 +70,22 @@ module.exports = {
 				DEBUG: JSON.stringify(process.env.NODE_ENV === 'development')
 			}
 		]);
+		// 这里有点恶心, 不走loader的css和js处理起来总是不太方便,
+		// 但是那几个内联插件感觉并不好用, 还有一点点小bug,
+		// 对于简单的脚本和样式注入页面这样做也还算可以接受, 复杂的
+		// 话考虑抽空撸插件了
+		// 关于为什么不用一个script把所有压缩后的脚本拼接在一起?
+		// 因为uglifyJS分开压缩的话可能有些变量名会导致冲突, 所以还是分开
+		// 并且每个script都有一个IIFE对变量名做隔离
+		config.plugin('html').tap(args => [{
+			...args[0],
+			title: process.env.TITLE,
+			css: compressCSS('./src/styles/reset.css'),
+			html: compressHTML('./src/loading.tpl'),
+			errorScript: compressJS('./src/lib/error-collect.js'),
+			loadingScript: compressJS('./src/lib/loading.js'),
+			dprScript: compressJS('./src/lib/data-dpr.js')
+		}]);
 		if (process.env.NODE_ENV === 'production') {
 			imgLoader
 				.use('image-webpack-loader')

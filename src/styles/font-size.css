@@ -1,0 +1,49 @@
+/**
+ * 本质上讲这个适配方案就是元素按比例缩放,
+ * 文字尽可能在不同分辨率看起来大小一样
+ * 因为这里没有用到动态设置viewport, 所以其实就是
+ * 最简单的按比例缩放, 所以其实也可以用rem,
+ * 并且应该说rem更好, 毕竟没有兼容性问题,
+ * 但是总要慢慢过渡到vw的, 逻辑上讲它更适合布局
+ * 为什么要分这么细? 其实对于字体的话可以分细一点,
+ * flexible 只有三个挡位是因为他的dpr不仅仅影响字体,
+ * 也影响viewport缩放, 他不想去兼容乱七八糟的Android了,
+ * 所以就根据主流机型搞了三个挡位,
+ * 但是我这里不需要缩放viewport, 所以dpr只为字体大小服务,
+ * 那就精细一点也没关系, 优点是这样基本上所有机型上的
+ * 文字大小看起来都差不多, 缺点是容易造成代码冗余, 增加
+ * 打包体积, 但是代码组织好一点也可以避免, 大部分时候依靠继承就好,
+ * 也可以划分成0.5的区间
+ * 问: 1px问题怎么办? 都用vw了, 那就默认不存在这个问题...支持vw的
+ * 不会有这个问题, 不支持vw的怎么办? 那你为什么还要用vw...乖乖rem不好吗
+ */
+@mixin font($val) {
+	font-size: even($val * 1px);
+	[data-dpr="2"] & {
+		font-size: $val * 2px;
+	}
+	[data-dpr="2.25"] & {
+		font-size: even($val * 2.25px);
+	}
+	[data-dpr="2.5"] & {
+		font-size: even($val * 2.5px);
+	}
+	[data-dpr="2.75"] & {
+		font-size: even($val * 2.75px);
+	}
+	[data-dpr="3"] & {
+		font-size: even($val * 3px);
+	}
+	[data-dpr="3.25"] & {
+		font-size: even($val * 3.25px);
+	}
+	[data-dpr="3.5"] & {
+		font-size: even($val * 3.5px);
+	}
+	[data-dpr="3.75"] & {
+		font-size: even($val * 3.75px);
+	}
+	[data-dpr="4"] & {
+		font-size: $val * 4px;
+	}
+}
