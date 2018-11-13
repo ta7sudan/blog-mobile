@@ -1,17 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>blog-mobile</title>
+	  <meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+      <%= htmlWebpackPlugin.options.css %>
+    </style>
+    <script>!function(){<%= htmlWebpackPlugin.options.errorScript %>}()</script>
+	  <link rel="dns-prefetch" href="//<%= DOMAIN %>">
+    <title><%= TITLE %></title>
+	  <link href="<%= BASE_URL %>iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+	  <link href="<%= BASE_URL %>ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+	  <link href="<%= BASE_URL %>ipad.png" rel="apple-touch-icon" sizes="152x152">
+	  <link href="<%= BASE_URL %>iphone.png" rel="apple-touch-icon">
+	  <link href="<%= BASE_URL %>andriod.png" rel="icon" sizes="192x192">
+	  <link href="<%= BASE_URL %>favicon.ico" rel="icon" sizes="32x32">
+
+	  <meta name="theme-color" content="<%= THEME_COLOR %>">
+	  <meta name="application-name" content="<%= APP_NAME %>">
+	  <meta name="author" content="<%= AUTHOR %>">
+	  <meta name="description" content="<%= DESC %>">
+	  <meta name="keywords" content="<%= KEYWORDS %>">
+
+	  <!-- for uc -->
+	  <meta name="screen-orientation" content="landscape">
+	  <!-- for x5 -->
+	  <meta name="x5-orientation" content="landscape">
+	  <!-- for iOS -->
+	  <meta name="apple-mobile-web-app-title" content="<%= APP_NAME %>">
+    <script>!function(){<%= htmlWebpackPlugin.options.dprScript %>}()</script>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but blog-mobile doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>TODO</strong>
     </noscript>
+     <%= htmlWebpackPlugin.options.html %>
     <div id="app"></div>
+    <script>!function(){<%= htmlWebpackPlugin.options.loadingScript %>}()</script>
     <!-- built files will be auto injected -->
   </body>
 </html>

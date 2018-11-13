@@ -7,8 +7,8 @@ function run() {
 		meta = doc.querySelector('meta[name="viewport"]');
 	// 不要去设置width, 设置了scale会自动以相反比例确定width, 手动设置width反而
 	// 容易导致浮点数精度问题
-	[2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 1].some(function (v, i) {
-		return (Math.abs(v - dpr) < 0.25 || i === 9) && (dpr = v);
+	[2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 1].some(function (v, i) {
+		return (Math.abs(v - dpr) < 0.25 || i === 7) && (dpr = v);
 	});
 	html.setAttribute('data-dpr', dpr);
 	// scale 也可以在dpr取整之前用来设置meta, 那样可以获得所有物理像素的使用权

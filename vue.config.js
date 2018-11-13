@@ -67,7 +67,14 @@ module.exports = {
 		config.plugin('define').tap(args => [
 			{
 				...args[0],
-				DEBUG: JSON.stringify(process.env.NODE_ENV === 'development')
+				DEBUG: JSON.stringify(process.env.NODE_ENV === 'development'),
+				TITLE: JSON.stringify(process.env.TITLE),
+				DOMAIN: JSON.stringify(process.env.DOMAIN || '/'),
+				THEME_COLOR: JSON.stringify(process.env.THEME_COLOR),
+				AUTHOR: JSON.stringify(process.env.AUTHOR),
+				DESC: JSON.stringify(process.env.DESC),
+				KEYWORDS: JSON.stringify(process.env.KEYWORDS),
+				APP_NAME: JSON.stringify(process.env.APP_NAME)
 			}
 		]);
 		// 这里有点恶心, 不走loader的css和js处理起来总是不太方便,
@@ -79,7 +86,6 @@ module.exports = {
 		// 并且每个script都有一个IIFE对变量名做隔离
 		config.plugin('html').tap(args => [{
 			...args[0],
-			title: process.env.TITLE,
 			css: compressCSS('./src/styles/reset.css'),
 			html: compressHTML('./src/loading.tpl'),
 			errorScript: compressJS('./src/lib/error-collect.js'),
