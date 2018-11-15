@@ -86,7 +86,7 @@ module.exports = {
 		// 并且每个script都有一个IIFE对变量名做隔离
 		config.plugin('html').tap(args => [{
 			...args[0],
-			css: compressCSS('./src/styles/reset.css'),
+			css: compressCSS('./src/styles/reset.css') + compressCSS('./src/styles/loading.css'),
 			html: compressHTML('./src/loading.tpl'),
 			errorScript: compressJS('./src/lib/error-collect.js'),
 			loadingScript: compressJS('./src/lib/loading.js'),
