@@ -29,3 +29,10 @@
   color: #42b983;
 }
 </style>
+
+<script>
+import './styles/iconfont.css';
+export default {
+  
+};
+</script>

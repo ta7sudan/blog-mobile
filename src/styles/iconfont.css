@@ -1,0 +1,131 @@
+/*
+ * postcss 这里有两个坑, 一个是在多个地方使用@import引入文件会被打包多次,
+ * 造成代码重复, 当然, 对于存在scoped打包多次是合理的, 但是对于没有scoped的
+ * 也会打包多次, 这种情况建议使用js的import而不是css的@import引入, 不过如果引入
+ * 的文件只有变量或是mixin这样的定义, 那还是用@import也没关系, 这样也更符合语义,
+ * 对于有rule的公共css, 并且不希望被scoped作用的, 都建议使用js的import引入.
+ * 另一个坑是, postcss这个@import不知道哪个插件提供的功能, 似乎不是postcss-import,
+ * 它处理相对路径是相对于引入文件的相对路径, 而不是被引入文件的相对路径, 因为它
+ * 对于@import的处理只是简单地将css复制到对应文件中去了, 相当于宏替换,
+ * 所以下面这些字体, 如果是在App.vue 中使用@import './styles/iconfont.css'的话,
+ * 那../assets是相对于App.vue而言的, 而不是相对于iconfont.css而言的,
+ * 很容易导致路径找不到报错, 这种情况要么你知道iconfont.css会被哪个文件引入,
+ * 那css中的路径都按照那个文件的相对路径来写, 但是这很反直觉, 而且如果被多个
+ * 不同地方引入那就没得解, 另一个解决办法依然是使用js的import, webpack的路径解析
+ * 是不会错的, 也许postcss-import的行为会符合预期, 不过我又不想再搞一个插件了
+ */
+ /*
+  * 理论上讲, 字体应该要preload才好, 但是preload又会导致这里所有字体都下载,
+  * 从而挤占其他资源的下载, 受到并发数限制, 那还不如不preload, 但是不preload,
+  * 又导致渲染稍慢一点, 但是这是我自己的项目, 又是移动端, js我都es2018不转译了,
+  * 那这里只用一个移动端较新版本大家都支持的字体就好了...那么这里最合适的应该就是
+  * woff了, 如果是PC端生产项目, 那就还是不对字体preload算了, 或者只preload一
+  * 个较多浏览器支持的格式
+  * 但是preload-webpack-plugin只能对chunk做preload, 不能对css中@font-face的字体
+  * 做preload, 这就很尴尬了, 如果你想手动加个preload, 但是这里的字体走loader的,
+  * 会有hash, 你又不知道hash, 就只能自己写个插件配合html-webpack-plugin, 你不想写
+  * 插件, 那就只能这里的css都不走loader而是直接注入到html, 但是这样的话你的路径管理
+  * 又很烦, 原本是相对目录就可以了, 现在得变成相对URL根目录, 这不好, 个人觉得还是有空
+  * 自己写插件来搞比较好, 那就先不对字体做preload了
+  * 但是还有个操作是可以在build完之后执行个脚本获取已经build出来的字体, 再注入preload
+  * 到build完成的index.html中...
+  */
+@font-face {
+  font-family: 'iconfont';
+  src:  url('../assets/fonts/iconfont.eot?tzgwlg');
+  src:  url('../assets/fonts/iconfont.eot?tzgwlg#iefix') format('embedded-opentype'),
+    url('../assets/fonts/iconfont.ttf?tzgwlg') format('truetype'),
+    url('../assets/fonts/iconfont.woff?tzgwlg') format('woff'),
+    url('../assets/fonts/iconfont.svg?tzgwlg#iconfont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'iconfont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-qq:before {
+  content: "\e901";
+}
+.icon-wechat:before {
+  content: "\e902";
+}
+.icon-weixin:before {
+  content: "\e902";
+}
+.icon-home:before {
+  content: "\e900";
+}
+.icon-pencil2:before {
+  content: "\e906";
+}
+.icon-quill:before {
+  content: "\e907";
+}
+.icon-folder-open:before {
+  content: "\e930";
+}
+.icon-price-tag:before {
+  content: "\e935";
+}
+.icon-user:before {
+  content: "\e971";
+}
+.icon-spinner9:before {
+  content: "\e982";
+}
+.icon-cog:before {
+  content: "\e994";
+}
+.icon-stats-bars:before {
+  content: "\e99c";
+}
+.icon-lab:before {
+  content: "\e9aa";
+}
+.icon-bin:before {
+  content: "\e9ac";
+}
+.icon-bin2:before {
+  content: "\e9ad";
+}
+.icon-list2:before {
+  content: "\e9bb";
+}
+.icon-bookmarks:before {
+  content: "\e9d3";
+}
+.icon-sad:before {
+  content: "\e9e5";
+}
+.icon-circle-right:before {
+  content: "\ea42";
+}
+.icon-facebook2:before {
+  content: "\ea91";
+}
+.icon-twitter:before {
+  content: "\ea96";
+}
+.icon-sina-weibo:before {
+  content: "\ea9a";
+}
+.icon-rss2:before {
+  content: "\ea9c";
+}
+.icon-tumblr2:before {
+  content: "\eaba";
+}
