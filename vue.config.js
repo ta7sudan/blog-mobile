@@ -1,5 +1,12 @@
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const SentryCliPlugin = require('@sentry/webpack-plugin');
+const childProcess = require('child_process');
 const { compressCSS, compressHTML, compressJS } = require('./compress');
+// 依赖于git是不是不太好, 毕竟可能CI环境下没有git, 这样就还得装个git
+// 理想的方案应该是在npm script里面执行cross-env RELEASE_VERSION=$(sentry-cli releases propose-version) vue-cli-service build --modern
+// 这样的话不需要git, sentry-cli是跨平台的, 然而不知道为什么会报错, 不是很懂shell
+// 暂时先这么搞吧, 等有空找个shell大佬问下
+process.env.RELEASE_VERSION = childProcess.execSync('git rev-parse HEAD').toString().trim();
 
 module.exports = {
 	baseUrl: process.env.CDN || '/',
@@ -64,19 +71,22 @@ module.exports = {
 				// iesafe: true,
 			})
 			.end();
-		config.plugin('define').tap(args => [
-			{
-				...args[0],
-				DEBUG: JSON.stringify(process.env.NODE_ENV === 'development'),
-				TITLE: JSON.stringify(process.env.TITLE),
-				DOMAIN: JSON.stringify(process.env.DOMAIN || '/'),
-				THEME_COLOR: JSON.stringify(process.env.THEME_COLOR),
-				AUTHOR: JSON.stringify(process.env.AUTHOR),
-				DESC: JSON.stringify(process.env.DESC),
-				KEYWORDS: JSON.stringify(process.env.KEYWORDS),
-				APP_NAME: JSON.stringify(process.env.APP_NAME)
-			}
-		]);
+		config.plugin('define').tap(args => {
+			args[0]['process.env'].RELEASE_VERSION = JSON.stringify(process.env.RELEASE_VERSION);
+			return [
+				{
+					...args[0],
+					DEBUG: JSON.stringify(process.env.NODE_ENV === 'development'),
+					TITLE: JSON.stringify(process.env.TITLE),
+					DOMAIN: JSON.stringify(process.env.DOMAIN || '/'),
+					THEME_COLOR: JSON.stringify(process.env.THEME_COLOR),
+					AUTHOR: JSON.stringify(process.env.AUTHOR),
+					DESC: JSON.stringify(process.env.DESC),
+					KEYWORDS: JSON.stringify(process.env.KEYWORDS),
+					APP_NAME: JSON.stringify(process.env.APP_NAME)
+				}
+			];
+		});
 		// 这里有点恶心, 不走loader的css和js处理起来总是不太方便,
 		// 但是那几个内联插件感觉并不好用, 还有一点点小bug,
 		// 对于简单的脚本和样式注入页面这样做也还算可以接受, 复杂的
@@ -109,6 +119,11 @@ module.exports = {
 				.use('image-webpack-loader')
 				.loader('image-webpack-loader');
 			config.plugin('deepscope').use(WebpackDeepScopeAnalysisPlugin);
+			// 这个坑爹的sentry插件在Windows下建议手动下载它的exe放到它自己的bin目录下
+			// 不然谜之卡死
+			config.plugin('sentry').use(SentryCliPlugin, [{
+				include: './dist'
+			}]);
 			// 其实后面这两条默认是开着的, 实测也有做tree shaking和scope hoisting,
 			// 不过为了提醒自己记得这几个选项还是手动开下
 			config.optimization.concatenateModules(true);

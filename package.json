@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ta7sudan/blog-mobile#readme",
   "dependencies": {
+    "@sentry/browser": "^4.3.0",
     "apiz-browser-client": "^1.0.2",
     "apiz-ng": "^1.0.0",
     "vue": "^2.5.17",
@@ -32,6 +33,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@sentry/webpack-plugin": "^1.6.1",
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.1.1",

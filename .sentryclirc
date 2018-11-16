@@ -1,4 +1,4 @@
 [defaults]
 url = https://sentry.io
 org = lowbteam
-project = blog
+project = blog-mobile
