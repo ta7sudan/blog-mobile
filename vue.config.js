@@ -1,4 +1,5 @@
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+// const HtmlTagAttrPlugin = require('html-tag-attributes-plugin');
 const SentryCliPlugin = require('@sentry/webpack-plugin');
 const childProcess = require('child_process');
 const { compressCSS, compressHTML, compressJS } = require('./compress');
@@ -10,6 +11,8 @@ process.env.RELEASE_VERSION = childProcess.execSync('git rev-parse HEAD').toStri
 
 module.exports = {
 	baseUrl: process.env.CDN || '/',
+	// 这个是给initial的chunk加crossorigin的, 但是不会给async chunk加crossorigin
+	crossorigin: 'anonymous',
 	css: {
 		sourceMap: true
 	},
@@ -17,9 +20,15 @@ module.exports = {
 		overlay: {
 			warnings: true,
 			errors: true
+		},
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Vary': 'Origin'
 		}
 	},
 	chainWebpack(config) {
+		// 这个是给async chunk加crossorigin的, 但是不会给initial chunk加crossorigin
+		config.output.crossOriginLoading('anonymous');
 		// 你可以给我打包慢一点, 但是你要给我把tree shaking搞出来...
 		// main和browser不能省, 开发时HMR也会向打包文件中注入脚本, 并且
 		// 它们是没有module字段的
@@ -73,6 +82,7 @@ module.exports = {
 			.end();
 		config.plugin('define').tap(args => {
 			args[0]['process.env'].RELEASE_VERSION = JSON.stringify(process.env.RELEASE_VERSION);
+			args[0]['process.env'].SENTRY_DSN = JSON.stringify(process.env.SENTRY_DSN);
 			return [
 				{
 					...args[0],
@@ -98,10 +108,24 @@ module.exports = {
 			...args[0],
 			css: compressCSS('./src/styles/reset.css') + compressCSS('./src/styles/loading.css'),
 			html: compressHTML('./src/loading.tpl'),
-			errorScript: compressJS('./src/lib/error-collect.js'),
+			errorScript: compressJS('./src/lib/error-collect.js')
+				.replace(/\w+\.RELEASE/, JSON.stringify(process.env.RELEASE_VERSION))
+				.replace(/\w+\.BACKUP_MONITORURL/, JSON.stringify(process.env.BACKUP_MONITORURL))
+				.replace(/\w+\.CHANNEL/, JSON.stringify(process.env.CHANNEL)),
 			loadingScript: compressJS('./src/lib/loading.js'),
 			dprScript: compressJS('./src/lib/data-dpr.js')
 		}]);
+		// 搞了半天vue cli有一个crossorigin的配置,
+		// 害我还自己写了个, 不过vue cli的配置会给link也加上crossorigin,
+		// 感觉没什么必要, 如果哪天不想给link加cors倒是可以考虑自己这个插件了
+		// .end();
+		// .plugin('crossorigin')
+		// .after('html')
+		// .use(HtmlTagAttrPlugin, [{
+		// 	script: {
+		// 		crossorigin: 'anonymous'
+		// 	}
+		// }]);
 		if (process.env.NODE_ENV === 'production') {
 			imgLoader
 				.use('image-webpack-loader')
@@ -121,9 +145,11 @@ module.exports = {
 			config.plugin('deepscope').use(WebpackDeepScopeAnalysisPlugin);
 			// 这个坑爹的sentry插件在Windows下建议手动下载它的exe放到它自己的bin目录下
 			// 不然谜之卡死
-			config.plugin('sentry').use(SentryCliPlugin, [{
-				include: './dist'
-			}]);
+			if (process.env.SENTRY_AUTH_TOKEN) {
+				config.plugin('sentry').use(SentryCliPlugin, [{
+					include: './dist'
+				}]);
+			}
 			// 其实后面这两条默认是开着的, 实测也有做tree shaking和scope hoisting,
 			// 不过为了提醒自己记得这几个选项还是手动开下
 			config.optimization.concatenateModules(true);

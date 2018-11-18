@@ -2,3 +2,6 @@ dirs: ./mock
 watch: true
 cors: true
 port: 3000
+proxy:
+  prefix: /error
+  upstream: https://hook.bearychat.com
