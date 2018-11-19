@@ -31,10 +31,13 @@
 </style>
 
 <script>
+/* global mainLoading */
 import './styles/iconfont.css';
+import './styles/main.css';
 import loadSentry from './lib/load-sentry';
 export default {
 	mounted() {
+		mainLoading.stop();
 		loadSentry();
 	}
 };

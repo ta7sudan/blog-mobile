@@ -1,0 +1,29 @@
+@import './theme-light.css';
+@import './font-size.css';
+body {
+	background: $bgColor;
+}
+
+noscript {
+	color: #333;
+	display: block;
+	text-align: justify;
+	width: 80%;
+	margin: 40% auto 0 auto;
+	border: 2px solid #555;/* skip-p2v */
+	border-radius: 10px;/* skip-p2v */
+	padding: 14px;/* skip-p2v */
+	position: relative;
+	@include font(16);
+	h3 {
+		width: 3em;
+		position: absolute;
+		top: -0.6em;
+		left: 0;
+		right: 0;
+		margin: auto;
+		text-align: center;
+		font-size: 20px;
+		background: $bgColor;
+	}
+}
