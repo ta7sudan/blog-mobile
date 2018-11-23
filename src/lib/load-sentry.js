@@ -8,7 +8,10 @@ function load() {
 			release: process.env.RELEASE_VERSION,
 			environment: process.env.NODE_ENV
 		});
+		// 虽然这两个里面总有一个看起来有点多余,
+		// 不过可读性好一点吧
 		window.isSentryLoaded = true;
+		window.Sentry = Sentry;
 		while (window.errorPool.length) {
 			const data = window.errorPool.shift();
 			Sentry.captureException(data.error);

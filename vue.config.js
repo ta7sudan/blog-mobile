@@ -93,7 +93,9 @@ module.exports = {
 					AUTHOR: JSON.stringify(process.env.AUTHOR),
 					DESC: JSON.stringify(process.env.DESC),
 					KEYWORDS: JSON.stringify(process.env.KEYWORDS),
-					APP_NAME: JSON.stringify(process.env.APP_NAME)
+					APP_NAME: JSON.stringify(process.env.APP_NAME),
+					API_HOST: JSON.stringify(process.env.API_HOST),
+					API_VERSION: JSON.stringify(process.env.API_VERSION)
 				}
 			];
 		});
