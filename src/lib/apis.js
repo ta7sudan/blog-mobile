@@ -1,6 +1,6 @@
 import { APIz, config as configAPIz } from 'apiz-ng';
 import { config as configAjax } from 'tinyjx';
-import { loadAll, report } from '../lib/util';
+import { loadAllObj, report } from '../lib/util';
 import apizClient from 'apiz-browser-client';
 import Status from './http-status';
 import auth from './auth';
@@ -66,7 +66,7 @@ configAPIz({
 // 这东西并不能封装成函数, 使得路径为变量
 // 因为这实际上是个编译期的东西, 运行时并不存在
 // 所以不得不每个用到的地方都这么写了
-const meta = loadAll(require.context('../apis', true, /\.js$/));
+const meta = loadAllObj(require.context('../apis', true, /\.js$/));
 
 const apis = new APIz(meta);
 

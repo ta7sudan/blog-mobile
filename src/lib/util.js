@@ -35,4 +35,6 @@ export function once(fn) {
 	};
 }
 
-export const loadAll = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});
+export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});
+
+export const loadAllArr = ctx => ctx.keys().reduce((rst, item) => rst.concat(ctx(item).default), []);
