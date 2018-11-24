@@ -29,7 +29,7 @@
     "apiz-browser-client": "^1.0.3",
     "apiz-ng": "^1.0.0",
     "kooky": "^0.1.1",
-    "secan": "^0.1.3",
+    "secan": "^0.1.5",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

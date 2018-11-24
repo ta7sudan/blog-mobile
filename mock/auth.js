@@ -14,7 +14,7 @@ async function auth(app, options) {
 			issuer: 'ta7sudan'
 		}
 	});
-	app.post(`/api/${process.env.API_VERSION}/jwt/exchange`, async function (req, res) {
+	app.get(`/api/${process.env.API_VERSION}/jwt/exchange`, async function (req, res) {
 		const jwt = this.jwt.sign({
 			content: 'hello world'
 		});

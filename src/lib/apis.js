@@ -48,7 +48,7 @@ configAPIz({
 				// 如果后端认为你JWT过期了, 那管你是真过期没过期,
 				// 都当作过期处理, 那就只能从JWT来源重新获取
 				// 所以这里也只能刷新页面, 但理论上这情况不存在
-				alert('Token谜之失效, 页面稍后自动刷新');
+				alert('Token谜之失效, 页面稍后自动刷新', '__secan__');
 				location.reload(true);
 			}
 			if (resData.statusCode !== Status.OK) {
@@ -57,7 +57,7 @@ configAPIz({
 					data: reqData,
 					url
 				})));
-				alert('未知错误');
+				alert('未知错误', '__secan__');
 			}
 		}
 	})

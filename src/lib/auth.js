@@ -5,10 +5,8 @@ import { report, parseJWT } from './util';
 function exchange(jwtStr, refresh) {
 	const jwt = parseJWT(jwtStr), expires = JSON.parse(jwt.payload).exp * 1000, currentTime = Date.now();
 	localStorage.setItem('JWT', jwtStr);
-	setTimeout(() => refresh({
-		jwt: jwtStr
-	}).then(data => exchange(data.jwt, refresh)),
-	expires - currentTime - 300000);
+	// 旧JWT在header中
+	setTimeout(() => refresh().then(data => exchange(data.jwt, refresh)), expires - currentTime - 300000);
 }
 
 export default function auth(apis) {
@@ -26,6 +24,6 @@ export default function auth(apis) {
 		report(new Error('No JWT found in cookie.'));
 		// 直接alert就好, 我觉得移动端用alert没什么毛病,
 		// 反正设计就是我自己... 
-		alert('可能遇到了一点点问题~');
+		alert('可能遇到了一点点问题~', '__secan__');
 	}
 }
