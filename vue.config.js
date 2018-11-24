@@ -23,7 +23,9 @@ module.exports = {
 		},
 		headers: {
 			'Access-Control-Allow-Origin': '*',
-			'Vary': 'Origin'
+			'Vary': 'Origin',
+			// 这个JWT总是过期的, 不过没什么关系, 反正就多请求一次而已
+			'Set-Cookie': 'JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZW50IjoiaGVsbG8gd29ybGQiLCJpYXQiOjE1NDMwMzM4MTgsImV4cCI6MTU0MzAzNzQxOCwiaXNzIjoidGE3c3VkYW4ifQ.EONQutYD4_SelDNePu60f8JVHA3SFdQ7z8K-k7UA3Po'
 		}
 	},
 	chainWebpack(config) {

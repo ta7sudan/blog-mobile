@@ -26,8 +26,9 @@
   "homepage": "https://github.com/ta7sudan/blog-mobile#readme",
   "dependencies": {
     "@sentry/browser": "^4.3.0",
-    "apiz-browser-client": "^1.0.2",
+    "apiz-browser-client": "^1.0.3",
     "apiz-ng": "^1.0.0",
+    "kooky": "^0.1.1",
     "secan": "^0.1.3",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
@@ -45,6 +46,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "fastify-jwt": "^0.7.0",
     "html-tag-attributes-plugin": "^0.1.4",
     "image-webpack-loader": "^4.5.0",
     "jsinspect": "^0.12.7",
