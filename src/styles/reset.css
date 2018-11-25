@@ -29,7 +29,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	font-family: "PingFang SC", "Microsoft Yahei", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC", "Microsoft Yahei", "WenQuanYi Micro Hei", sans-serif;
 	line-height: 1;
 	-webkit-text-size-adjust: none!important;
 	-moz-text-size-adjust: none!important;
