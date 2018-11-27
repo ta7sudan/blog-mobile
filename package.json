@@ -25,9 +25,8 @@
   },
   "homepage": "https://github.com/ta7sudan/blog-mobile#readme",
   "dependencies": {
+    "@lowb/apiz-vue": "^0.1.1",
     "@sentry/browser": "^4.3.0",
-    "apiz-browser-client": "^1.0.3",
-    "apiz-ng": "^1.0.0",
     "kooky": "^0.1.1",
     "secan": "^0.1.5",
     "vue": "^2.5.17",
