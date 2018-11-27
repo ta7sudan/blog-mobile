@@ -183,6 +183,10 @@ module.exports = {
 					}
 				}
 			});
+		// 需要非常细致的调试时用
+		// } else {
+		// 	config.devtool('eval-source-map');
+			// config.devtool('source-map');
 		}
 	}
 };

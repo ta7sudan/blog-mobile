@@ -37,8 +37,11 @@ import './styles/main.css';
 import loadSentry from './lib/load-sentry';
 export default {
 	mounted() {
-		mainLoading.stop();
-		loadSentry();
+		// 确保子组件渲染完
+		this.$nextTick(() => {
+			mainLoading.stop();
+			loadSentry();
+		});
 	}
 };
 </script>
