@@ -1,6 +1,7 @@
 import { loadAllObj, report } from '../lib/util';
 import Status from './http-status';
 import auth from './auth';
+import router from '../router';
 import Vue from 'vue';
 import APIs from '@lowb/apiz-vue';
 
@@ -40,7 +41,8 @@ const apis = new APIs({
 		}
 		xhr.setRequestHeader('AUTH', jwt);
 	},
-	afterResponse(resData, xhr, url, reqData) {
+	afterResponse(resData = {}, xhr, url, reqData) {
+		// 在响应处理之前
 		// 根据状态码做一些异常处理, 比如JWT过期, 或其他什么的
 		// 不要用HTTP状态码, 虽然这样更符合语义, 但是运营商
 		// 劫持一下你状态码可能就出错, 还是自己自定义状态码吧
@@ -51,13 +53,31 @@ const apis = new APIs({
 			alert('Token谜之失效, 页面稍后自动刷新', '__secan__');
 			location.reload(true);
 		}
-		if (resData.statusCode !== Status.OK) {
+	},
+	complete(resData = {}, xhr, url, reqData) {
+		// 在响应被处理之后, 如果决定交给全局处理, 这里统一处理异常
+		// 理想情况应当是这里提供对异常情况的最终兜底处理, 而优先让API调用处自行处理异常,
+		// 如果调用处不处理, 再回到这里按照默认方案处理, 但是受限于Promise的机制以及自己
+		// API设计有问题, 所以暂时没办法, 先统一处理好了
+		if (resData.statusCode === Status.NOT_FOUND || xhr.status === Status.NOT_FOUND) {
+			router.replace({
+				name: 'notFound',
+				params: {
+					errorMessage: resData.errorMessage || xhr.statusText
+				}
+			});
+		} else if (resData.statusCode >= 400 || xhr.status >= 400) {
 			report(new Error(JSON.stringify({
 				message: 'Request error',
-				data: reqData,
+				data: reqData || xhr.statusText,
 				url
 			})));
-			alert('未知错误', '__secan__');
+			router.replace({
+				name: 'error',
+				params: {
+					errorMessage: resData.errorMessage || xhr.statusText
+				}
+			});
 		}
 	}
 });

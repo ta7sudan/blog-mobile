@@ -19,7 +19,7 @@ async function auth(app, options) {
 			content: 'hello world'
 		});
 		return {
-			statusCode: 1111,
+			statusCode: 200,
 			jwt
 		};
 	});

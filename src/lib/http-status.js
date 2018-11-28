@@ -1,4 +1,5 @@
 export default {
-	TOKEN_EXPIRED: 4001,
-	OK: 1111
+	TOKEN_EXPIRED: 499,
+	OK: 200,
+	NOT_FOUND: 404
 };

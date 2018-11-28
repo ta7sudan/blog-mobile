@@ -7,7 +7,7 @@ function exchange(jwtStr, refresh) {
 	const jwt = parseJWT(jwtStr), expires = JSON.parse(jwt.payload).exp * 1000, currentTime = Date.now();
 	localStorage.setItem('JWT', jwtStr);
 	// 旧JWT在header中
-	setTimeout(() => refresh().then(data => exchange(data.jwt, refresh)), expires - currentTime - 300000);
+	setTimeout(() => refresh().then(({ data }) => exchange(data.jwt, refresh)), expires - currentTime - 300000);
 }
 
 export default function auth(apis) {

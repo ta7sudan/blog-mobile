@@ -2,7 +2,6 @@ import secan from 'secan';
 import { report, once } from './util';
 /* global DEBUG, DOMAIN */
 
-// TODO
 export default function guard() {
 	secan({
 		debug: DEBUG,

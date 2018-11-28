@@ -3,7 +3,8 @@ require('dotenv-safe').config({
 });
 module.exports = {
 	[`get /api/${process.env.API_VERSION}/posts`]: {
-		statusCode: 1111,
+		statusCode: 200,
+		errorMessage: 'test',
 		hello: 'world'
 	}
 };
