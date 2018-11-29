@@ -28,7 +28,7 @@
     "@lowb/apiz-vue": "^0.1.3",
     "@sentry/browser": "^4.3.0",
     "kooky": "^0.1.1",
-    "secan": "^0.1.5",
+    "secan": "^0.1.6",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

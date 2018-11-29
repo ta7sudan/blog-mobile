@@ -88,7 +88,7 @@ module.exports = {
 			return [
 				{
 					...args[0],
-					DEBUG: JSON.stringify(process.env.NODE_ENV === 'development'),
+					DEBUG: JSON.stringify(process.env.NODE_ENV !== 'production'),
 					TITLE: JSON.stringify(process.env.TITLE),
 					DOMAIN: JSON.stringify(process.env.DOMAIN || '/'),
 					THEME_COLOR: JSON.stringify(process.env.THEME_COLOR),

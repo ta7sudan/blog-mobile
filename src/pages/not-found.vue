@@ -6,6 +6,7 @@
 export default {
 	props: {
 		errorMessage: {
+			type: String,
 			default: '请求的资源未找到'
 		}
 	}
