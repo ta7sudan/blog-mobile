@@ -27,6 +27,7 @@
   "dependencies": {
     "@lowb/apiz-vue": "^0.1.3",
     "@sentry/browser": "^4.3.0",
+    "alloylever": "^1.0.4",
     "kooky": "^0.1.1",
     "secan": "^0.1.6",
     "vue": "^2.5.17",

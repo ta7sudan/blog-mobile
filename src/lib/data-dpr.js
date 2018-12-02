@@ -15,7 +15,7 @@ function run() {
 	// 但是会导致和dpr比例有一点点失调, 放这里的话, scale和dpr比例总是反比, 但是
 	// 不能获得所有物理像素的使用权
 	scale = 1 / dpr;
-	meta.setAttribute('content', 'initial-scale=' + scale + ', shrink-to-fit=no');
+	meta.setAttribute('content', 'initial-scale=' + scale + ', shrink-to-fit=no, user-scalable=no');
 	var fontSize = 12 * dpr;
 	fontSize % 2 && (fontSize = fontSize + 1);
 	if (doc.readyState === 'complete') {

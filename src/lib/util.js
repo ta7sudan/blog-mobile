@@ -35,6 +35,42 @@ export function once(fn) {
 	};
 }
 
+export function scrollY(val) {
+	const root = document.documentElement || document.body.parentNode || document.body;
+	if (val !== undefined) {
+		root.scrollTop = val;
+	} else {
+		return (window.pageYOffset !== undefined) ? window.pageYOffset : root.scrollTop;
+	}
+}
+
+export function throttle(fn, intv = 100, ctx, immediate = true) {
+	if (!isFn(fn)) {
+		throw new TypeError('fn is not a function');
+	}
+	let handler = null, f = fn.apply.bind(fn);
+
+	const newFn = immediate ? function () {
+		if (!handler) {
+			const args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
+			setTimeout(f, 0, this, args);
+			handler = setTimeout(() => handler = null, intv);
+		}
+	} : function () {
+		if (!handler) {
+			const args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
+			handler = setTimeout(() => f(this, args) || (handler = null), intv);
+		}
+	};
+	return ctx ? newFn.bind(ctx) : newFn;
+}
+
+export const isFn = f => typeof f === 'function';
+
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});
 
 export const loadAllArr = ctx => ctx.keys().reduce((rst, item) => rst.concat(ctx(item).default), []);
+
+export const rAF = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+export const clearRAF = window.cancelAnimationFrame || window.mozCancelAnimationFrame;

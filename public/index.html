@@ -2,7 +2,7 @@
 <html lang="zh-Hans">
   <head>
 	  <meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <style>
       <%= htmlWebpackPlugin.options.css %>
     </style>
@@ -38,6 +38,8 @@
      <%= htmlWebpackPlugin.options.html %>
     <div id="app"></div>
     <script>!function(){<%= htmlWebpackPlugin.options.loadingScript %>}()</script>
+    <script><%= htmlWebpackPlugin.options.alloylever %></script>
+		<script>AlloyLever.config({cdn:'<%= ALLOYLEVER_CDN %>'})</script>
     <!-- built files will be auto injected -->
   </body>
 </html>

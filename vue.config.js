@@ -97,7 +97,8 @@ module.exports = {
 					KEYWORDS: JSON.stringify(process.env.KEYWORDS),
 					APP_NAME: JSON.stringify(process.env.APP_NAME),
 					API_HOST: JSON.stringify(process.env.API_HOST),
-					API_VERSION: JSON.stringify(process.env.API_VERSION)
+					API_VERSION: JSON.stringify(process.env.API_VERSION),
+					ALLOYLEVER_CDN: JSON.stringify(process.env.ALLOYLEVER_CDN)
 				}
 			];
 		});
@@ -117,7 +118,8 @@ module.exports = {
 				.replace(/\w+\.BACKUP_MONITORURL/, JSON.stringify(process.env.BACKUP_MONITORURL))
 				.replace(/\w+\.CHANNEL/, JSON.stringify(process.env.CHANNEL)),
 			loadingScript: compressJS('./src/lib/loading.js'),
-			dprScript: compressJS('./src/lib/data-dpr.js')
+			dprScript: compressJS('./src/lib/data-dpr.js'),
+			alloylever: compressJS('./node_modules/alloylever/alloy-lever.js')
 		}]);
 		// 搞了半天vue cli有一个crossorigin的配置,
 		// 害我还自己写了个, 不过vue cli的配置会给link也加上crossorigin,
