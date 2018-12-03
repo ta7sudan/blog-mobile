@@ -1,22 +1,25 @@
 <template>
-	<div class="nav-bar" :class="{'nav-show': show}">
-		<h1 class="logo">Ta7sudan</h1>
-		<transition name="search-fade" type="transition" @after-enter="afterEnter" @after-leave="afterLeave">
-			<form 
-				v-show="showSearch"
-				class="search-form"
-				@submit.prevent="submit">
-				<input
-					type="text"
-					class="search-input"
-					placeholder="Search"
-					autocomplete="off"
-					v-model.trim="searchContent"
-					@blur="showSearch=false">
-			</form>
-		</transition>
-		<i class="icon-search" @click="displaySearch"></i>
-		<i class="icon-list2" @click="menu"></i>
+	<div class="tool-bar" :class="{'toolbar-show': show}">
+		<h1 class="logo" @click="$emit('on-logo')">Ta7sudan</h1>
+		<form 
+			class="search-form"
+			@submit.prevent="submit">
+			<input
+				type="text"
+				id="search"
+				class="search-input"
+				:class="{'search-show': showSearch}"
+				placeholder="Search"
+				autocomplete="off"
+				v-model.trim="searchContent"
+				@transitionend="afterTransition"
+				@focus="showSearch=true"
+				@blur="showSearch=false">
+			<label for="search">
+				<i class="icon-search" @click="submit"></i>
+			</label>
+			<i class="icon-list2" @click="$emit('on-menu')"></i>
+		</form>
 	</div>
 </template>
 
@@ -51,26 +54,13 @@ export default {
 		};
 	},
 	methods: {
-		afterEnter() {
-			this.searchBar.focus();
-			this.isSearchBarScale = true;
-		},
-		afterLeave() {
-			this.isSearchBarScale = false;
-		},
-		displaySearch() {
-			this.showSearch = true;
-			if (this.isSearchBarScale) {
-				this.submit();
-			}
+		afterTransition() {
+			this.isSearchBarScale = this.showSearch;
 		},
 		submit() {
-			if (this.searchContent) {
+			if (this.searchContent && this.isSearchBarScale) {
 				this.$emit('on-search', this.searchContent);
 			}
-		},
-		menu() {
-			this.$emit('on-menu');
 		},
 		doScroll() {
 			const currentPos = scrollY();
@@ -94,13 +84,8 @@ export default {
 @import '../styles/font-size.css';
 @import '../styles/theme-light.css';
 
-.nav-bar {
-	display: flex;
-	align-items: center;
-	align-content: center;
-	justify-content: flex-end;
+.tool-bar {
 	height: 120px;
-	padding-right: 20px;
 	background: rgba(#fff, 0.9);
 	box-shadow: 0 0 15px rgba(#000, 0.2);
 	position: fixed;
@@ -113,13 +98,13 @@ export default {
 	transform: translate3d(0, -100%, 0);
 }
 
-.nav-show {
+.toolbar-show {
 	opacity: 1;
 	transform: translate3d(0, 0, 0);
 }
 
 .logo {
-	color: #000;
+	color: $logoColor;
 	font-family: "Covered By Your Grace", cursive, "Helvetica Neue", Helvetica, Tahoma, Arial;
 	@include font(28);
 	position: absolute;
@@ -130,30 +115,36 @@ export default {
 
 $inputFtSize: 14;
 .search-form {
-	width: 0;
+	padding-right: 20px;
+	display: flex;
+	align-items: center;
+	align-content: center;
 	flex-basis: 0;
 	flex-grow: 1;
+	justify-content: flex-end;
 	margin-left: 8em;
-	transition: all 0.3s ease;
 	@include font($inputFtSize);
-}
-
-.search-fade-enter, .search-fade-leave-active {
-	flex-grow: 0;
-	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	transform: translate(0, -50%);
 }
 
 .search-input {
 	color: $fontColor;
-	width: 100%;
+	opacity: 0;
+	width: 0;
+	flex-basis: 0;
 	height: 2em;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 	border-radius: 10px;
-	border: 3px solid $fontColor;
-	box-shadow: 0 0 8px rgba(#000, 0.5);
+	border: 3px solid $borderColor;
+	box-shadow: 0 0 10px rgba($boxShadowColor, 0.5);
 	background: transparent;
 	box-sizing: border-box;
+	transition: all 0.4s ease;
 	@include font($inputFtSize);
 	&::-webkit-input-placeholder {
 		color: $placeHolderColor;
@@ -166,12 +157,18 @@ $inputFtSize: 14;
 	}
 }
 
+.search-show {
+	flex-grow: 1;
+	opacity: 1;
+}
+
 .icon-search, .icon-list2 {
 	display: inline-block;
-	color: $fontColor;
+	color: $iconColor;
 	padding: 20px;
 	@include font(20);
+	&:active {
+		color: $iconActiveColor;
+	}
 }
 </style>
-
-

@@ -9,7 +9,8 @@ Vue.use(Router);
 // 还包含./, eg. ./_error.js和_error.js都需要被去掉, 因为context实际上
 // 发生在编译时, 所以这里的正则是给Node用的, 所以用新特性也无所谓,
 // 反正不会被编译进去, 于是我们把_error.js单独提出来放数组最后面, 以免
-// 404路由的*被先匹配到, 导致所有路由都是404页面
+// 404路由的*被先匹配到, 导致所有路由都是404页面, 不过其实Vue Router内部已经
+// 把*放到最后面了
 const routes = loadAllArr(require.context('./routes', true, /((?<=\/)[^_]|^[^_])(\w|-)*\.js$/)).concat(errorRoutes);
 
 export default new Router({

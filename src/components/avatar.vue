@@ -1,0 +1,62 @@
+<template>
+	<div class="avatar-container">
+		<div class="avatar-main" :class="{rotate}" @click="rotate=true" @transitionend="revert">
+			<img class="avatar" src="./images/avatar.png" alt="avatar">
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+	data() {
+		return {
+			rotate: false
+		};
+	},
+	methods: {
+		revert() {
+			if (this.rotate) {
+				setTimeout(() => this.rotate = false, 1200);
+			}
+		}
+	}
+};
+</script>
+
+<style lang="postcss" scoped>
+.avatar-container {
+	width: 100%;
+	padding-bottom: 100%;
+	position: relative;
+}
+
+.avatar-main {
+	width: 90%;
+	height: 90%;
+	margin: auto;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 5px 20px 5px rgba(#000, 0.2);
+	border-width: 8px;
+	border-style: solid;
+	border-color: #eee7d8 #f0f5f6 #f0f5f6 #eee7d8;
+	box-sizing: border-box;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	transition: transform 0.8s ease;
+}
+
+.rotate {
+	transform: rotate3d(0, 0, 1, 400deg);
+}
+
+.avatar {
+	width: 100%;
+}
+
+</style>
+
+

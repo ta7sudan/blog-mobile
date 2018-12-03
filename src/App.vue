@@ -1,47 +1,61 @@
 <template>
 	<div id="app">
-		<div id="nav">
-			<router-link to="/">Home</router-link> |
-		<router-link to="/about">About</router-link>
-		</div>
-		<router-view/>
+		<router-view />
+		<tool-bar class="toolbar-z-level" @on-search="search" @on-menu="menu" @on-logo="goHome" />
+		<side-bar class="sidebar-z-level" :show.sync="showSideBar" />
 	</div>
 </template>
-
-<style>
-#app {
-	font-family: "Avenir", Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-}
-#nav {
-	padding: 30px;
-}
-
-#nav a {
-	font-weight: bold;
-	color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-	color: #42b983;
-}
-</style>
 
 <script>
 /* global mainLoading */
 import './styles/iconfont.css';
 import './styles/main.css';
 import loadSentry from './lib/load-sentry';
+import ToolBar from './components/tool-bar.vue';
+import SideBar from './components/side-bar.vue';
+
 export default {
+	data() {
+		return {
+			showSideBar: false
+		};
+	},
 	mounted() {
 		// 确保子组件渲染完
 		this.$nextTick(() => {
 			mainLoading.stop();
 			loadSentry();
 		});
+	},
+	methods: {
+		search(content) {
+			alert('todo');
+		},
+		menu() {
+			this.showSideBar = true;
+		},
+		goHome() {
+			this.$router.push({
+				name: 'home'
+			});
+		}
+	},
+	components: {
+		ToolBar,
+		SideBar
 	}
 };
 </script>
+
+
+<style lang="postcss" scoped>
+@import './styles/font-size.css';
+
+.toolbar-z-level {
+	z-index: 100;
+}
+
+.sidebar-z-level {
+	z-index: 200;
+}
+</style>
