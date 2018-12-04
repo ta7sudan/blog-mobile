@@ -36,7 +36,6 @@ export default {
 			lastPos: 0,
 			ticking: false,
 			searchContent: '',
-			searchBar: null,
 			// scrollListener: Object.freeze(throttle(() => {
 			// 	const currentPos = scrollY();
 			// 	this.show = currentPos - this.lastPos < 0;
@@ -70,9 +69,6 @@ export default {
 	},
 	beforeMount() {
 		window.addEventListener('scroll', this.scrollListener);
-	},
-	mounted() {
-		this.searchBar = this.$el.getElementsByClassName('search-input')[0];
 	},
 	destroyed() {
 		window.removeEventListener('scroll', this.scrollListener);
