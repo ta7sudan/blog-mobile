@@ -1,7 +1,7 @@
 <template>
 	<div class="avatar-container">
-		<div class="avatar-main" :class="{rotate}" @click="rotate=true" @transitionend="revert">
-			<img class="avatar" src="./images/avatar.png" alt="avatar">
+		<div class="avatar-main" @click="rotate=true">
+			<img class="avatar" :class="{rotate}" src="./images/avatar.png" alt="avatar" @transitionend="revert">
 		</div>
 	</div>
 </template>
@@ -46,7 +46,6 @@ export default {
 	right: 0;
 	top: 0;
 	bottom: 0;
-	transition: transform 0.8s ease;
 }
 
 .rotate {
@@ -55,6 +54,7 @@ export default {
 
 .avatar {
 	width: 100%;
+	transition: transform 0.8s ease;
 }
 
 </style>

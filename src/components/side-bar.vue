@@ -1,7 +1,8 @@
 <template>
 	<transition name="sidebar-fade" type="transition">
-		<div class="side-bar-container" v-show="show" @click="$emit('update:show', false)">
-			<div class="side-bar" @click.stop>
+		<div class="side-bar-container" v-show="show" @click.self="$emit('update:show', false)">
+			<!-- 不用.self在这里用@click.stop也可以, 而且有时候必须用.stop, 不过这里.self更简单 -->
+			<div class="side-bar">
 				<div class="frame">
 					<transition name="frame" mode="out-in" type="transition">
 						<keep-alive>

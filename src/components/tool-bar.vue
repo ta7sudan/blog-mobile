@@ -16,7 +16,7 @@
 				@focus="showSearch=true"
 				@blur="showSearch=false">
 			<label for="search">
-				<i class="icon-search" @click="submit"></i>
+				<i class="icon-search" @click.passive="submit"></i>
 			</label>
 			<i class="icon-list2" @click="$emit('on-menu')"></i>
 		</form>
@@ -35,21 +35,12 @@ export default {
 			showSearch: false,
 			lastPos: 0,
 			ticking: false,
-			searchContent: '',
+			searchContent: ''
 			// scrollListener: Object.freeze(throttle(() => {
 			// 	const currentPos = scrollY();
 			// 	this.show = currentPos - this.lastPos < 0;
 			// 	this.lastPos = currentPos;
 			// }), 50)
-			scrollListener: () => {
-				if (!this.ticking) {
-					rAF(() => {
-						this.doScroll();
-						this.ticking = false;
-					});
-					this.ticking = true;
-				}
-			}
 		};
 	},
 	methods: {
@@ -68,10 +59,19 @@ export default {
 		}
 	},
 	beforeMount() {
-		window.addEventListener('scroll', this.scrollListener);
-	},
-	destroyed() {
-		window.removeEventListener('scroll', this.scrollListener);
+		const scrollListener = () => {
+			if (!this.ticking) {
+				rAF(() => {
+					this.doScroll();
+					this.ticking = false;
+				});
+				this.ticking = true;
+			}
+		};
+		window.addEventListener('scroll', scrollListener, {
+			passive: true
+		});
+		this.$once('hook:destroyed', () => window.removeEventListener('scroll', scrollListener, { passive: true }));
 	}
 };
 </script>
