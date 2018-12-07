@@ -9,6 +9,7 @@ guard();
 
 if (DEBUG) {
 	Vue.config.performance = true;
+	window.router = router;
 }
 
 Vue.config.productionTip = false;

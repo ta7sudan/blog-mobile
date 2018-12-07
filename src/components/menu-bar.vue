@@ -1,8 +1,8 @@
 <template>
-	<transition name="sidebar-fade" type="transition">
-		<div class="side-bar-container" v-show="show" @click.self="$emit('update:show', false)">
+	<transition name="menubar-fade" type="transition">
+		<div class="menu-bar-container" v-show="show" @click.self="hide">
 			<!-- 不用.self在这里用@click.stop也可以, 而且有时候必须用.stop, 不过这里.self更简单 -->
-			<div class="side-bar">
+			<div class="menu-bar">
 				<div class="frame">
 					<transition name="frame" mode="out-in" type="transition">
 						<keep-alive>
@@ -32,6 +32,12 @@ export default {
 		show: {
 			type: Boolean,
 			default: false
+		}
+	},
+	methods: {
+		hide() {
+			this.$emit('update:show', false);
+			this.$emit('on-hide');
 		}
 	},
 	updated() {
@@ -69,7 +75,7 @@ export default {
 @import '../styles/theme-light.css';
 @import '../styles/font-size.css';
 
-.side-bar-container {
+.menu-bar-container {
 	background: rgba(#000, 0.2);
 	position: fixed;
 	top: 0;
@@ -77,9 +83,9 @@ export default {
 	bottom: 0;
 	left: 0;
 	transition: all 0.4s ease;
-	& > .side-bar {
+	& > .menu-bar {
 		width: 450px;
-		background: $sideBarBgColor;
+		background: $menuBarBgColor;
 		box-shadow: 0 0 15px rgba(#000, 0.4);
 		position: absolute;
 		top: 0;
@@ -89,9 +95,9 @@ export default {
 	}
 }
 
-.sidebar-fade-enter, .sidebar-fade-leave-active {
+.menubar-fade-enter, .menubar-fade-leave-active {
 	background: rgba(#000, 0);
-	& > .side-bar {
+	& > .menu-bar {
 		opacity: 0;
 		transform: translate3d(100%, 0, 0);
 	}
