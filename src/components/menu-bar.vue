@@ -1,22 +1,23 @@
 <template>
-	<transition name="menubar-fade" type="transition">
+	<transition name="menubar-fade" type="transition" @enter="enter">
 		<div class="menu-bar-container" v-show="show" @click.self="hide">
 			<!-- 不用.self在这里用@click.stop也可以, 而且有时候必须用.stop, 不过这里.self更简单 -->
 			<div class="menu-bar">
 				<div class="frame">
-					<transition name="frame" mode="out-in" type="transition">
+					<transition name="frame" mode="out-in" type="animation">
 						<keep-alive>
-							<component class="frame-container" :is="frame" />
+							<component class="frame-container" :is="frame" :content="content" />
 						</keep-alive>
 					</transition>
 				</div>
+				<p ref="desc" class="desc">{{desc}}</p>
 			</div>
 		</div>
 	</transition>
 </template>
 
 <script>
-import { scrollY } from '../lib/util';
+import { scrollY, once } from '../lib/util';
 import Avatar from './avatar.vue';
 import Cube from './cube.vue';
 
@@ -24,21 +25,44 @@ export default {
 	data() {
 		return {
 			handler: e => e.preventDefault(),
-			lastPos: 0,
-			frame: 'Avatar'
+			lastPos: 0
 		};
 	},
 	props: {
 		show: {
 			type: Boolean,
 			default: false
+		},
+		toggle: {
+			type: Boolean,
+			default: true
+		},
+		content: {
+			type: Array
+		},
+		desc: {
+			type: String,
+			required: true
+		}
+	},
+	computed: {
+		frame() {
+			return this.toggle ? 'Cube' : 'Avatar';
 		}
 	},
 	methods: {
 		hide() {
 			this.$emit('update:show', false);
 			this.$emit('on-hide');
-		}
+		},
+		enter: once(function (el, done) {
+			// 这里根据CSS中desc字体大小12px, line-height为1.4em, 结合dpr算了下有几行
+			const lines = Math.round(this.$refs.desc.clientHeight / (12 * 1.5 * devicePixelRatio));
+			if (lines > 1) {
+				this.$refs.desc.classList.add('multi-line');
+			}
+			done();
+		})
 	},
 	updated() {
 		const body = document.body;
@@ -109,12 +133,37 @@ export default {
 	margin: 50px auto 0;
 }
 
-.frame-container {
-	transition: transform 0.4s ease;
+.frame-enter-active {
+	animation: pop 0.4s ease both;
 }
 
-.frame-enter, .frame-leave-active {
-	transform: scale3d(0, 0, 0);
+.frame-leave-active {
+	animation: pop 0.4s ease reverse both;
+}
+
+@keyframes pop {
+	0% {
+		transform: scale(0);
+	}
+	75% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.desc {
+	color: #34495e;
+	text-align: center;
+	line-height: 1.5em;
+	width: 70%;
+	margin: 20px auto 0;
+	@include font(12);
+}
+
+.multi-line {
+	text-align: justify;
 }
 </style>
 
