@@ -3,7 +3,7 @@
 	background: #f0f5f6;
 	transition: opacity 1s ease;
 	z-index: 999;
-	pointer-events: none;
+	/* pointer-events: none; */
 	position: fixed;
 	left: 0;
 	right: 0;

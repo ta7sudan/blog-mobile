@@ -32,11 +32,11 @@
   */
 @font-face {
   font-family: 'iconfont';
-  src:  url('../assets/fonts/iconfont.eot?10sce6');
-  src:  url('../assets/fonts/iconfont.eot?10sce6#iefix') format('embedded-opentype'),
-    url('../assets/fonts/iconfont.ttf?10sce6') format('truetype'),
-    url('../assets/fonts/iconfont.woff?10sce6') format('woff'),
-    url('../assets/fonts/iconfont.svg?10sce6#iconfont') format('svg');
+  src:  url('../assets/fonts/iconfont.eot?9t2l7c');
+  src:  url('../assets/fonts/iconfont.eot?9t2l7c#iefix') format('embedded-opentype'),
+    url('../assets/fonts/iconfont.ttf?9t2l7c') format('truetype'),
+    url('../assets/fonts/iconfont.woff?9t2l7c') format('woff'),
+    url('../assets/fonts/iconfont.svg?9t2l7c#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -104,4 +104,10 @@ i {
 }
 .icon-github:before {
   content: "\eab0";
+}
+.icon-linkedin:before {
+  content: "\eac9";
+}
+.icon-stackoverflow:before {
+  content: "\ead0";
 }

@@ -18,9 +18,14 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes,
 	scrollBehavior(to, from, savedPosition) {
-		return savedPosition || {
-			x: 0,
-			y: 0
-		};
+		// 在menu退出的时候不要重复scroll, menu-bar里面会做一次复位
+		if (from.name && from.name.includes('-menu')) {
+			return null;
+		} else {
+			return savedPosition || {
+				x: 0,
+				y: 0
+			};
+		}
 	}
 });

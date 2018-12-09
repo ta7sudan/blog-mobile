@@ -4,6 +4,13 @@ body {
 	background: $bgColor;
 }
 
+a {
+	text-decoration: none;
+	&:active, &:visited {
+		color: $fontColor;
+	}
+}
+
 noscript {
 	color: #333;
 	display: block;
