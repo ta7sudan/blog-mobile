@@ -6,6 +6,7 @@
   "scripts": {
     "build": "vue-cli-service build --modern --report",
     "build-ci": "vue-cli-service build --modern",
+    "debug-cli": "node --inspect-brk ./node_modules/@vue/cli-service/bin/vue-cli-service.js build --modern",
     "lint": "vue-cli-service lint",
     "inspect": "jsinspect src",
     "format": "prettier --config .prettierrc.js --write src/**/*.js",
@@ -25,7 +26,7 @@
   },
   "homepage": "https://github.com/ta7sudan/blog-mobile#readme",
   "dependencies": {
-    "@lowb/apiz-vue": "^0.1.3",
+    "@lowb/apiz-vue": "^0.1.4",
     "@sentry/browser": "^4.3.0",
     "alloylever": "^1.0.4",
     "kooky": "^0.1.1",

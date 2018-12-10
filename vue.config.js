@@ -1,4 +1,5 @@
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+// const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin');
 // const HtmlTagAttrPlugin = require('html-tag-attributes-plugin');
 const SentryCliPlugin = require('@sentry/webpack-plugin');
 const childProcess = require('child_process');
@@ -130,6 +131,31 @@ module.exports = {
 		// .use(HtmlTagAttrPlugin, [{
 		// 	script: {
 		// 		crossorigin: 'anonymous'
+		// 	}
+		// }]);
+
+		// 这个简直坑爹, vue cli在之后合并的preload插件的配置选项,
+		// 于是如果你用tap修改preload插件的配置选项永远是报错,
+		// 简单讲, 就是在你tap的时候, vue内部还没有use, 于是gg,
+		// 只能一开始覆盖preload插件, 所以我们要用use而不是tap
+		// config.plugin('preload').use(PreloadWebpackPlugin, [{
+		// 	rel: 'preload',
+		// 	include: 'initial',
+		// 	fileBlacklist: [
+		// 		/\.map$/,
+		// 		/hot-update\.js$/
+		// 	],
+		// 	as(entry) {
+		// 		if (/CoveredByYourGrace/.test(entry)) {
+		// 			return 'font';
+		// 		}
+		// 		if (/\.css$/.test(entry)) {
+		// 			return 'style';
+		// 		}
+		// 		if (/\.css$/.test(entry)) {
+		// 			return 'style';
+		// 		}
+		// 		return 'script';
 		// 	}
 		// }]);
 		if (process.env.NODE_ENV === 'production') {

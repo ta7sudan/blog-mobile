@@ -1,5 +1,4 @@
 <script>
-import '../styles/logo-font.css';
 export default {
 	functional: true,
 	props: {

@@ -7,6 +7,7 @@
 			<input
 				type="text"
 				id="search"
+				size="8"
 				class="search-input"
 				:class="{'search-show': showSearch}"
 				placeholder="Search"
@@ -24,7 +25,10 @@
 </template>
 
 <script>
-import '../styles/logo-font.css';
+// 职责上来讲应当在这里引入字体样式
+// 不过为了字体加载快一些, 还是全局引入吧,
+// 这里保留注释
+// import '../styles/logo-font.css';
 import { scrollY, rAF } from '../lib/util';
 
 export default {
@@ -127,6 +131,10 @@ $inputFtSize: 14;
 	transform: translate(0, -50%);
 }
 
+/* 移动端火狐有个bug, width为0时候, 又没有指定input的size的话
+ * 对其设置的flex-grow无效...而给了size的话, 则CSS样式会覆盖
+ * size
+ */ 
 .search-input {
 	color: $fontColor;
 	opacity: 0;

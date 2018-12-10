@@ -3,9 +3,7 @@
 		<router-view />
 		<tool-bar class="toolbar-z-level" @on-search="search" @on-menu="showMenu" @on-logo="goHome" />
 		<menu-bar class="menubar-z-level"
-			:sns="config.sns"
-			:desc="config.description"
-			:content="config.cubeContent"
+			v-bind="config"
 			:show="menuShow"
 			:toggle="toggleAvatar"
 			@on-hide="hideMenu" />
@@ -16,6 +14,7 @@
 <script>
 /* global mainLoading */
 import './styles/iconfont.css';
+import './styles/logo-font.css';
 import './styles/main.css';
 import loadSentry from './lib/load-sentry';
 import ToolBar from './components/tool-bar.vue';

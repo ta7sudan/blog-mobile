@@ -22,6 +22,7 @@ export default {
 
 <style lang="postcss" scoped>
 @import '../styles/font-size.css';
+
 .footer-bar {
 	color: #555;
 	text-align: center;
@@ -38,6 +39,7 @@ export default {
 </style>
 
 <style lang="postcss">
+@import '../styles/theme-light.css';
 body {
 	min-height: 100vh;
 	padding-bottom: 200px;
@@ -47,16 +49,16 @@ body {
 
 .copyright {
 	span {
-		color: #5699d2;
+		color: $linkColor;
 	}
 }
 
 .license {
-	color: #5699d2;
+	color: $linkColor;
 	& > a {
-		color: #5699d2;
+		color: $linkColor;
 		&:active {
-			color: #1d3f72;
+			color: $linkActiveColor;
 		}
 	}
 }
