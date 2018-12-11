@@ -20,6 +20,7 @@ export default {
 </script>
 
 <style lang="postcss">
+@import '../styles/theme-light.css';
 .sns-bar {
 	width: 100%;
 	text-align: center;
@@ -28,12 +29,12 @@ export default {
 		padding: 15px;
 		&:active {
 			i {
-				color: #000;
+				color: $snsIconActiveColor;
 			}
 		}
 	}
 	i {
-		color: #444;
+		color: $snsIconColor;
 		font-size: 5vw;
 	}
 }

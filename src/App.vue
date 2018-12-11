@@ -1,6 +1,10 @@
 <template>
 	<div id="app">
-		<router-view />
+		<transition name="page-fade" type="transition" :appear="false" @after-enter="afterEnter">
+			<keep-alive>
+				<router-view />
+			</keep-alive>
+		</transition>
 		<scroll-button class="scroll-btn-pos"></scroll-button>
 		<tool-bar class="toolbar-z-level" @on-search="search" @on-menu="showMenu" @on-logo="goHome" />
 		<menu-bar class="menubar-z-level"
@@ -42,21 +46,20 @@ export default {
 			menuShow: false,
 			nameMap: null,
 			toggleAvatar: false,
-			showFooter: true
+			showFooter: true,
+			firstIn: true
 		};
 	},
-	mounted() {
-		// 确保子组件渲染完
-		this.$nextTick(() => {
+	methods: {
+		afterEnter() {
 			// 确保URL幂等
 			if (this.$route.name && this.$route.name.includes('-menu')) {
 				// 讲道理应该不会有人手这么快去点工具栏再点关闭菜单栏的...
 				// 就不用考虑这种情况取消timer了
-				setTimeout(() => this.menuShow = true, 500);
+				this.showFooter = false;
+				setTimeout(() => this.menuShow = true, 400);
 			}
-		});
-	},
-	methods: {
+		},
 		hasRoute(name) {
 			if (!this.nameMap) {
 				this.nameMap = {};
@@ -102,6 +105,12 @@ export default {
 		// 组件的切换从原本由组件自身控制变成了由router-view控制,
 		// 这样的话又要改组件, 我个人是倾向于组件的显示切换由组件自身管理
 		$route(to, from) {
+			// 如果是第一次加载页面, 就等页面动画结束之后再触发
+			// menu的动画, 免得卡顿
+			if (this.firstIn) {
+				this.firstIn = false;
+				return;
+			}
 			this.menuShow = !!(to.name && to.name.includes('-menu'));
 			// 为了防止菜单栏出现导致body包含块提升显示footer,
 			// 只能在这里在menu出来之前把footer隐藏掉, 但是还
@@ -120,6 +129,18 @@ export default {
 
 
 <style lang="postcss" scoped>
+.page-fade-enter {
+	opacity: 0.3;
+	transform: translate3d(-100%, 0, 0);
+}
+.page-fade-leave-to {
+	opacity: 0.3;
+	transform: translate3d(100%, 0, 0);
+}
+.page-fade-enter-active, .page-fade-leave-active {
+	transition: all 0.4s ease;
+}
+
 .toolbar-z-level {
 	z-index: 100;
 }

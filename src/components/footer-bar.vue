@@ -22,13 +22,14 @@ export default {
 
 <style lang="postcss" scoped>
 @import '../styles/font-size.css';
+@import '../styles/theme-light.css';
 
 .footer-bar {
-	color: #555;
+	color: $footerFontColor;
 	text-align: center;
 	line-height: 1.5em;
-	background: #fff;
-	border-top: 1px solid rgba(#555, 0.3);
+	background: $footerBgColor;
+	border-top: 1px solid $footerBorderColor;
 	padding: 20px 0;
 	@include font(14);
 	position: absolute;
@@ -49,16 +50,16 @@ body {
 
 .copyright {
 	span {
-		color: $linkColor;
+		color: $footerLinkColor;
 	}
 }
 
 .license {
-	color: $linkColor;
+	color: $footerLinkColor;
 	& > a {
-		color: $linkColor;
+		color: $footerLinkColor;
 		&:active {
-			color: $linkActiveColor;
+			color: $footerLinkActiveColor;
 		}
 	}
 }

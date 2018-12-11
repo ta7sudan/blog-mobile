@@ -30,22 +30,24 @@ export default {
 
 <style lang="postcss">
 @import '../styles/font-size.css';
+@import '../styles/theme-light.css';
 
 .menu-list-item {
 	width: 100%;
 	height: 2.2em;
+	user-select: none;
 	display: flex;
 	align-items: center;
 	align-content: center;
 	@include font(20);
 	i {
-		color: #333;
+		color: $menuItemIconColor;
 		width: 1.5em;
 		text-align: center;
 		@include font(18);
 	}
 	a {
-		color: #34495e;
+		color: $menuItemLinkColor;
 		margin-left: 20px;
 		@include font(16);
 		display: inline-block;
@@ -60,12 +62,12 @@ export default {
 			left: 0;
 			right: 0;
 			bottom: -15px;
-			background: #5699d2;
+			background: $menuItemUnderlineColor;
 		}
 	}
 	&:active {
 		i, a {
-			color: #5699d2;
+			color: $menuItemLinkActiveColor;
 		}
 		a::before {
 			transition: transform 0.3s ease;
@@ -76,7 +78,7 @@ export default {
 
 .active-menu-item {
 	a {
-		color: #000;
+		color: $menuItemLinkMatchedColor;
 		&::before {
 			transform: scale3d(1, 1, 1);
 		}

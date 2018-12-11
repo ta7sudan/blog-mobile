@@ -68,14 +68,15 @@ export default {
 
 
 <style lang="postcss" scoped>
+@import '../styles/theme-light.css';
 .scroll-button {
 	width: 90px;
 	height: 90px;
 	box-sizing: border-box;
-	border: 4px solid #785471;
+	border: 4px solid $scrollTopBtnColor;
 	border-radius: 50%;
-	background: #f9f9f9;
-	box-shadow: 0 5px 20px rgba(#785471, 0.3);
+	background: $scrollTopBtnBgColor;
+	box-shadow: 0 5px 20px $scrollTopBtnShadowColor;
 	display: flex;
 	align-items: center;
 	align-content: center;
@@ -83,15 +84,15 @@ export default {
 	transform: scale(0);
 	transition: all 0.3s ease;
 	i {
-		color: #785471;
+		color: $scrollTopBtnColor;
 		font-size: 6vw;
 		transition: all 0.3s ease;
 	}
 	&:active {
-		background: #785471;
-		box-shadow: 0 5px 30px rgba(#785471, 0.6);
+		background: $scrollTopBtnColor;
+		box-shadow: 0 5px 30px $scrollTopBtnShadowActiveColor;
 		i {
-			color: #fff;
+			color: $scrollTopBtnIconActiveColor;
 		}
 	}
 }

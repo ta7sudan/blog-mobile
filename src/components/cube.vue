@@ -41,7 +41,6 @@ export default {
 $eyeDistance: 300px;
 $cubeSize: 100px;
 $cubeBorderWidth: 5px;
-$cubeBorderColor: rgba(#000, 0.6);
 
 .cube-container {
 	width: 100%;
@@ -55,7 +54,7 @@ $cubeBorderColor: rgba(#000, 0.6);
 	margin: auto;
 	border-radius: 50%;
 	background: transparent;
-	box-shadow: 0 -30px 10px rgba(#000, 0.2);
+	box-shadow: 0 -30px 10px $cubeShadowColor0;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -65,10 +64,10 @@ $cubeBorderColor: rgba(#000, 0.6);
 
 @keyframes shadow-beat {
 	0% {
-		box-shadow: 0 -30px 30px rgba(#000, 0.2);
+		box-shadow: 0 -30px 30px $cubeShadowColor0;
 	}
 	100% {
-		box-shadow: 0 -30px 30px rgba(#000, 0.4);
+		box-shadow: 0 -30px 30px $cubeShadowColor1;
 		transform: scale3d(1.1, 1.1, 0);
 	}
 }
@@ -103,7 +102,7 @@ $cubeBorderColor: rgba(#000, 0.6);
 }
 
 .face {
-	color: $fontColor;
+	color: $cubeFontColor;
 	line-height: $cubeSize - 2 * $cubeBorderWidth;
 	text-align: center;
 	box-sizing: border-box;
@@ -142,9 +141,8 @@ $cubeBorderColor: rgba(#000, 0.6);
 }
 
 .colorized {
-	@each $color $i in (#d8cea7, #df1317, #5f2a62, #a976c3, #a0de59, #466b5a) {
+	@each $color $i in $cubeColorMap {
 		.face-$i {
-			color: #555;
 			background: rgba($color, 0.5);
 		}
 	}

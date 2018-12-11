@@ -118,7 +118,7 @@ export default {
 @import '../styles/font-size.css';
 
 .menu-bar-container {
-	background: rgba(#000, 0.2);
+	background: $menuBarModalColor;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -128,7 +128,7 @@ export default {
 	& > .menu-bar {
 		width: 450px;
 		background: $menuBarBgColor;
-		box-shadow: 0 0 15px rgba(#000, 0.4);
+		box-shadow: 0 0 15px $menuBarShadowColor;
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -138,7 +138,7 @@ export default {
 }
 
 .menubar-fade-enter, .menubar-fade-leave-active {
-	background: rgba(#000, 0);
+	background: $menuBarModalEnterColor;
 	& > .menu-bar {
 		opacity: 0;
 		transform: translate3d(100%, 0, 0);
@@ -172,7 +172,7 @@ export default {
 }
 
 .desc {
-	color: #34495e;
+	color: $menuDescColor;
 	text-align: center;
 	line-height: 1.5em;
 	width: 70%;

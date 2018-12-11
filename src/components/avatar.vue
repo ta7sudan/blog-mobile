@@ -24,6 +24,7 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+@import '../styles/theme-light.css';
 .avatar-container {
 	width: 100%;
 	padding-bottom: 100%;
@@ -36,10 +37,10 @@ export default {
 	margin: auto;
 	border-radius: 50%;
 	overflow: hidden;
-	box-shadow: 0 5px 20px 5px rgba(#000, 0.2);
+	box-shadow: 0 5px 20px 5px $avatarShadowColor;
 	border-width: 8px;
 	border-style: solid;
-	border-color: #eee7d8 #f0f5f6 #f0f5f6 #eee7d8;
+	border-color: $avatarBorderColor;
 	box-sizing: border-box;
 	position: absolute;
 	left: 0;

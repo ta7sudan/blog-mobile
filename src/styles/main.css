@@ -1,18 +1,18 @@
 @import './theme-light.css';
 @import './font-size.css';
 body {
-	background: $bgColor;
+	background: $bodyBgColor;
 }
 
 a {
 	text-decoration: none;
 	&:active, &:visited {
-		color: $fontColor;
+		color: $bodyFontColor;
 	}
 }
 
 noscript {
-	color: #333;
+	color: $bodyFontColor;
 	display: block;
 	text-align: justify;
 	width: 80%;
@@ -31,6 +31,6 @@ noscript {
 		margin: auto;
 		text-align: center;
 		font-size: 20px;
-		background: $bgColor;
+		background: $bodyBgColor;
 	}
 }

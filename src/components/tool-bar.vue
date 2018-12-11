@@ -81,8 +81,8 @@ export default {
 
 .tool-bar {
 	height: 120px;
-	background: rgba(#fff, 0.9);
-	box-shadow: 0 0 15px rgba(#000, 0.2);
+	background: $toolBarBgColor;
+	box-shadow: 0 0 15px $toolBarShadowColor;
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -131,7 +131,7 @@ $inputFtSize: 14;
  * size
  */ 
 .search-input {
-	color: $fontColor;
+	color: $searchInputColor;
 	opacity: 0;
 	width: 0;
 	flex-basis: 0;
@@ -139,20 +139,20 @@ $inputFtSize: 14;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 	border-radius: 10px;
-	border: 3px solid $borderColor;
-	box-shadow: 0 0 10px rgba($boxShadowColor, 0.5);
+	border: 3px solid $searchInputBorderColor;
+	box-shadow: 0 0 10px $searchInputShadowColor;
 	background: transparent;
 	box-sizing: border-box;
 	transition: all 0.4s ease;
 	@include font($inputFtSize);
 	&::-webkit-input-placeholder {
-		color: $placeHolderColor;
+		color: $searchInputPlaceholderColor;
 	}
 	&::-moz-placeholder {
-		color: $placeHolderColor;
+		color: $searchInputPlaceholderColor;
 	}
 	&::placeholder {
-		color: $placeHolderColor;
+		color: $searchInputPlaceholderColor;
 	}
 }
 
@@ -163,11 +163,11 @@ $inputFtSize: 14;
 
 .icon-search, .icon-list2 {
 	display: inline-block;
-	color: $iconColor;
+	color: $toolBarIconColor;
 	padding: 20px;
 	@include font(20);
 	&:active {
-		color: $iconActiveColor;
+		color: $toolBarIconActiveColor;
 	}
 }
 </style>

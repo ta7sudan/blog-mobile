@@ -2,7 +2,7 @@ import { getCookie } from 'kooky';
 import { report, parseJWT } from './util';
 
 // 解出JWT, 放localstorage, 看过期时间, 根据过期时间, 在快过期的时候用旧JWT换新JWT
-// 实际业务中要根据情况决定是否允许用旧JWT换新JWT, 不然这等同于JWT永不过期那就失去意义了
+// 实际业务中不应当允许旧token换新token, 不然这等同于JWT永不过期那就失去意义了
 function exchange(jwtStr, refresh) {
 	const jwt = parseJWT(jwtStr), expires = JSON.parse(jwt.payload).exp * 1000, currentTime = Date.now();
 	localStorage.setItem('JWT', jwtStr);
