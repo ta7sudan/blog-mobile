@@ -32,11 +32,11 @@
   */
 @font-face {
   font-family: 'iconfont';
-  src:  url('../assets/fonts/iconfont.eot?9t2l7c');
-  src:  url('../assets/fonts/iconfont.eot?9t2l7c#iefix') format('embedded-opentype'),
-    url('../assets/fonts/iconfont.ttf?9t2l7c') format('truetype'),
-    url('../assets/fonts/iconfont.woff?9t2l7c') format('woff'),
-    url('../assets/fonts/iconfont.svg?9t2l7c#iconfont') format('svg');
+  src:  url('../assets/fonts/iconfont.eot?6z8ia');
+  src:  url('../assets/fonts/iconfont.eot?6z8ia#iefix') format('embedded-opentype'),
+    url('../assets/fonts/iconfont.ttf?6z8ia') format('truetype'),
+    url('../assets/fonts/iconfont.woff?6z8ia') format('woff'),
+    url('../assets/fonts/iconfont.svg?6z8ia#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -57,6 +57,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-tags:before {
+  content: "\e904";
+}
 .icon-qq:before {
   content: "\e900";
 }
@@ -74,9 +77,6 @@ i {
 }
 .icon-books:before {
   content: "\e920";
-}
-.icon-price-tags:before {
-  content: "\e936";
 }
 .icon-users:before {
   content: "\e972";

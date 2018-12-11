@@ -11,25 +11,25 @@ export default {
 		icon: 'books',
 		text: 'Archives',
 		route: {
-			name: 'home'
+			name: 'archives'
 		}
 	}, {
-		icon: 'price-tags',
+		icon: 'tags',
 		text: 'Tags',
 		route: {
-			name: 'home'
+			name: 'tags'
 		}
 	}, {
 		icon: 'users',
 		text: 'Friends',
 		route: {
-			name: 'home'
+			name: 'friends'
 		}
 	}, {
 		icon: 'user',
 		text: 'About',
 		route: {
-			name: 'home'
+			name: 'about'
 		}
 	}],
 	sns: [{
