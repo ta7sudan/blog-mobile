@@ -32,11 +32,11 @@
   */
 @font-face {
   font-family: 'iconfont';
-  src:  url('../assets/fonts/iconfont.eot?6z8ia');
-  src:  url('../assets/fonts/iconfont.eot?6z8ia#iefix') format('embedded-opentype'),
-    url('../assets/fonts/iconfont.ttf?6z8ia') format('truetype'),
-    url('../assets/fonts/iconfont.woff?6z8ia') format('woff'),
-    url('../assets/fonts/iconfont.svg?6z8ia#iconfont') format('svg');
+  src:  url('../assets/fonts/iconfont.eot?cvjejy');
+  src:  url('../assets/fonts/iconfont.eot?cvjejy#iefix') format('embedded-opentype'),
+    url('../assets/fonts/iconfont.ttf?cvjejy') format('truetype'),
+    url('../assets/fonts/iconfont.woff?cvjejy') format('woff'),
+    url('../assets/fonts/iconfont.svg?cvjejy#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -57,6 +57,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-vertical_align_top:before {
+  content: "\e905";
+}
 .icon-tags:before {
   content: "\e904";
 }

@@ -6,11 +6,12 @@
 				<div class="frame">
 					<transition name="frame" mode="out-in" type="animation">
 						<keep-alive>
-							<component class="frame-container" :is="frame" :content="content" />
+							<component class="frame-container" :is="frame" :content="cube" />
 						</keep-alive>
 					</transition>
 				</div>
 				<p ref="desc" class="desc">{{desc}}</p>
+				<menu-list class="menu-list-pos" :menu="menu" />
 				<sns-bar :sns="sns" class="sns-pos" />
 			</div>
 		</div>
@@ -22,6 +23,7 @@ import { scrollY, once } from '../lib/util';
 import Avatar from './avatar.vue';
 import Cube from './cube.vue';
 import SnsBar from './sns-bar.vue';
+import MenuList from './menu-list.vue';
 
 export default {
 	data() {
@@ -31,6 +33,8 @@ export default {
 		};
 	},
 	props: {
+		cube: Array,
+		sns: Array,
 		show: {
 			type: Boolean,
 			default: false
@@ -39,11 +43,9 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		content: {
-			type: Array
-		},
-		sns: {
-			type: Array
+		menu: {
+			type: Array,
+			required: true
 		},
 		desc: {
 			type: String,
@@ -93,7 +95,8 @@ export default {
 	components: {
 		Avatar,
 		Cube,
-		SnsBar
+		SnsBar,
+		MenuList
 	}
 };
 </script>
@@ -184,6 +187,10 @@ export default {
 .sns-pos {
 	position: absolute;
 	bottom: 10px;
+}
+
+.menu-list-pos {
+	margin: 50px 60px 0;
 }
 </style>
 

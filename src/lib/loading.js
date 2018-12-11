@@ -12,14 +12,18 @@ loadingBlock.addEventListener('transitionend', function (e) {
 
 window.mainLoading = {
 	start: function () {
-		loadingBlock.style.display = 'block';
-		requestAnimationFrame(function () {
+		if (!show) {
+			loadingBlock.style.display = 'block';
 			requestAnimationFrame(function () {
-				loadingBlock.classList.remove('main-loading-stop');
+				requestAnimationFrame(function () {
+					loadingBlock.classList.remove('main-loading-stop');
+				});
 			});
-		});
+		}
 	},
 	stop: function () {
-		loadingBlock.classList.add('main-loading-stop');
+		if (show) {
+			loadingBlock.classList.add('main-loading-stop');
+		}
 	}
 };

@@ -19,6 +19,9 @@ function load() {
 	});
 }
 export default function loadSentry() {
+	if (window.isSentryLoaded) {
+		return;
+	}
 	if (typeof window.requestIdleCallback === 'function') {
 		window.requestIdleCallback(load);
 	} else {

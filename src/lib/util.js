@@ -65,6 +65,57 @@ export function throttle(fn, intv = 100, ctx, immediate = true) {
 	return ctx ? newFn.bind(ctx) : newFn;
 }
 
+const _tween = {
+	linear(t, b, c, d) {
+		return c * t / d + b;
+	},
+	easeIn(t, b, c, d) {
+		return c * (t /= d) * t + b;
+	},
+	strongEaseIn(t, b, c, d) {
+		return c * (t /= d) * t * t * t * t + b;
+	},
+	strongEaseOut(t, b, c, d) {
+		return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+	},
+	sineaseIn(t, b, c, d) {
+		return c * (t /= d) * t * t + b;
+	},
+	sineaseOut(t, b, c, d) {
+		return c * ((t = t / d - 1) * t * t + 1) + b;
+	}
+};
+
+function _step(startPos, endPos, startTime, duration, easing, setValue) {
+	const curTime = Date.now();
+	if (curTime >= startTime + duration) {
+		setValue(endPos);
+		return false;
+	}
+	const pos = _tween[easing](curTime - startTime, startPos, endPos - startPos, duration);
+	setValue(pos);
+}
+
+export function animate({
+	endPos,
+	duration,
+	setValue,
+	cb = function () {},
+	startPos = 0,
+	easing = 'easeIn'
+} = {}) {
+	function run() {
+		if (_step(startPos, endPos, startTime, duration, easing, setValue) === false) {
+			clearRAF(id);
+			cb();
+		} else {
+			rAF(run);
+		}
+	}
+	const startTime = Date.now();
+	const id = rAF(run);
+}
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});

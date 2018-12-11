@@ -9,7 +9,7 @@ export default {
 	},
 	render(h, context) {
 		return (
-			<ul class={{'sns-bar': true, [context.data.staticClass]: true}}>
+			<ul class={['sns-bar', context.data.staticClass]}>
 				{context.props.sns.map(({icon, url}) =>
 					<li><a href={url}><i class={`icon-${icon}`}></i></a></li>
 				)}

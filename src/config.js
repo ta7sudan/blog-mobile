@@ -1,6 +1,6 @@
 export default {
 	cube: ['家', '苟', '国', '生', '死', '利'],
-	desc: 'Hello world',
+	desc: 'Hello world todo',
 	menu: [{
 		icon: 'home3',
 		text: 'Home',

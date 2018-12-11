@@ -1,13 +1,14 @@
 <template>
 	<div id="app">
 		<router-view />
+		<scroll-button class="scroll-btn-pos"></scroll-button>
 		<tool-bar class="toolbar-z-level" @on-search="search" @on-menu="showMenu" @on-logo="goHome" />
 		<menu-bar class="menubar-z-level"
 			v-bind="config"
 			:show="menuShow"
 			:toggle="toggleAvatar"
 			@on-hide="hideMenu" />
-			<footer-bar :show="showFooter" />
+		<footer-bar :show="showFooter" />
 	</div>
 </template>
 
@@ -16,10 +17,11 @@
 import './styles/iconfont.css';
 import './styles/logo-font.css';
 import './styles/main.css';
-import loadSentry from './lib/load-sentry';
 import ToolBar from './components/tool-bar.vue';
 import MenuBar from './components/menu-bar.vue';
+// footer也可以放在页面中, 其实带来的麻烦会小一些
 import FooterBar from './components/footer-bar.vue';
+import ScrollButton from './components/scroll-button.vue';
 import config from './config';
 
 function createMap(routes, map) {
@@ -46,23 +48,11 @@ export default {
 	mounted() {
 		// 确保子组件渲染完
 		this.$nextTick(() => {
-			// 这里本应该直接stop就好了, 但是手机上Chrome70似乎有个
-			// 谜之bug, 缓存页面会导致loading动画不执行, 即跳过loading动画,
-			// 然而stop()依赖于loading动画的transtionend事件, 跳过loading
-			// 动画意味着transitionend不会触发, 导致stop()不会隐藏掉loading
-			// 层, 导致loading层在最高, 底下的点击事件都无法响应, 这里有两个
-			// 解决方案, 一个是给loading层pointer-event:none, 一个是在这里
-			// 延迟一小段时间, 这样Chrome就不会跳过loading动画(我也不知道
-			// 为什么), 我个人倾向于后一种方案
-			// mainLoading.stop();
-			loadSentry();
-			const delay = 200;
-			setTimeout(() => mainLoading.stop(), delay);
 			// 确保URL幂等
 			if (this.$route.name && this.$route.name.includes('-menu')) {
 				// 讲道理应该不会有人手这么快去点工具栏再点关闭菜单栏的...
 				// 就不用考虑这种情况取消timer了
-				setTimeout(() => this.menuShow = true, delay + 400);
+				setTimeout(() => this.menuShow = true, 500);
 			}
 		});
 	},
@@ -122,20 +112,26 @@ export default {
 	components: {
 		ToolBar,
 		MenuBar,
-		FooterBar
+		FooterBar,
+		ScrollButton
 	}
 };
 </script>
 
 
 <style lang="postcss" scoped>
-@import './styles/font-size.css';
-
 .toolbar-z-level {
 	z-index: 100;
 }
 
 .menubar-z-level {
 	z-index: 200;
+}
+
+.scroll-btn-pos {
+	position: fixed;
+	bottom: 70px;
+	right: 50px;
+	z-index: 100;
 }
 </style>

@@ -40,11 +40,6 @@ export default {
 			lastPos: 0,
 			ticking: false,
 			searchContent: ''
-			// scrollListener: Object.freeze(throttle(() => {
-			// 	const currentPos = scrollY();
-			// 	this.show = currentPos - this.lastPos < 0;
-			// 	this.lastPos = currentPos;
-			// }), 50)
 		};
 	},
 	methods: {
