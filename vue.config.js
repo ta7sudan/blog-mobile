@@ -1,4 +1,5 @@
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const PreloadFontPlugin = require('preload-font-plugin');
 // const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin');
 // const HtmlTagAttrPlugin = require('html-tag-attributes-plugin');
 const SentryCliPlugin = require('@sentry/webpack-plugin');
@@ -158,6 +159,16 @@ module.exports = {
 		// 		return 'script';
 		// 	}
 		// }]);
+		// 但是现在不需要靠上面那个坑爹东西了, 我自己写了个, 美滋滋.
+		// 不过上面的注释保留, 下次踩坑的时候可以记起来
+		config.plugin('preloadfont').before('html').use(PreloadFontPlugin, [{
+			'./src/assets/fonts/CoveredByYourGrace.ttf': {
+				rel: 'preload',
+				as: 'font',
+				type: 'font/ttf',
+				crossorigin: 'anonymous'
+			}
+		}]);
 		if (process.env.NODE_ENV === 'production') {
 			imgLoader
 				.use('image-webpack-loader')
