@@ -29,7 +29,7 @@
     "@lowb/apiz-vue": "^0.1.4",
     "@sentry/browser": "^4.3.0",
     "alloylever": "^1.0.4",
-    "kooky": "^0.1.1",
+    "kooky": "^0.1.2",
     "secan": "^0.1.6",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
