@@ -32,14 +32,9 @@ const router = new Router({
 	}
 });
 
-router.afterEach(() => {
-	// 其实我希望这两个函数主逻辑只会执行一次, 之后
-	// 都是只有一次if判断, 不过每次route改变都会触发
-	// 执行一次, 即便开销不大但多多少少还是有些令人
-	// 不爽...其实需求是首屏加载的时候执行一下这两个
-	// 就好, 从这一点看, 只有去hook router的私有api
-	// init()最理想, 不过私有api这种东西用多了会上瘾...
-	// 还是算了
+// 发现有个onReady会在第一次页面加载时回调,
+// 就不需要从init里面搞了
+router.onReady(() => {
 	loadSentry();
 	mainLoading.stop();
 });
