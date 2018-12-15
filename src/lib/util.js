@@ -116,6 +116,20 @@ export function animate({
 	const id = rAF(run);
 }
 
+export function p(obj, path = []) {
+	const value = defaultValue => {
+		let val = obj;
+		while (val != null && path.length && (val = val[path.shift()]));
+		return val == null ? defaultValue : val;
+	};
+	return new Proxy(value, {
+		get(target, key) {
+			path.push(key);
+			return p(obj, path);
+		}
+	});
+}
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});
@@ -125,3 +139,5 @@ export const loadAllArr = ctx => ctx.keys().reduce((rst, item) => rst.concat(ctx
 export const rAF = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 export const clearRAF = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+export const apizHelper = p => p.catch(({ next }) => next());

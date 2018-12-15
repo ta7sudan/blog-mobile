@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { scrollY, once } from '../lib/util';
+import { once } from '../lib/util';
 import Avatar from './avatar.vue';
 import Cube from './cube.vue';
 import SnsBar from './sns-bar.vue';
@@ -72,25 +72,26 @@ export default {
 		})
 	},
 	updated() {
-		const body = document.body;
-		if (this.show) {
-			this.lastPos = scrollY();
-			body.style.top = `${-this.lastPos}px`;
-			body.classList.add('hold-body');
-		} else {
-			body.classList.remove('hold-body');
-			body.style.top = '';
-			// 这个方案总的来说比较完美, 但是有两个小问题,
-			// 一个是body fixed带来的副作用, 将body提升了包含块,
-			// 并且这个包含块是可见视口, 导致menu出现的时候底栏也
-			// 跟着出现, 另一个问题是这里有个谜之bug, 在滚动结束
-			/// 以后, 不知道会被谁又滚动到最底部, 确认不是vue router,
-			// 然而hook了document.documentElement.scrollTop和
-			// window.scrollTo, 也没发现c除了vue router和我自己之外
-			// 有谁改过这两个, 然而还是会滚动到最底部, 只能用这样比
-			// 较恶心的方式处理下, 好在不会出现肉眼可见的页面闪烁
-			setTimeout(() => scrollY(this.lastPos));
-		}
+		document.body.style.overflow = this.show ? 'hidden' : 'visible';
+		// const body = document.body;
+		// if (this.show) {
+		// 	this.lastPos = scrollY();
+		// 	body.style.top = `${-this.lastPos}px`;
+		// 	body.classList.add('hold-body');
+		// } else {
+		// 	body.classList.remove('hold-body');
+		// 	body.style.top = '';
+		// 	// 这个方案总的来说比较完美, 但是有两个小问题,
+		// 	// 一个是body fixed带来的副作用, 将body提升了包含块,
+		// 	// 并且这个包含块是可见视口, 导致menu出现的时候底栏也
+		// 	// 跟着出现, 另一个问题是这里有个谜之bug, 在滚动结束
+		// 	/// 以后, 不知道会被谁又滚动到最底部, 确认不是vue router,
+		// 	// 然而hook了document.documentElement.scrollTop和
+		// 	// window.scrollTo, 也没发现c除了vue router和我自己之外
+		// 	// 有谁改过这两个, 然而还是会滚动到最底部, 只能用这样比
+		// 	// 较恶心的方式处理下, 好在不会出现肉眼可见的页面闪烁
+		// 	setTimeout(() => scrollY(this.lastPos));
+		// }
 	},
 	components: {
 		Avatar,

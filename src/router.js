@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import loadSentry from './lib/load-sentry';
-import { loadAllArr } from './lib/util';
+import { loadAllArr, scrollY, p } from './lib/util';
 import errorRoutes from './routes/_error';
 
 Vue.use(Router);
@@ -21,8 +21,21 @@ const router = new Router({
 	routes,
 	scrollBehavior(to, from, savedPosition) {
 		// 在menu退出的时候不要重复scroll, menu-bar里面会做一次复位
-		if (from.name && from.name.includes('-menu')) {
-			return null;
+		// 和fixed方案配合
+		// if (from.name && from.name.includes('-menu')) {
+		// 	return null;
+		// } else {
+		// 	return savedPosition || {
+		// 		x: 0,
+		// 		y: 0
+		// 	};
+		// }
+		// 和overflow方案配合
+		if (p(to).name('').includes('-menu')) {
+			return {
+				x: 0,
+				y: scrollY()
+			};
 		} else {
 			return savedPosition || {
 				x: 0,

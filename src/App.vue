@@ -12,7 +12,7 @@
 			:show="menuShow"
 			:toggle="toggleAvatar"
 			@on-hide="hideMenu" />
-		<footer-bar :show="showFooter" />
+		<footer-bar />
 	</div>
 </template>
 
@@ -27,6 +27,7 @@ import MenuBar from './components/menu-bar.vue';
 import FooterBar from './components/footer-bar.vue';
 import ScrollButton from './components/scroll-button.vue';
 import config from './config';
+import { p } from './lib/util';
 
 function createMap(routes, map) {
 	routes.forEach(route => {
@@ -46,17 +47,17 @@ export default {
 			menuShow: false,
 			nameMap: null,
 			toggleAvatar: false,
-			showFooter: true,
+			// showFooter: true,
 			firstIn: true
 		};
 	},
 	methods: {
 		afterEnter() {
 			// 确保URL幂等
-			if (this.$route.name && this.$route.name.includes('-menu')) {
+			if (p(this.$route).name('').includes('-menu')) {
 				// 讲道理应该不会有人手这么快去点工具栏再点关闭菜单栏的...
 				// 就不用考虑这种情况取消timer了
-				this.showFooter = false;
+				// this.showFooter = false;
 				setTimeout(() => this.menuShow = true, 400);
 			}
 		},
@@ -80,7 +81,7 @@ export default {
 			}
 		},
 		hideMenu() {
-			if (this.$route.name && this.$route.name.includes('-menu')) {
+			if (p(this.$route).name('').includes('-menu')) {
 				this.$router.go(-1);
 			}
 		},
@@ -111,11 +112,11 @@ export default {
 				this.firstIn = false;
 				return;
 			}
-			this.menuShow = !!(to.name && to.name.includes('-menu'));
+			this.menuShow = !!p(to).name('').includes('-menu');
 			// 为了防止菜单栏出现导致body包含块提升显示footer,
 			// 只能在这里在menu出来之前把footer隐藏掉, 但是还
 			// 有一种情况是footer本来就在视口中
-			this.showFooter = !this.menuShow;
+			// this.showFooter = !this.menuShow;
 		}
 	},
 	components: {

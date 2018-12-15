@@ -17,3 +17,31 @@
 		<div>14 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
 	</div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+import store from '../store';
+
+export default {
+	props: {
+		page: {
+			type: Number,
+			default: 1
+		}
+	},
+	computed: {
+		posts() {
+			return this.pageMap[this.currentPage];
+		},
+		...mapGetters(['pageMap'])
+	},
+	beforeRouteEnter(to, from, next) {
+		store.dispatch('getHomePosts', to.params.page).then(next);
+	},
+	beforeRouteUpdate(to, from, next) {
+		// enter中一开始没有this实在太JB了...
+		// 让人都不想map出action来
+		store.dispatch('getHomePosts', to.params.page).then(next);
+	}
+};
+</script>
