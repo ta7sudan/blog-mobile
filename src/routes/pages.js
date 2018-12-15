@@ -1,8 +1,9 @@
+import Home from '../views/home.vue';
 export default [
 	{
 		path: '/home',
 		alias: '/',
-		component: () => import(/* webpackChunkName: "home" */ '../views/home.vue'),
+		component: Home,
 		children: [{
 			name: 'home',
 			path: ''

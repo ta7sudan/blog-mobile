@@ -1,6 +1,7 @@
 /* global API_VERSION */
 export default {
-	getPosts: {
-		path: `/api/${API_VERSION}/posts`
+	getHomePosts: {
+		path: `/api/${API_VERSION}/home/posts/:page`,
+		pathParams: true
 	}
 };
