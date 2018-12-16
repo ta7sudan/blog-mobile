@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import loadSentry from './lib/load-sentry';
-import { loadAllArr, scrollY, p } from './lib/util';
+import { loadAllArr } from './lib/util';
 import errorRoutes from './routes/_error';
 
 Vue.use(Router);
@@ -31,17 +31,15 @@ const router = new Router({
 		// 	};
 		// }
 		// 和overflow方案配合
-		if (p(to).name('').includes('-menu')) {
-			return {
-				x: 0,
-				y: scrollY()
-			};
-		} else {
-			return savedPosition || {
-				x: 0,
-				y: 0
-			};
-		}
+		// 考虑要不要异步滚动, 因为有些页面只有一屏, 有些更高,
+		// 如果不异步滚动, 则过渡动画的时候会触发滚动, 导致过渡
+		// 动画看起来跳动一下, 异步滚动则可以等过渡动画结束后
+		// 滚动, 但是也会给人感觉为什么它自己滚动了...目前暂时
+		// 先这样吧
+		return savedPosition || {
+			x: 0,
+			y: 0
+		};
 	}
 });
 

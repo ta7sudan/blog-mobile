@@ -17,8 +17,7 @@ export default {
 						tag='li'
 						key={i}
 						to={item.route}
-						exact={item.exact || false}
-						replace>
+						exact={item.exact || false}>
 						<i class={`icon-${item.icon}`}></i><a>{item.text}</a>
 					</router-link>
 				))}

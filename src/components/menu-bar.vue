@@ -60,16 +60,26 @@ export default {
 	methods: {
 		hide() {
 			this.$emit('update:show', false);
-			this.$emit('on-hide');
 		},
 		enter: once(function (el, done) {
 			// 这里根据CSS中desc字体大小12px, line-height为1.4em, 结合dpr算了下有几行
 			const lines = Math.round(this.$refs.desc.clientHeight / (12 * 1.5 * devicePixelRatio));
 			if (lines > 1) {
+				// 反正之前要拿ref来计算, 这里就自己手动加下class好了
 				this.$refs.desc.classList.add('multi-line');
 			}
 			done();
 		})
+	},
+	created() {
+		// 如果点击链接跳转了, 就让它直接消失, 不要过渡
+		// 省得和页面过渡一起触发导致动画卡顿
+		this.$router.afterEach(() => {
+			if (this.show) {
+				this.$el.style.display = 'none';
+				this.hide();
+			}
+		});
 	},
 	updated() {
 		document.body.style.overflow = this.show ? 'hidden' : 'visible';

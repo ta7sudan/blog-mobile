@@ -4,7 +4,7 @@ export default {
 	props: {
 		show: {
 			type: Boolean,
-			default: true
+			default: false
 		}
 	},
 	render(h, context) {
