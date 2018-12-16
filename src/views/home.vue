@@ -21,6 +21,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import store from '../store';
+import { routerLock } from '../lib/util';
 
 export default {
 	props: {
@@ -35,13 +36,17 @@ export default {
 		},
 		...mapGetters(['pageMap'])
 	},
-	beforeRouteEnter(to, from, next) {
-		store.dispatch('getHomePosts', to.params.page).then(next);
-	},
-	beforeRouteUpdate(to, from, next) {
+	beforeRouteEnter: routerLock(function (to, from, next) {
+		return store.dispatch('getHomePosts', to.params.page).then(() => {
+			next(vm => {
+				console.log(vm);
+			});
+		});
+	}),
+	beforeRouteUpdate: routerLock(function (to, from, next) {
 		// enter中一开始没有this实在太JB了...
 		// 让人都不想map出action来
-		store.dispatch('getHomePosts', to.params.page).then(next);
-	}
+		return store.dispatch('getHomePosts', to.params.page).then(next);
+	})
 };
 </script>

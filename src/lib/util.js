@@ -35,6 +35,32 @@ export function once(fn) {
 	};
 }
 
+export function routerLock(fn, timeout) {
+	let lock = false, timer = null, nextQueue = [], runNext = function (cb) {
+		while (nextQueue.length) nextQueue.shift()(nextQueue.length === 0 && cb);
+	};
+	return function (to, from, next) {
+		nextQueue.push(next);
+		if (lock) {
+			return;
+		}
+		lock = true;
+		if (timer) {
+			clearTimeout(timer);
+			timer = null;
+		}
+		if (timeout) {
+			timer = setTimeout(() => lock = false, timeout);
+		}
+		const rst = fn.call(this, to, from, runNext);
+		if (typeof p(rst).then() === 'function') {
+			return rst.then(v => (lock = false, v), v => (lock = false, v));
+		}
+		lock = false;
+		return rst;
+	};
+}
+
 export function scrollY(val) {
 	const root = document.documentElement || document.body.parentNode || document.body;
 	if (val !== undefined) {
