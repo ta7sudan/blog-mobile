@@ -78,9 +78,10 @@ export default {
 <style lang="postcss" scoped>
 @import '../styles/font-size.css';
 @import '../styles/theme-light.css';
+@import '../styles/size.css';
 
 .tool-bar {
-	height: 120px;
+	height: $toolBarHeight;
 	background: $toolBarBgColor;
 	box-shadow: 0 0 15px $toolBarShadowColor;
 	position: fixed;
@@ -101,7 +102,7 @@ export default {
 .logo {
 	color: $logoColor;
 	font-family: "Covered By Your Grace", cursive, "Helvetica Neue", Helvetica, Tahoma, Arial;
-	@include font(28);
+	@include font(30);
 	position: absolute;
 	left: 22px;
 	top: 50%;

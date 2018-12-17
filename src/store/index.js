@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { SET_POSTS_TOTAL, ADD_POSTS } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h } from '../lib/util';
+import marked from '../lib/marked';
 
 Vue.use(Vuex);
 
@@ -50,6 +51,10 @@ const store = new Vuex.Store({
 				const { data } = await h(apis.getHomePosts({
 					page
 				}));
+				data.posts.forEach(post => {
+					post.content = marked(post.content);
+					post.parsed = true;
+				});
 				commit(SET_POSTS_TOTAL, data.total);
 				commit(ADD_POSTS, data.posts);
 			}

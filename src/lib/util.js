@@ -37,7 +37,7 @@ export function once(fn) {
 
 export function routerLock(fn, timeout) {
 	let lock = false, timer = null, nextQueue = [], runNext = function (cb) {
-		while (nextQueue.length) nextQueue.shift()(nextQueue.length === 0 && cb);
+		while (nextQueue.length) nextQueue.shift()(nextQueue.length === 0 ? cb : undefined);
 	};
 	return function (to, from, next) {
 		nextQueue.push(next);

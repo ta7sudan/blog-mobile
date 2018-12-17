@@ -1,29 +1,23 @@
 <template>
 	<div class="home-page">
-		<div>1 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>2 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>3 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>4 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>5 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>6 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>7 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>8 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>9 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>0 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>10 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>11 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>12 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>13 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
-		<div>14 test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </div>
+		<preview-post v-for="(post, i) in posts" :key="i" :post="post" />
 	</div>
 </template>
 
 <script>
+import PreviewPost from '../components/preview-post.vue';
 import { mapGetters } from 'vuex';
 import store from '../store';
 import { routerLock } from '../lib/util';
 
 export default {
+	/* global TITLE */
+	data() {
+		return {
+			pageTitle: `Home | ${TITLE}`,
+			currentPage: 1
+		};
+	},
 	props: {
 		page: {
 			type: Number,
@@ -37,16 +31,38 @@ export default {
 		...mapGetters(['pageMap'])
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
-		return store.dispatch('getHomePosts', to.params.page).then(() => {
-			next(vm => {
-				console.log(vm);
-			});
-		});
+		const page = to.params.page;
+		/* global NProgress */
+		NProgress.start();
+		return store.dispatch('getHomePosts', page)
+			.then(() => 
+				next(vm => {
+					document.title = vm.pageTitle;
+					vm.currentPage = page;
+					NProgress.done();
+				})
+			);
 	}),
 	beforeRouteUpdate: routerLock(function (to, from, next) {
 		// enter中一开始没有this实在太JB了...
 		// 让人都不想map出action来
-		return store.dispatch('getHomePosts', to.params.page).then(next);
-	})
+		const page = to.params.page;
+		NProgress.start();
+		return store.dispatch('getHomePosts', page)
+			.then(() => {
+				this.currentPage = page;
+				next();
+				NProgress.done();
+			});
+	}),
+	components: {
+		PreviewPost
+	}
 };
 </script>
+
+<style lang="postcss" scoped>
+.home-page {
+	padding-top: 50px;
+}
+</style>

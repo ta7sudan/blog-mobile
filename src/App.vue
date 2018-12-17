@@ -2,7 +2,7 @@
 	<div id="app">
 		<transition name="page-fade" type="transition" :appear="false" @after-enter="showFooter=true">
 			<keep-alive>
-				<router-view />
+				<router-view class="page-pos" />
 			</keep-alive>
 		</transition>
 		<scroll-button class="scroll-btn-pos"></scroll-button>
@@ -55,12 +55,14 @@ export default {
 
 
 <style lang="postcss" scoped>
+@import './styles/size.css';
+
 .page-fade-enter {
-	opacity: 0.3;
+	/* opacity: 0.3; */
 	transform: translate3d(-100%, 0, 0);
 }
 .page-fade-leave-to {
-	opacity: 0.3;
+	/* opacity: 0.3; */
 	transform: translate3d(100%, 0, 0);
 }
 .page-fade-enter-active, .page-fade-leave-active {
@@ -70,6 +72,10 @@ export default {
 	left: 0;
 	right: 0;
 	transition: all 0.4s linear;
+}
+
+.page-pos {
+	margin-top: $toolBarHeight;
 }
 
 .toolbar-z-level {

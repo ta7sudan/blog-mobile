@@ -4,7 +4,7 @@
 		:class="{'scroll-button-show': show}"
 		@transitionend="hide"
 		@click="scrollToTop">
-		<i class="icon-vertical_align_top"></i>
+		<i class="icon-keyboard_arrow_up"></i>
 	</div>
 </template>
 
@@ -85,7 +85,7 @@ export default {
 	transition: all 0.3s ease;
 	i {
 		color: $scrollTopBtnColor;
-		font-size: 6vw;
+		font-size: 8vw;
 		transition: all 0.3s ease;
 	}
 	&:active {

@@ -8,21 +8,26 @@ module.exports = {
 		const posts = [];
 		const files = await fs.readdir(path.resolve(__dirname, './assets'));
 		for (const file of files) {
+			let n = 5;
 			const post = await fs.readFile(path.resolve(__dirname, './assets', file), {
 				encoding: 'utf8'
 			});
-			posts.push({
-				id: Math.floor(Math.random() * 10 - 1),
-				title: file.slice(0, -3),
-				author: 'ta7sudan',
-				tags: ['Javascript', 'Front-End'],
-				views: 100,
-				page: parseInt(req.params.page, 10),
-				parsed: false,
-				createdTime: Date.now(),
-				modifiedTime: Date.now() + 864e3,
-				content: post
-			});
+			while (n--) {
+				let id = Math.floor(Math.random() * 10000 - 1);
+				posts.push({
+					id,
+					title: file.slice(0, -3),
+					author: 'ta7sudan',
+					tags: ['Javascript', 'Front-End'],
+					views: 100,
+					img: '',
+					page: parseInt(req.params.page, 10),
+					parsed: false,
+					createdTime: Date.now(),
+					modifiedTime: Date.now() + 864e3,
+					content: `## ${id}\n\n ${post}`
+				});
+			}
 		}
 		return {
 			statusCode: 200,

@@ -28,6 +28,7 @@
   "dependencies": {
     "@lowb/apiz-vue": "^0.1.4",
     "@sentry/browser": "^4.3.0",
+    "accessible-nprogress": "^2.0.0",
     "alloylever": "^1.0.4",
     "kooky": "^0.1.2",
     "marked": "^0.5.2",

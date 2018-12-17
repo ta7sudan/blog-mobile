@@ -4,8 +4,11 @@ import router from './router';
 import store from './store';
 import apis from './lib/apis';
 import guard from './lib/guard';
+import NProgress from 'accessible-nprogress';
+import 'accessible-nprogress/dist/accessible-nprogress.css';
 
 guard();
+window.NProgress = NProgress;
 
 if (DEBUG) {
 	Vue.config.performance = true;
