@@ -1,6 +1,6 @@
 <template>
 	<div class="home-page">
-		<preview-post v-for="(post, i) in posts" :key="i" :post="post" />
+		<preview-post v-for="(post, i) in posts" :key="i" v-bind="post" />
 	</div>
 </template>
 

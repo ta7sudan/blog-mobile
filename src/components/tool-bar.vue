@@ -118,7 +118,7 @@ $inputFtSize: 14;
 	flex-basis: 0;
 	flex-grow: 1;
 	justify-content: flex-end;
-	margin-left: 8em;
+	margin-left: 9em;
 	@include font($inputFtSize);
 	position: absolute;
 	top: 50%;

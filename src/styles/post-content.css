@@ -1,0 +1,7 @@
+@import './font-size.css';
+
+.post-content {
+	color: #212721;
+	word-break: break-all;
+	@include font(14);
+}

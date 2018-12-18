@@ -11,6 +11,10 @@ a {
 	}
 }
 
+::selection {
+	background: $selectionColor;
+}
+
 noscript {
 	color: $bodyFontColor;
 	display: block;

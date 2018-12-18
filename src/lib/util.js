@@ -156,6 +156,69 @@ export function p(obj, path = []) {
 	});
 }
 
+function isTwoCodePoint(char) {
+	try {
+		encodeURIComponent(char);
+		return false;
+	} catch (e) {
+		return true;
+	}
+}
+
+const selfCloseTags = ['link', 'meta', 'hr', 'br', 'area', 'img', 'track', 'source', 'col', 'input'],
+	noRenderTags = ['script'];
+
+export function trimHtml(html, {
+	limit = 100,
+	suffix = null
+} = {}) {
+	let tagStack = [],
+		currentTag = '',
+		more = false,
+		count = 0;
+	for (var i = 0, len = html.length; i < len; ++i) {
+		let tagName = [];
+		if (count >= limit) {
+			more = i + 1 < len;
+			break;
+		}
+		if (html[i] === '<' && html[i+1] !== '/') {
+			++i;
+			while (html[i] !== '>' && !html[i].match(/\s|\//)) {
+				tagName.push(html[i++]);
+			}
+			while (html[i] !== '>') ++i;
+			currentTag = tagName.join('');
+			if (selfCloseTags.includes(currentTag)) {
+				continue;
+			}
+			tagStack.push(currentTag);
+		} else if (html[i] === '<' && html[i+1] === '/') {
+			i += 2;
+			while (html[i] !== '>') ++i;
+			tagStack.pop();
+		} else if (noRenderTags.includes(currentTag)) {
+			continue;
+		} else {
+			++count;
+		}
+	}
+	if (isTwoCodePoint(html[i])) {
+		++i;
+	}
+	let rst = html.slice(0, i);
+	if (suffix && more) {
+		rst += suffix;
+	}
+	while (tagStack.length) {
+		rst += `</${tagStack.pop()}>`;
+	}
+	return {
+		html: rst,
+		more
+	};
+}
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});

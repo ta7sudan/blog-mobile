@@ -2,7 +2,7 @@
 	font-size: 5vw;
 	background: #f0f5f6;
 	transition: opacity 1s ease;
-	z-index: 999;
+	z-index: 1999;
 	/* pointer-events: none; */
 	position: fixed;
 	left: 0;

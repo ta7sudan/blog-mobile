@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { SET_POSTS_TOTAL, ADD_POSTS } from './mutation-types';
 import apis from '../lib/apis';
-import { apizHelper as h } from '../lib/util';
+import { apizHelper as h, trimHtml } from '../lib/util';
 import marked from '../lib/marked';
 
 Vue.use(Vuex);
@@ -52,8 +52,14 @@ const store = new Vuex.Store({
 					page
 				}));
 				data.posts.forEach(post => {
-					post.content = marked(post.content);
-					post.parsed = true;
+					if (!post.parsed) {
+						post.content = marked(post.content);
+						post.trimedHtml = trimHtml(post.content, {
+							limit: 200,
+							suffix: '...'
+						}).html;
+						post.parsed = true;
+					}
 				});
 				commit(SET_POSTS_TOTAL, data.total);
 				commit(ADD_POSTS, data.posts);
