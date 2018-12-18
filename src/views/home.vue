@@ -63,6 +63,6 @@ export default {
 
 <style lang="postcss" scoped>
 .home-page {
-	padding-top: 50px;
+	padding-top: 30px;
 }
 </style>

@@ -90,7 +90,7 @@ export default {
 @import '../styles/font-size.css';
 .preview-post {
 	margin: 0 40px;
-	padding: 60px 0 100px 0;
+	padding: 70px 0 140px 0;
 	background: #fff;
 	position: relative;
 	&::after {
@@ -125,7 +125,7 @@ export default {
 }
 
 .info {
-	margin: 20px auto 50px;
+	margin: 30px auto 60px;
 	display: flex;
 	align-items: center;
 	align-content: center;

@@ -3,5 +3,134 @@
 .post-content {
 	color: #212721;
 	word-break: break-all;
+	letter-spacing: 2px;/* skip-p2v */
 	@include font(14);
+	h1, h2, h3, h4, h5, h6 {
+		color: #000;
+		width: 500px;
+		font-weight: bold;
+	}
+	h1, h2 {
+		line-height: 1.4em;
+		margin: 60px 0 30px;
+	}
+	h3 {
+		line-height: 1.6em;
+		margin: 40px 0 20px;
+	}
+	h4, h5, h6 {
+		line-height: 1.8em;
+		margin: 20px 0;
+	}
+	h1 {
+		@include font(20);
+	}
+	h2 {
+		@include font(18);
+	}
+	h3 {
+		@include font(16);
+	}
+	h4, h5, h6 {
+		@include font(14);
+	}
+	div, p, li, td, th {
+		color: #212721;
+		line-height: 1.8em;
+		@include font(14);
+	}
+	div, p {
+		margin: 20px 0 25px;
+	}
+	ul, ol, table, pre, blockquote {
+		margin: 20px 0;
+	}
+	ul {
+		li {
+			padding-left: 40px;
+			margin-bottom: 20px;
+			position: relative;
+			&::before {
+				content: "";
+				display: block;
+				width: 40px;
+				height: 40px;
+				box-sizing: border-box;
+				background: #555;
+				border-radius: 50%;
+				transform: scale(0.3);
+				position: absolute;
+				left: 0;
+				top: 0.25em;
+			}
+			li {
+				&::before {
+					content: "";
+					display: block;
+					width: 40px;
+					height: 40px;
+					box-sizing: border-box;
+					border: 8px solid #555;
+					background: #fff;
+					border-radius: 50%;
+					transform: scale(0.3);
+					position: absolute;
+					left: 0;
+					top: 0.25em;
+				}
+			}
+		}
+	}
+	img {
+		max-width: 100%;
+		border: 1px solid #aaa;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(#555, 0.2);
+	}
+	code, kbd {
+		color: #555;
+		background: #eee;
+		padding: 4px 10px;
+		border-radius: 10px;
+		@include font(14);
+	}
+	pre {
+		border-left: 10px solid #d6dbdf;
+		background: rgba(102, 128, 153, .05);
+		padding: 20px 30px;
+		max-height: 1000px;
+		overflow: auto;
+		code {
+			padding: 0;
+			line-height: 1.4em;
+			background: transparent;
+		}
+	}
+	blockquote {
+		border-left: 6px solid #d6dbdf;
+		background: rgba(102, 128, 153, .05);
+		padding: 10px 30px;
+	}
+	table {
+		width: 100%;
+	}
+	th {
+		font-weight: bold;
+	}
+	a {
+		color: #08c;
+		text-decoration: none;
+		transition: color 0.3s ease;
+		&:hover, &:active {
+			color: #5ba4e5;
+		}
+	}
+	strong {
+		font-weight: bold;
+		color: #000;
+	}
+	em {
+		font-style: italic;
+	}
+
 }

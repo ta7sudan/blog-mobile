@@ -166,7 +166,7 @@ function isTwoCodePoint(char) {
 }
 
 const selfCloseTags = ['link', 'meta', 'hr', 'br', 'area', 'img', 'track', 'source', 'col', 'input'],
-	noRenderTags = ['script'];
+	noRenderTags = ['script', 'video', 'audio'];
 
 export function trimHtml(html, {
 	limit = 100,
