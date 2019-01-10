@@ -1,4 +1,6 @@
 import Home from '../views/home.vue';
+import Post from '../views/post.vue';
+
 export default [
 	{
 		path: '/',
@@ -17,6 +19,16 @@ export default [
 			};
 		},
 		component: Home
+	},
+	{
+		name: 'posts',
+		path: '/posts/:id',
+		props(route) {
+			return {
+				id: parseInt(route.params.id, 10)
+			};
+		},
+		component: Post
 	},
 	{
 		path: '/about',

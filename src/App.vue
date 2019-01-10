@@ -75,7 +75,11 @@ export default {
 }
 
 .page-pos {
-	margin-top: $toolBarHeight;
+	&::before {
+		content: "";
+		display: block;
+		height: $toolBarHeight;
+	}
 }
 
 .toolbar-z-level {
