@@ -219,6 +219,10 @@ export function trimHtml(html, {
 	};
 }
 
+export function range(start, count) {
+	return Array.from({length: count}, (v, k) => k + start);
+}
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});

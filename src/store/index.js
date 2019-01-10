@@ -50,6 +50,8 @@ const store = new Vuex.Store({
 			if (!pageMap[page]) {
 				const { data } = await h(apis.getHomePosts({
 					page
+				}, {
+					limit: 10
 				}));
 				data.posts.forEach(post => {
 					if (!post.parsed) {

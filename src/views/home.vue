@@ -1,12 +1,14 @@
 <template>
 	<div class="home-page">
 		<preview-post v-for="(post, i) in posts" :key="i" v-bind="post" />
+		<pagination class="pagination-pos" :total="total" :limit="posts.length" route-name="home" />
 	</div>
 </template>
 
 <script>
 import PreviewPost from '../components/preview-post.vue';
-import { mapGetters } from 'vuex';
+import Pagination from '../components/pagination.vue';
+import { mapGetters, mapState } from 'vuex';
 import store from '../store';
 import { routerLock } from '../lib/util';
 
@@ -26,8 +28,9 @@ export default {
 	},
 	computed: {
 		posts() {
-			return this.pageMap[this.currentPage];
+			return this.pageMap[this.currentPage] || [];
 		},
+		...mapState(['total']),
 		...mapGetters(['pageMap'])
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
@@ -56,7 +59,8 @@ export default {
 			});
 	}),
 	components: {
-		PreviewPost
+		PreviewPost,
+		Pagination
 	}
 };
 </script>
@@ -64,5 +68,9 @@ export default {
 <style lang="postcss" scoped>
 .home-page {
 	padding-top: 30px;
+}
+
+.pagination-pos {
+	margin: 80px auto 20px;
 }
 </style>
