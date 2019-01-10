@@ -67,6 +67,9 @@ export default {
 	},
 	watch: {
 		['$route'](to, from) {
+			if (to.name !== this.routeName) {
+				return;
+			}
 			this.currentPage = parseInt(to.params.page, 10);
 		}
 	},
