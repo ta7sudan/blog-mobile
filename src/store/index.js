@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { SET_POSTS_TOTAL, ADD_POSTS } from './mutation-types';
+import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h, trimHtml } from '../lib/util';
 import marked from '../lib/marked';
@@ -12,7 +12,8 @@ const store = new Vuex.Store({
 	strict: DEBUG,
 	state: {
 		total: 0,
-		posts: []
+		posts: [],
+		postsIdMap: {}
 	},
 	getters: {
 		// O(n^2)插入
@@ -43,6 +44,12 @@ const store = new Vuex.Store({
 				}
 				state.posts.push(post);
 			}
+		},
+		[ADD_POSTS_MAP](state, post) {
+			if (state.postsIdMap[post.id]) {
+				return;
+			}
+			state.postsIdMap[post.id] = post;
 		}
 	},
 	actions: {
@@ -67,6 +74,22 @@ const store = new Vuex.Store({
 				commit(ADD_POSTS, data.posts);
 			}
 			return pageMap[page];
+		},
+		async getPostById({ commit, state }, id) {
+			if (state.postsIdMap[id]) {
+				return state.postsIdMap[id];
+			}
+			for (const post of state.posts) {
+				if (post.id === id) {
+					commit(ADD_POSTS_MAP, post);
+					return post;
+				}
+			}
+			const { data: { post } } = await h(apis.getPostById({
+				id
+			}));
+			commit(ADD_POSTS_MAP, post);
+			return post;
 		}
 	}
 });

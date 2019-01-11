@@ -41,12 +41,6 @@ export default {
 
 <style lang="postcss">
 @import '../styles/theme-light.css';
-body {
-	min-height: 100vh;
-	padding-bottom: 200px;
-	box-sizing: border-box;
-	position: relative;
-}
 
 .copyright {
 	span {

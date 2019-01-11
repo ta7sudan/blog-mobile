@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
-		<transition name="page-fade" type="transition" :appear="false" @after-enter="showFooter=true">
+		<transition name="page-fade" type="transition" :appear="false">
 			<keep-alive>
-				<router-view class="page-pos" />
+				<router-view />
 			</keep-alive>
 		</transition>
 		<scroll-button class="scroll-btn-pos"></scroll-button>
@@ -11,7 +11,6 @@
 			v-bind="config"
 			:show.sync="showMenu"
 			:toggle="toggleAvatar" />
-		<footer-bar :show="showFooter" />
 	</div>
 </template>
 
@@ -22,8 +21,6 @@ import './styles/logo-font.css';
 import './styles/main.css';
 import ToolBar from './components/tool-bar.vue';
 import MenuBar from './components/menu-bar.vue';
-// footer也可以放在页面中, 其实带来的麻烦会小一些
-import FooterBar from './components/footer-bar.vue';
 import ScrollButton from './components/scroll-button.vue';
 import config from './config';
 
@@ -32,7 +29,6 @@ export default {
 		return {
 			config,
 			showMenu: false,
-			showFooter: false,
 			toggleAvatar: false
 		};
 	},
@@ -47,7 +43,6 @@ export default {
 	components: {
 		ToolBar,
 		MenuBar,
-		FooterBar,
 		ScrollButton
 	}
 };
@@ -72,14 +67,6 @@ export default {
 	left: 0;
 	right: 0;
 	transition: all 0.4s linear;
-}
-
-.page-pos {
-	&::before {
-		content: "";
-		display: block;
-		height: $toolBarHeight;
-	}
 }
 
 .toolbar-z-level {

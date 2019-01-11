@@ -1,11 +1,14 @@
 <template>
-	<div class="home-page">
-		<preview-post v-for="(post, i) in posts" :key="i" v-bind="post" />
-		<pagination class="pagination-pos" :total="total" :limit="posts.length" route-name="home" />
-	</div>
+	<page-layout>
+		<div class="home-page">
+			<preview-post v-for="(post, i) in posts" :key="i" v-bind="post" />
+			<pagination class="pagination-pos" :total="total" :limit="posts.length" route-name="home" />
+		</div>
+	</page-layout>
 </template>
 
 <script>
+import PageLayout from '../components/page-layout.vue';
 import PreviewPost from '../components/preview-post.vue';
 import Pagination from '../components/pagination.vue';
 import { mapGetters, mapState } from 'vuex';
@@ -59,6 +62,7 @@ export default {
 			});
 	}),
 	components: {
+		PageLayout,
 		PreviewPost,
 		Pagination
 	}

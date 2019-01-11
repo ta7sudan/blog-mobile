@@ -1,5 +1,18 @@
 <template>
-  <div class="tags">
-    <h1>this is an tags page</h1>
-  </div>
+	<page-layout>
+		<div class="tags-page">
+			<h1>this is an tags page</h1>
+		</div>
+	</page-layout>
 </template>
+
+<script>
+import PageLayout from '../components/page-layout.vue';
+
+export default {
+	components: {
+		PageLayout
+	}
+};
+</script>
+
