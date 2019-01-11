@@ -1,13 +1,6 @@
 <script>
+import { getDate } from '../lib/util';
 import '../styles/post-content.css';
-
-function getDate(timestamp) {
-	const date = new Date(timestamp),
-		year = date.getFullYear(),
-		month = date.getUTCMonth() + 1,
-		day = date.getUTCDate();
-	return `${year}/${month}/${day}`;
-}
 
 export default {
 	functional: true,

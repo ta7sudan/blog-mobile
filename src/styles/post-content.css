@@ -36,7 +36,7 @@
 	}
 	div, p, li, td, th {
 		color: #212721;
-		line-height: 1.8em;
+		line-height: 2em;
 		@include font(14);
 	}
 	div, p {

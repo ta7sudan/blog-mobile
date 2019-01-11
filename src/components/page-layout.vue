@@ -2,6 +2,7 @@
 import FooterBar from './footer-bar.vue';
 
 export default {
+	functional: true,
 	props: {
 		hasFooterbar: {
 			type: Boolean,
@@ -11,8 +12,8 @@ export default {
 	render(h, context) {
 		return (
 			<div class="page-layout">
-				{this.$slots.default}
-				<FooterBar show={this.hasFooterbar} />
+				{context.children}
+				<FooterBar show={context.props.hasFooterbar} />
 			</div>
 		);
 	}

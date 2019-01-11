@@ -9,7 +9,7 @@ export default {
 	},
 	render(h, context) {
 		return (
-			<footer class='footer-bar' v-show={context.props.show}>
+			<footer class='footer-bar' v-show={context.props.show} {...context.data.attrs}>
 				<p class='copyright'>Copyright © 2018 <span>ta7sudan</span>. All rights reserved.</p>
 				<p class='poweredby'>Powered by Vuejs.</p>
 				<p class='license'><a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a></p>
@@ -20,9 +20,9 @@ export default {
 </script>
 
 
-<style lang="postcss" scoped>
-@import '../styles/font-size.css';
+<style lang="postcss">
 @import '../styles/theme-light.css';
+@import '../styles/font-size.css';
 
 .footer-bar {
 	color: $footerFontColor;
@@ -37,10 +37,6 @@ export default {
 	left: 0;
 	right: 0;
 }
-</style>
-
-<style lang="postcss">
-@import '../styles/theme-light.css';
 
 .copyright {
 	span {

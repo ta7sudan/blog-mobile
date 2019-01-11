@@ -223,6 +223,14 @@ export function range(start, count) {
 	return Array.from({length: count}, (v, k) => k + start);
 }
 
+export function getDate(timestamp) {
+	const date = new Date(timestamp),
+		year = date.getFullYear(),
+		month = date.getUTCMonth() + 1,
+		day = date.getUTCDate();
+	return `${year}/${month}/${day}`;
+}
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});

@@ -16,11 +16,10 @@ import store from '../store';
 import { routerLock } from '../lib/util';
 
 export default {
-	/* global TITLE */
+	/* global TITLE, NProgress */
 	data() {
 		return {
-			pageTitle: `Home | ${TITLE}`,
-			currentPage: 1
+			pageTitle: `Home | ${TITLE}`
 		};
 	},
 	props: {
@@ -31,20 +30,18 @@ export default {
 	},
 	computed: {
 		posts() {
-			return this.pageMap[this.currentPage] || [];
+			return this.pageMap[this.page] || [];
 		},
 		...mapState(['total']),
 		...mapGetters(['pageMap'])
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		const page = to.params.page;
-		/* global NProgress */
 		NProgress.start();
 		return store.dispatch('getHomePosts', page)
 			.then(() => 
 				next(vm => {
 					document.title = vm.pageTitle;
-					vm.currentPage = page;
 					NProgress.done();
 				})
 			);
@@ -56,7 +53,6 @@ export default {
 		NProgress.start();
 		return store.dispatch('getHomePosts', page)
 			.then(() => {
-				this.currentPage = page;
 				next();
 				NProgress.done();
 			});

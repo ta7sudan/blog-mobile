@@ -88,6 +88,14 @@ const store = new Vuex.Store({
 			const { data: { post } } = await h(apis.getPostById({
 				id
 			}));
+			if (!post.parsed) {
+				post.content = marked(post.content);
+				post.trimedHtml = trimHtml(post.content, {
+					limit: 200,
+					suffix: '...'
+				});
+				post.parsed = true;
+			}
 			commit(ADD_POSTS_MAP, post);
 			return post;
 		}
