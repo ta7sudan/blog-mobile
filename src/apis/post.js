@@ -3,5 +3,8 @@ export default {
 	getPostById: {
 		path: `/api/${API_VERSION}/posts/:id`,
 		pathParams: true
+	},
+	getPrevNextById: {
+		path: `/api/${API_VERSION}/prev-next`
 	}
 };

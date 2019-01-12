@@ -10,6 +10,8 @@
 
 <script>
 import { animate, scrollY, throttle, rAF } from '../lib/util';
+import '../styles/iconfont.css';
+
 export default {
 	data() {
 		return {

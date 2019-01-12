@@ -1,4 +1,6 @@
 <script>
+import '../styles/iconfont.css';
+
 export default {
 	functional: true,
 	props: {

@@ -1,6 +1,7 @@
 <script>
 import { getDate } from '../lib/util';
 import '../styles/post-content.css';
+import '../styles/iconfont.css';
 
 export default {
 	functional: true,

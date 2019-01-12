@@ -30,6 +30,7 @@
 // 这里保留注释
 // import '../styles/logo-font.css';
 import { scrollY, rAF } from '../lib/util';
+import '../styles/iconfont.css';
 
 export default {
 	data() {

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP } from './mutation-types';
+import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h, trimHtml } from '../lib/util';
 import marked from '../lib/marked';
@@ -13,7 +13,8 @@ const store = new Vuex.Store({
 	state: {
 		total: 0,
 		posts: [],
-		postsIdMap: {}
+		postsIdMap: {},
+		prevNextMap: {}
 	},
 	getters: {
 		// O(n^2)插入
@@ -50,6 +51,9 @@ const store = new Vuex.Store({
 				return;
 			}
 			state.postsIdMap[post.id] = post;
+		},
+		[ADD_PREVNEXT_MAP](state, { id, data }) {
+			state.prevNextMap[id] = data;
 		}
 	},
 	actions: {
@@ -98,6 +102,25 @@ const store = new Vuex.Store({
 			}
 			commit(ADD_POSTS_MAP, post);
 			return post;
+		},
+		async getPrevNextById({ commit, state }, id) {
+			if (state.prevNextMap[id]) {
+				return state.prevNextMap[id];
+			}
+			const { data: { prev, next }} = await h(apis.getPrevNextById({
+				id
+			}));
+			commit(ADD_PREVNEXT_MAP, {
+				id,
+				data: {
+					prev,
+					next
+				}
+			});
+			return {
+				prev,
+				next
+			};
 		}
 	}
 });

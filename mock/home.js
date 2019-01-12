@@ -61,5 +61,17 @@ module.exports = {
 			errorMessage: 'test',
 			post
 		};
+	},
+	[`get /api/${process.env.API_VERSION}/prev-next`]: {
+		statusCode: 200,
+		errorMessage: 'test',
+		prev: {
+			id: '123',
+			title: 'test0'
+		},
+		next: {
+			id: '321',
+			title: 'test1'
+		}
 	}
 };

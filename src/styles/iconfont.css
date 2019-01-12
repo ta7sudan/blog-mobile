@@ -32,11 +32,11 @@
   */
 @font-face {
   font-family: 'iconfont';
-  src:  url('../assets/fonts/iconfont.eot?4ircco');
-  src:  url('../assets/fonts/iconfont.eot?4ircco#iefix') format('embedded-opentype'),
-    url('../assets/fonts/iconfont.ttf?4ircco') format('truetype'),
-    url('../assets/fonts/iconfont.woff?4ircco') format('woff'),
-    url('../assets/fonts/iconfont.svg?4ircco#iconfont') format('svg');
+  src:  url('../assets/fonts/iconfont.eot?jxm7f');
+  src:  url('../assets/fonts/iconfont.eot?jxm7f#iefix') format('embedded-opentype'),
+    url('../assets/fonts/iconfont.ttf?jxm7f') format('truetype'),
+    url('../assets/fonts/iconfont.woff?jxm7f') format('woff'),
+    url('../assets/fonts/iconfont.svg?jxm7f#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -57,6 +57,12 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-keyboard_arrow_right:before {
+  content: "\e908";
+}
+.icon-keyboard_arrow_left:before {
+  content: "\e909";
+}
 .icon-keyboard_arrow_up:before {
   content: "\e905";
 }
