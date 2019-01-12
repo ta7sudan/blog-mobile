@@ -21,7 +21,15 @@
 			<p class="last-modified" v-if="lastModifiedDate">Last modified on {{lastModifiedDate}}.</p>
 			<div class="tag-box">
 				<div class="label">Tags:</div>
-				<tag class="tag-pos" v-for="(tag, i) in post.tags" :route="`/tags/${tag}`" :key="i">{{tag}}</tag>
+				<tag class="tag-pos" v-for="(tag, i) in post.tags" :route="{name: 'tags', params: {tag}}" :key="i">{{tag}}</tag>
+			</div>
+			<div class="prev-next" v-if="prev && next">
+				<router-link class="prev" :to="{name: 'posts', params: {id: prev.id}}">
+					<i class="icon icon-keyboard_arrow_left"></i><span>previous</span>
+				</router-link>
+				<router-link class="next" :to="{name: 'posts', params: {id: next.id}}">
+					<span>next</span><i class="icon icon-keyboard_arrow_right"></i>
+				</router-link>
 			</div>
 		</div>
 	</page-layout>
@@ -34,10 +42,17 @@ import { routerLock, getDate } from '../lib/util';
 import { mapState } from 'vuex';
 import store from '../store';
 import '../styles/post-content.css';
+import '../styles/iconfont.css';
 
 /* global TITLE, NProgress */
 
 export default {
+	data() {
+		return {
+			prev: null,
+			next: null
+		};
+	},
 	props: {
 		id: {
 			required: true
@@ -62,13 +77,29 @@ export default {
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		const id = to.params.id;
 		NProgress.start();
+		const p = store.dispatch('getPrevNextById', id);
 		return store.dispatch('getPostById', id)
 			.then(post => 
 				next(vm => {
 					document.title = `${post.title} | ${TITLE}`;
 					NProgress.done();
+					p.then(({ prev, next }) => (vm.prev = prev, vm.next = next));
 				})
 			);
+	}),
+	beforeRouteUpdate: routerLock(function (to, from, next) {
+		this.prev = this.next = null;
+
+		const id = to.params.id;
+		NProgress.start();
+		const p = store.dispatch('getPrevNextById', id);
+		return store.dispatch('getPostById', id)
+			.then(post => {
+				document.title = `${post.title} | ${TITLE}`;
+				NProgress.done();
+				p.then(({ prev, next }) => (this.prev = prev, this.next = next));
+				next();
+			});
 	}),
 	components: {
 		PageLayout,
@@ -147,7 +178,7 @@ $contentWidth: 650px;
 	align-content: center;
 	flex-wrap: wrap;
 	width: $contentWidth;
-	margin: 30px auto 60px;
+	margin: 30px auto;
 	@include font(16);
 }
 
@@ -158,6 +189,42 @@ $contentWidth: 650px;
 
 .tag-pos {
 	margin: 10px;
+}
+
+.prev-next {
+	width: $contentWidth + 40px;
+	margin: 30px auto 40px;
+	overflow: hidden;
+}
+
+.prev, .next {
+	color: #7394a4;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	padding: 20px 0;
+	user-select: none;
+	transition: color 0.3s ease;
+	@include font(16);
+	.icon {
+		color: #7394a4;
+		transition: color 0.3s ease;
+		@include font(20);
+	}
+	&:active {
+		color: #a2b4bc;
+		.icon {
+			color: #a2b4bc;
+		}
+	}
+}
+
+.prev {
+	float: left;
+}
+
+.next {
+	float: right;
 }
 </style>
 
