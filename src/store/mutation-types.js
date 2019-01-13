@@ -5,3 +5,5 @@ export const ADD_POSTS = 'addPosts';
 export const ADD_POSTS_MAP = 'addPostsMap';
 
 export const ADD_PREVNEXT_MAP = 'addPrevNextMap';
+
+export const SET_TAGS = 'setTags';

@@ -96,9 +96,9 @@ export default {
 		return store.dispatch('getPostById', id)
 			.then(post => {
 				document.title = `${post.title} | ${TITLE}`;
-				NProgress.done();
 				p.then(({ prev, next }) => (this.prev = prev, this.next = next));
 				next();
+				NProgress.done();
 			});
 	}),
 	components: {

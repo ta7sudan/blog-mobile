@@ -6,6 +6,7 @@ import apis from './lib/apis';
 import guard from './lib/guard';
 import NProgress from 'accessible-nprogress';
 import 'accessible-nprogress/dist/accessible-nprogress.css';
+import './lib/mixins';
 
 guard();
 window.NProgress = NProgress;

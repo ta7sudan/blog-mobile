@@ -8,7 +8,7 @@ export default {
 	},
 	render(h, context) {
 		return (
-			<router-link class={['tag', context.data.staticClass]} tag="div" to={context.props.route}>
+			<router-link class={['tag', context.data.staticClass]} active-class="active-tag" tag="div" to={context.props.route} exact>
 				{context.children}
 			</router-link>
 		);
@@ -22,6 +22,7 @@ export default {
 @import '../styles/theme-light.css';
 
 .tag {
+	display: inline-block;
 	color: $tagColor;
 	padding: 15px 25px;
 	background: $tagBgColor;
@@ -34,6 +35,14 @@ export default {
 		background: $tagBgHoverColor;
 		border-color: $tagBorderHoverColor;
 		transform: rotate3d(0, 0, 1, 15deg);
+	}
+}
+
+.active-tag {
+	color: #fff;
+	background: $tagBorderColor;
+	&:active {
+		color: $tagColor;
 	}
 }
 </style>

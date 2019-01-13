@@ -17,11 +17,7 @@ import { routerLock } from '../lib/util';
 
 export default {
 	/* global TITLE, NProgress */
-	data() {
-		return {
-			pageTitle: `Home | ${TITLE}`
-		};
-	},
+	pageTitle: `Home | ${TITLE}`,
 	props: {
 		page: {
 			type: Number,
@@ -40,10 +36,7 @@ export default {
 		NProgress.start();
 		return store.dispatch('getHomePosts', page)
 			.then(() => 
-				next(vm => {
-					document.title = vm.pageTitle;
-					NProgress.done();
-				})
+				next(vm => NProgress.done())
 			);
 	}),
 	beforeRouteUpdate: routerLock(function (to, from, next) {

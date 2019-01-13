@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP } from './mutation-types';
+import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP, SET_TAGS } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h, trimHtml, addTableWrapper } from '../lib/util';
 import marked from '../lib/marked';
@@ -14,7 +14,8 @@ const store = new Vuex.Store({
 		total: 0,
 		posts: [],
 		postsIdMap: {},
-		prevNextMap: {}
+		prevNextMap: {},
+		tags: []
 	},
 	getters: {
 		// O(n^2)插入
@@ -54,6 +55,9 @@ const store = new Vuex.Store({
 		},
 		[ADD_PREVNEXT_MAP](state, { id, data }) {
 			state.prevNextMap[id] = data;
+		},
+		[SET_TAGS](state, tags = []) {
+			state.tags = tags;
 		}
 	},
 	actions: {
@@ -121,6 +125,14 @@ const store = new Vuex.Store({
 				prev,
 				next
 			};
+		},
+		async getAllTags({ commit, state }) {
+			if (state.tags.length) {
+				return state.tags;
+			}
+			const { data: { tags }} = await h(apis.getAllTags());
+			commit(SET_TAGS, tags);
+			return tags;
 		}
 	}
 });
