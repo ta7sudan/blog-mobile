@@ -31,6 +31,18 @@ export default [
 		component: Post
 	},
 	{
+		path: '/tags',
+		component: () => import(/* webpackChunkName: "tags" */ '../views/tags.vue'),
+		children: [{
+			name: 'tags',
+			path: ''
+		}, {
+			name: 'tags-detail',
+			path: ':tag',
+			props: true
+		}]
+	},
+	{
 		path: '/about',
 		component: () => import(/* webpackChunkName: "about" */ '../views/about.vue'),
 		children: [{
@@ -51,12 +63,6 @@ export default [
 			name: 'archives-menu',
 			path: 'menu'
 		}]
-	},
-	{
-		name: 'tags',
-		path: '/tags/:tag',
-		props: true,
-		component: () => import(/* webpackChunkName: "tags" */ '../views/tags.vue')
 	},
 	{
 		path: '/friends',

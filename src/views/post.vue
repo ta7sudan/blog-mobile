@@ -21,7 +21,7 @@
 			<p class="last-modified" v-if="lastModifiedDate">Last modified on {{lastModifiedDate}}.</p>
 			<div class="tag-box">
 				<div class="label">Tags:</div>
-				<tag class="tag-pos" v-for="(tag, i) in post.tags" :route="{name: 'tags', params: {tag}}" :key="i">{{tag}}</tag>
+				<tag class="tag-pos" v-for="(tag, i) in post.tags" :route="{name: 'tags-detail', params: {tag}}" :key="i">{{tag}}</tag>
 			</div>
 			<div class="prev-next" v-if="prev && next">
 				<router-link class="prev" :to="{name: 'posts', params: {id: prev.id}}">

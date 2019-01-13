@@ -16,7 +16,7 @@ export default {
 	}, {
 		icon: 'tags',
 		text: 'Tags',
-		route: '/tag/todo'
+		route: '/tags'
 	}, {
 		icon: 'users',
 		text: 'Friends',

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP } from './mutation-types';
 import apis from '../lib/apis';
-import { apizHelper as h, trimHtml } from '../lib/util';
+import { apizHelper as h, trimHtml, addTableWrapper } from '../lib/util';
 import marked from '../lib/marked';
 
 Vue.use(Vuex);
@@ -66,7 +66,7 @@ const store = new Vuex.Store({
 				}));
 				data.posts.forEach(post => {
 					if (!post.parsed) {
-						post.content = marked(post.content);
+						post.content = addTableWrapper(marked(post.content), 'table-wrapper');
 						post.trimedHtml = trimHtml(post.content, {
 							limit: 200,
 							suffix: '...'
@@ -93,7 +93,7 @@ const store = new Vuex.Store({
 				id
 			}));
 			if (!post.parsed) {
-				post.content = marked(post.content);
+				post.content = addTableWrapper(marked(post.content), 'table-wrapper');
 				post.trimedHtml = trimHtml(post.content, {
 					limit: 200,
 					suffix: '...'

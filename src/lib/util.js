@@ -231,6 +231,16 @@ export function getDate(timestamp) {
 	return `${year}/${month}/${day}`;
 }
 
+export function addTableWrapper(htmlStr, classStr) {
+	return htmlStr.replace(/<\/?table.*?>/g, m => {
+		if (m === '</table>') {
+			return '</table></div>';
+		} else {
+			return `<div class="${classStr}">${m}`;
+		}
+	});
+}
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});

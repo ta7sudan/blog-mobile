@@ -34,7 +34,7 @@
 	h4, h5, h6 {
 		@include font(14);
 	}
-	div, p, li, td, th {
+	div, p, li {
 		color: #212721;
 		line-height: 2em;
 		@include font(14);
@@ -89,7 +89,7 @@
 	}
 	code, kbd {
 		color: #555;
-		background: #eee;
+		background: #e6e6e6;
 		padding: 4px 10px;
 		border-radius: 10px;
 		@include font(14);
@@ -111,11 +111,71 @@
 		background: rgba(102, 128, 153, .05);
 		padding: 10px 30px;
 	}
+	$tableBorder: 3px solid #ddd;
+	$tableBorderRadius: 8px;
 	table {
+		table-layout: fixed;
+		min-width: 100%;
+		border: $tableBorder;
+		border-left: none;
+		border-collapse: separate;
+		border-radius: $tableBorderRadius;
+		border-spacing: 0;
+		box-sizing: border-box;
+	}
+	.table-wrapper {
 		width: 100%;
+		overflow: auto;
 	}
 	th {
 		font-weight: bold;
+		border-left: $tableBorder;
+		border-top: none;
+	}
+	td {
+		border-left: $tableBorder;
+		border-top: $tableBorder;
+	}
+	th, td {
+		line-height: 1.8em;
+		padding: 10px 18px;
+		min-width: 100px;
+	}
+	thead:first-child tr:first-child {
+		& > th:first-child {
+			border-top-left-radius: $tableBorderRadius;
+		}
+		& > th:last-child {
+			border-top-right-radius: $tableBorderRadius;
+		}
+	}
+	tbody:first-child tr:first-child {
+		& > td:first-child {
+			border-top-left-radius: $tableBorderRadius;
+		}
+		& > td:last-child {
+			border-top-right-radius: $tableBorderRadius;
+		}
+	}
+	thead:last-child tr:last-child {
+		& > th:first-child {
+			border-bottom-left-radius: $tableBorderRadius;
+		}
+		& > th:last-child {
+			border-bottom-right-radius: $tableBorderRadius;
+		}
+	}
+	tbody:last-child tr:last-child,
+	tfoot:last-child tr:last-child {
+		& > td:first-child {
+			border-bottom-left-radius: $tableBorderRadius;
+		}
+		& > td:last-child {
+			border-bottom-right-radius: $tableBorderRadius;
+		}
+	}
+	tbody > tr:nth-child(odd) > td {
+		background: #f0f5f6;
 	}
 	a {
 		color: #08c;
