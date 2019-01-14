@@ -64,7 +64,7 @@ export default {
 		if (to.name === 'tags-detail') {
 			var tagName = to.params.tag;
 		}
-		store.dispatch('getAllTags')
+		return store.dispatch('getAllTags')
 			.then(() => next(vm => {
 				vm.currentTag = tagName;
 				NProgress.done();
@@ -75,7 +75,7 @@ export default {
 		if (to.name === 'tags-detail') {
 			var tagName = to.params.tag;
 		}
-		store.dispatch('getAllTags')
+		return store.dispatch('getAllTags')
 			.then(() => {
 				this.currentTag = tagName;
 				next();
@@ -172,7 +172,7 @@ $lineLeft: 20px;
 		position: absolute;
 		left: $lineLeft;
 		width: $lineWidth;
-		height: 100%;
+		height: 105%;
 		background: $tagPageUlLineColor;
 	}
 }

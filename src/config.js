@@ -10,9 +10,7 @@ export default {
 	}, {
 		icon: 'books',
 		text: 'Archives',
-		route: {
-			name: 'archives'
-		}
+		route: '/archives'
 	}, {
 		icon: 'tags',
 		text: 'Tags',

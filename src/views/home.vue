@@ -61,9 +61,13 @@ export default {
 <style lang="postcss" scoped>
 .home-page {
 	padding-top: 30px;
+	padding-bottom: 180px;
 }
 
 .pagination-pos {
-	margin: 80px auto 20px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 220px;
 }
 </style>

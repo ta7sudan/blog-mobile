@@ -43,6 +43,20 @@ export default [
 		}]
 	},
 	{
+		path: '/archives',
+		redirect: '/archives/1'
+	},
+	{
+		name: 'archives',
+		path: '/archives/:page',
+		props(route) {
+			return {
+				page: parseInt(route.params.page, 10)
+			};
+		},
+		component: () => import(/* webpackChunkName: "archives" */ '../views/archives.vue')
+	},
+	{
 		path: '/about',
 		component: () => import(/* webpackChunkName: "about" */ '../views/about.vue'),
 		children: [{
@@ -50,17 +64,6 @@ export default [
 			path: ''
 		}, {
 			name: 'about-menu',
-			path: 'menu'
-		}]
-	},
-	{
-		path: '/archives',
-		component: () => import(/* webpackChunkName: "archives" */ '../views/archives.vue'),
-		children: [{
-			name: 'archives',
-			path: ''
-		}, {
-			name: 'archives-menu',
 			path: 'menu'
 		}]
 	},

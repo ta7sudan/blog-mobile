@@ -32,11 +32,11 @@
   */
 @font-face {
   font-family: 'iconfont';
-  src:  url('../assets/fonts/iconfont.eot?h4r586');
-  src:  url('../assets/fonts/iconfont.eot?h4r586#iefix') format('embedded-opentype'),
-    url('../assets/fonts/iconfont.ttf?h4r586') format('truetype'),
-    url('../assets/fonts/iconfont.woff?h4r586') format('woff'),
-    url('../assets/fonts/iconfont.svg?h4r586#iconfont') format('svg');
+  src:  url('../assets/fonts/iconfont.eot?4bkrh9');
+  src:  url('../assets/fonts/iconfont.eot?4bkrh9#iefix') format('embedded-opentype'),
+    url('../assets/fonts/iconfont.ttf?4bkrh9') format('truetype'),
+    url('../assets/fonts/iconfont.woff?4bkrh9') format('woff'),
+    url('../assets/fonts/iconfont.svg?4bkrh9#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -68,6 +68,9 @@ i {
 }
 .icon-tags:before {
   content: "\e904";
+}
+.icon-calendar:before {
+  content: "\e90a";
 }
 .icon-calendar-o:before {
   content: "\e906";

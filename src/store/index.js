@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP, SET_TAGS } from './mutation-types';
+import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP, SET_TAGS, ADD_ARCHIVES_MAP, SET_ARCHIVES_TOTAL } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h, trimHtml, addTableWrapper } from '../lib/util';
 import marked from '../lib/marked';
@@ -11,11 +11,14 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 	strict: DEBUG,
 	state: {
+		// 命名没起好...不过为了兼容性算了不改了..
 		total: 0,
+		archivesTotal: 0,
 		posts: [],
 		postsIdMap: {},
 		prevNextMap: {},
-		tags: []
+		tags: [],
+		archivesPageMap: {}
 	},
 	getters: {
 		// O(n^2)插入
@@ -58,8 +61,17 @@ const store = new Vuex.Store({
 		},
 		[SET_TAGS](state, tags = []) {
 			state.tags = tags;
+		},
+		[ADD_ARCHIVES_MAP](state, { page, archives }) {
+			state.archivesPageMap[page] = archives;
+		},
+		[SET_ARCHIVES_TOTAL](state, total) {
+			state.archivesTotal = total;
 		}
 	},
+	// 基本上所有接口数据都会做缓存, 但是目前因为是session范围的缓存,
+	// 所以暂时不考虑缓存失效的策略, 另一方面数据对实时性要求不高, 即便
+	// 后台更新了, 在一次session中前端内容没有更新也没太大关系
 	actions: {
 		async getHomePosts({ commit, getters: { pageMap } }, page) {
 			if (!pageMap[page]) {
@@ -133,6 +145,20 @@ const store = new Vuex.Store({
 			const { data: { tags }} = await h(apis.getAllTags());
 			commit(SET_TAGS, tags);
 			return tags;
+		},
+		async getArchivesByPage({ commit, state }, { page, limit }) {
+			if (state.archivesPageMap[page]) {
+				return state.archivesPageMap[page];
+			}
+			const { data: { archives, total }} = await h(apis.getArchives({
+				page
+			}, {
+				limit,
+				groupBy: 'month'
+			}));
+			commit(ADD_ARCHIVES_MAP, { page, archives });
+			commit(SET_ARCHIVES_TOTAL, total);
+			return archives;
 		}
 	}
 });
