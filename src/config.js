@@ -33,7 +33,7 @@ export default {
 		url: 'https://github.com/ta7sudan'
 	}, {
 		icon: 'twitter',
-		url: 'https://www.todo.com'
+		url: 'https://twitter.com/ta7sudan'
 	}, {
 		icon: 'linkedin',
 		url: 'https://www.todo.com'

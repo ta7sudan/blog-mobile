@@ -1,6 +1,6 @@
 @import './font-size.css';
 
-.post-content {
+.post-content, .about-content {
 	color: #212721;
 	word-break: break-all;
 	letter-spacing: 2px;/* skip-p2v */
@@ -193,5 +193,10 @@
 	em {
 		font-style: italic;
 	}
+}
 
+.about-content {
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal;
+	}
 }
