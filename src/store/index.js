@@ -1,6 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { SET_POSTS_TOTAL, ADD_POSTS, ADD_POSTS_MAP, ADD_PREVNEXT_MAP, SET_TAGS, ADD_ARCHIVES_MAP, SET_ARCHIVES_TOTAL, SET_ABOUT } from './mutation-types';
+import {
+	SET_POSTS_TOTAL,
+	ADD_POSTS,
+	ADD_POSTS_MAP,
+	ADD_PREVNEXT_MAP,
+	SET_TAGS,
+	ADD_ARCHIVES_MAP,
+	SET_ARCHIVES_TOTAL,
+	SET_ABOUT,
+	SET_FRIENDS } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h, trimHtml, addTableWrapper } from '../lib/util';
 import marked from '../lib/marked';
@@ -19,7 +28,8 @@ const store = new Vuex.Store({
 		prevNextMap: {},
 		tags: [],
 		archivesPageMap: {},
-		about: ''
+		about: '',
+		friends: []
 	},
 	getters: {
 		// O(n^2)插入
@@ -71,6 +81,9 @@ const store = new Vuex.Store({
 		},
 		[SET_ABOUT](state, content) {
 			state.about = content;
+		},
+		[SET_FRIENDS](state, friends = []) {
+			state.friends = friends;
 		}
 	},
 	// 基本上所有接口数据都会做缓存, 但是目前因为是session范围的缓存,
@@ -171,6 +184,14 @@ const store = new Vuex.Store({
 			const { data: { content }} = await h(apis.getProfile());
 			commit(SET_ABOUT, addTableWrapper(marked(content), 'table-wrapper'));
 			return content;
+		},
+		async getFriends({ commit, state }) {
+			if (state.friends.length) {
+				return state.friends;
+			}
+			const { data: { friends }} = await h(apis.getFriends());
+			commit(SET_FRIENDS, friends);
+			return friends;
 		}
 	}
 });
