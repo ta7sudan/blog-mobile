@@ -32,6 +32,11 @@ export default {
 			toggleAvatar: false
 		};
 	},
+	watch: {
+		'$route'(to, from) {
+			this.toggleAvatar = to.name === 'about';
+		}
+	},
 	methods: {
 		search(content) {
 			alert('todo');

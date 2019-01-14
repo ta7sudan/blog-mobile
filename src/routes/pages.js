@@ -57,25 +57,13 @@ export default [
 		component: () => import(/* webpackChunkName: "archives" */ '../views/archives.vue')
 	},
 	{
+		name: 'about',
 		path: '/about',
-		component: () => import(/* webpackChunkName: "about" */ '../views/about.vue'),
-		children: [{
-			name: 'about',
-			path: ''
-		}, {
-			name: 'about-menu',
-			path: 'menu'
-		}]
+		component: () => import(/* webpackChunkName: "about" */ '../views/about.vue')
 	},
 	{
+		name: 'friends',
 		path: '/friends',
-		component: () => import(/* webpackChunkName: "friends" */ '../views/friends.vue'),
-		children: [{
-			name: 'friends',
-			path: ''
-		}, {
-			name: 'friends-menu',
-			path: 'menu'
-		}]
+		component: () => import(/* webpackChunkName: "friends" */ '../views/friends.vue')
 	}
 ];

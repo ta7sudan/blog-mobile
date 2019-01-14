@@ -18,15 +18,11 @@ export default {
 	}, {
 		icon: 'users',
 		text: 'Friends',
-		route: {
-			name: 'friends'
-		}
+		route: '/friends'
 	}, {
 		icon: 'user',
 		text: 'About',
-		route: {
-			name: 'about'
-		}
+		route: '/about'
 	}],
 	sns: [{
 		icon: 'github',
