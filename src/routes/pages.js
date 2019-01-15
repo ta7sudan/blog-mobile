@@ -65,5 +65,15 @@ export default [
 		name: 'friends',
 		path: '/friends',
 		component: () => import(/* webpackChunkName: "friends" */ '../views/friends.vue')
+	},
+	{
+		name: 'search',
+		path: '/search',
+		props(route) {
+			return {
+				query: route.query.query
+			};
+		},
+		component: () => import(/* webpackChunkName: "search" */ '../views/search.vue')
 	}
 ];

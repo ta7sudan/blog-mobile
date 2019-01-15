@@ -39,7 +39,12 @@ export default {
 	},
 	methods: {
 		search(content) {
-			alert('todo');
+			this.$router.push({
+				name: 'search',
+				query: {
+					query: content
+				}
+			});
 		},
 		goHome() {
 			this.$router.push('/');
