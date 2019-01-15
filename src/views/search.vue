@@ -3,9 +3,10 @@
 		<div class="search-page">
 			<div class="main">
 				<h1 class="title">Search: {{query}}</h1>
-				<ul class="result">
+				<ul class="result" v-if="result && result.length">
 					<router-link class="item" tag="li" :to="{name: 'posts', params: {id: post.id}}" v-for="(post, i) in result" :key="i">{{post.title}}</router-link>
 				</ul>
+				<p class="nothing" v-else>Not found.</p>
 			</div>
 		</div>
 	</page-layout>
@@ -59,7 +60,7 @@ export default {
 }
 
 .title {
-	color: #38619d;
+	color: $searchTitleColor;
 	margin-top: 80px;
 	@include font(24);
 }
@@ -69,19 +70,19 @@ export default {
 }
 
 .item {
-	color: #363636;
+	color: $searchItemColor;
 	line-height: 1.6em;
 	margin-left: 20px;
 	margin-bottom: 30px;
 	padding: 20px 40px 20px 45px;
-	border-bottom: 3px dotted rgba(#555, 0.4);
+	border-bottom: 3px dotted $searchItemBorderColor;
 	transition: color 0.3s ease;
 	position: relative;
 	@include font(16);
 	&::before {
 		content: "";
 		display: block;
-		background: #38619d;
+		background: $searchItemDotColor;
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
@@ -91,8 +92,14 @@ export default {
 		left: 0;
 	}
 	&:active {
-		color: #5699d2;
+		color: $searchItemActiveColor;
 	}
 }
 
+.nothing {
+	color: $searchNotFoundColor;
+	margin-top: 60px;
+	text-align: center;
+	@include font(18);
+}
 </style>
