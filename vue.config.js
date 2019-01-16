@@ -12,7 +12,7 @@ const { compressCSS, compressHTML, compressJS } = require('./compress');
 process.env.RELEASE_VERSION = childProcess.execSync('git rev-parse HEAD').toString().trim();
 
 module.exports = {
-	baseUrl: process.env.CDN || '/',
+	publicPath: process.env.CDN || '/',
 	// 这个是给initial的chunk加crossorigin的, 但是不会给async chunk加crossorigin
 	crossorigin: 'anonymous',
 	css: {

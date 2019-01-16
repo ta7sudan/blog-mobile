@@ -1,6 +1,8 @@
 module.exports = {
 	plugins: {
 		autoprefixer: {},
+		// 这东西不能升级到4.0, 否则和postcss-automath冲突导致无法在编译
+		// 期进行计算, 只能是有空魔改下
 		precss: {},
 		'postcss-automath': {},
 		'postcss-hexrgba': {},
