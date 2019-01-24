@@ -3,7 +3,7 @@ watch: true
 cors:
   origin: true
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD']
-  allowedHeaders: ['AUTH', 'Content-Type']
+  allowedHeaders: ['Authorization', 'Content-Type']
 port: 3000
 proxy:
   prefix: /error

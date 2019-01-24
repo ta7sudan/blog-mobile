@@ -39,7 +39,7 @@ const apis = new APIs({
 			// 如果来源是授权接口或者要重新授权, 那就应当请求授权接口或者重定向授权页面
 			location.reload(true);
 		}
-		xhr.setRequestHeader('AUTH', jwt);
+		xhr.setRequestHeader('Authorization', `Bearer ${jwt}`);
 	},
 	afterResponse(resData = {}, xhr, url, reqData) {
 		// 在响应处理之前
