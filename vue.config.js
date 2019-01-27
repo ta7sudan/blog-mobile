@@ -1,15 +1,12 @@
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const PreloadFontPlugin = require('preload-font-plugin');
 // const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin');
 // const HtmlTagAttrPlugin = require('html-tag-attributes-plugin');
 const SentryCliPlugin = require('@sentry/webpack-plugin');
-const childProcess = require('child_process');
 const { compressCSS, compressHTML, compressJS } = require('./compress');
-// 依赖于git是不是不太好, 毕竟可能CI环境下没有git, 这样就还得装个git
-// 理想的方案应该是在npm script里面执行cross-env RELEASE_VERSION=$(sentry-cli releases propose-version) vue-cli-service build --modern
-// 这样的话不需要git, sentry-cli是跨平台的, 然而不知道为什么会报错, 不是很懂shell
-// 暂时先这么搞吧, 等有空找个shell大佬问下
-process.env.RELEASE_VERSION = childProcess.execSync('git rev-parse HEAD').toString().trim();
+
+const gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
 	publicPath: process.env.CDN || '/',
@@ -85,8 +82,23 @@ module.exports = {
 				// iesafe: true,
 			})
 			.end();
+
+		config.plugin('git-plugin')
+			.use(GitRevisionPlugin)
+			// 本来这里应该返回之前创建好的实例的,
+			// 但是Vue Cli的modern模式会构建两次,
+			// 导致第二次复用了第一次的实例, 本来
+			// 这也没什么问题, 但是webpack-chain会给
+			// 这个实例使用Object.defineProperty把
+			// configurable设置为false, 导致第二次构建
+			// 时候使用Object.defineProperty报错,
+			// 所以就不能够复用同一个实例, 但是这东
+			// 西不复用实例讲道理是会有问题, 不过实际上
+			// 这里不复用实例其实也没什么问题...那就这样吧
+			// .init(() => gitRevisionPlugin)
+			.before('vue-loader');
 		config.plugin('define').tap(args => {
-			args[0]['process.env'].RELEASE_VERSION = JSON.stringify(process.env.RELEASE_VERSION);
+			args[0]['process.env'].RELEASE_VERSION = JSON.stringify(gitRevisionPlugin.commithash());
 			args[0]['process.env'].SENTRY_DSN = JSON.stringify(process.env.SENTRY_DSN);
 			return [
 				{
@@ -117,7 +129,7 @@ module.exports = {
 			css: compressCSS('./src/styles/reset.css') + compressCSS('./src/styles/loading.css'),
 			html: compressHTML('./src/loading.tpl'),
 			errorScript: compressJS('./src/lib/error-collect.js')
-				.replace(/\w+\.RELEASE/, JSON.stringify(process.env.RELEASE_VERSION))
+				.replace(/\w+\.RELEASE/, JSON.stringify(gitRevisionPlugin.commithash()))
 				.replace(/\w+\.BACKUP_MONITORURL/, JSON.stringify(process.env.BACKUP_MONITORURL))
 				.replace(/\w+\.CHANNEL/, JSON.stringify(process.env.CHANNEL)),
 			loadingScript: compressJS('./src/lib/loading.js'),
