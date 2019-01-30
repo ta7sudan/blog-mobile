@@ -18,7 +18,6 @@ module.exports = {
 			views: 100,
 			img: 'https://img.mp.itc.cn/upload/20170212/59a1530dadbd455fbd6e6127556a3b08_th.jpg',
 			// img: '',
-			page: parseInt(req.params.page, 10),
 			parsed: false,
 			createdTime: Date.now(),
 			modifiedTime: Date.now() + 864e3,
