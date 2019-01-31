@@ -36,6 +36,7 @@ module.exports = {
 			id: '123',
 			title: 'test0'
 		},
+		// prev: null,
 		next: {
 			id: '321',
 			title: 'test1'

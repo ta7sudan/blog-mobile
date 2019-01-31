@@ -23,11 +23,11 @@
 				<div class="label">Tags:</div>
 				<tag class="tag-pos" v-for="(tag, i) in post.tags" :route="{name: 'tags-detail', params: {tag}}" :key="i">{{tag}}</tag>
 			</div>
-			<div class="prev-next" v-if="prev && next">
-				<router-link class="prev" :to="{name: 'posts', params: {id: prev.id}}">
+			<div class="prev-next" v-if="prev || next">
+				<router-link class="prev" :to="{name: 'posts', params: {id: prev.id}}" v-if="prev">
 					<i class="icon icon-keyboard_arrow_left"></i><span>previous</span>
 				</router-link>
-				<router-link class="next" :to="{name: 'posts', params: {id: next.id}}">
+				<router-link class="next" :to="{name: 'posts', params: {id: next.id}}" v-if="next">
 					<span>next</span><i class="icon icon-keyboard_arrow_right"></i>
 				</router-link>
 			</div>
