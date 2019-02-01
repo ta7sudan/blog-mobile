@@ -3,7 +3,7 @@
 		<div class="about-page">
 			<div class="title-map"><h1 class="page-title">About</h1></div>
 			<div class="main">
-				<div class="about-content" v-html="about"></div>
+				<div class="about-content" v-if="userProfile" v-html="userProfile.profile"></div>
 			</div>
 		</div>
 	</page-layout>
@@ -21,7 +21,7 @@ import '../styles/post-content.css';
 export default {
 	pageTitle: `About | ${TITLE}`,
 	computed: {
-		...mapState(['about'])
+		...mapState(['userProfile'])
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		NProgress.start();

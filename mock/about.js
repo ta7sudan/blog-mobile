@@ -6,11 +6,13 @@ require('dotenv-safe').config({
 
 module.exports = {
 	[`get /api/${process.env.API_VERSION}/about`]: async req => {
-		const content = await fs.readFile(path.resolve(__dirname, './assets/about.md'), 'utf8');
+		const profile = await fs.readFile(path.resolve(__dirname, './assets/about.md'), 'utf8');
 		return {
 			statusCode: 200,
 			errorMessage: 'test',
-			content
+			name: 'ta7sudan',
+			desc: 'test test',
+			profile
 		};
 	}
 };

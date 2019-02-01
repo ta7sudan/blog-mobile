@@ -8,7 +8,7 @@ import {
 	SET_TAGS,
 	ADD_ARCHIVES_MAP,
 	SET_ARCHIVES_TOTAL,
-	SET_ABOUT,
+	SET_USERPROFILE,
 	SET_FRIENDS } from './mutation-types';
 import apis from '../lib/apis';
 import { apizHelper as h, trimHtml, addTableWrapper } from '../lib/util';
@@ -28,7 +28,7 @@ const store = new Vuex.Store({
 		prevNextMap: {},
 		tags: [],
 		archivesPageMap: {},
-		about: '',
+		userProfile: null,
 		friends: []
 	},
 	getters: {
@@ -79,8 +79,8 @@ const store = new Vuex.Store({
 		[SET_ARCHIVES_TOTAL](state, total) {
 			state.archivesTotal = total;
 		},
-		[SET_ABOUT](state, content) {
-			state.about = content;
+		[SET_USERPROFILE](state, data) {
+			state.userProfile = data;
 		},
 		[SET_FRIENDS](state, friends = []) {
 			state.friends = friends;
@@ -178,12 +178,18 @@ const store = new Vuex.Store({
 			return archives;
 		},
 		async getProfile({ commit, state }) {
-			if (state.about) {
-				return state.about;
+			debugger;
+			if (state.userProfile) {
+				return state.userProfile;
 			}
-			const { data: { content }} = await h(apis.getProfile());
-			commit(SET_ABOUT, addTableWrapper(marked(content), 'table-wrapper'));
-			return content;
+			const { data: { name, desc, profile }} = await h(apis.getProfile());
+			const userProfile = {
+				name,
+				desc,
+				profile: addTableWrapper(marked(profile), 'table-wrapper')
+			};
+			commit(SET_USERPROFILE, userProfile);
+			return userProfile;
 		},
 		async getFriends({ commit, state }) {
 			if (state.friends.length) {

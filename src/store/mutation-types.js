@@ -12,6 +12,6 @@ export const ADD_ARCHIVES_MAP = 'addArchviesMap';
 
 export const SET_ARCHIVES_TOTAL = 'setArchiveTotal';
 
-export const SET_ABOUT = 'setAbout';
+export const SET_USERPROFILE = 'setUserProfile';
 
 export const SET_FRIENDS = 'setFriends';
