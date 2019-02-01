@@ -25,7 +25,7 @@ export default [
 		path: '/posts/:id',
 		props(route) {
 			return {
-				id: parseInt(route.params.id, 10)
+				id: route.params.id
 			};
 		},
 		component: Post

@@ -1,6 +1,6 @@
 <template>
 	<div class="tool-bar" :class="{'toolbar-show': show}">
-		<h1 class="logo" @click="$emit('on-logo')">Ta7sudan</h1>
+		<h1 class="logo" @click="$emit('on-logo')">Alor'idal</h1>
 		<form 
 			class="search-form"
 			@submit.prevent="submit">
@@ -103,9 +103,9 @@ export default {
 .logo {
 	color: $logoColor;
 	font-family: "Covered By Your Grace", cursive, "Helvetica Neue", Helvetica, Tahoma, Arial;
-	@include font(30);
+	@include font(34);
 	position: absolute;
-	left: 22px;
+	left: 32px;
 	top: 50%;
 	transform: translateY(-50%);
 }

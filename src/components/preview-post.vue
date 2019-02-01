@@ -6,7 +6,7 @@ import '../styles/iconfont.css';
 export default {
 	functional: true,
 	props: {
-		id: Number,
+		id: String,
 		img: String,
 		title: {
 			type: String,

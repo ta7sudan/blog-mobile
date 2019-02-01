@@ -178,7 +178,6 @@ const store = new Vuex.Store({
 			return archives;
 		},
 		async getProfile({ commit, state }) {
-			debugger;
 			if (state.userProfile) {
 				return state.userProfile;
 			}
