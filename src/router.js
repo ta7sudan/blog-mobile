@@ -17,7 +17,7 @@ const routes = loadAllArr(require.context('./routes', true, /((?<=\/)[^_]|^[^_])
 
 const router = new Router({
 	mode: 'history',
-	base: process.env.BASE_URL,
+	base: '/',
 	routes,
 	scrollBehavior(to, from, savedPosition) {
 		// 在menu退出的时候不要重复scroll, menu-bar里面会做一次复位

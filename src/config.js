@@ -1,6 +1,6 @@
 export default {
 	cube: ['家', '苟', '国', '生', '死', '利'],
-	desc: 'Hello world todo',
+	desc: 'CWOWER/网瘾战争幸存者/社会主义朋克/改开废物/这届RM/赵国人/初级魔法师',
 	menu: [{
 		icon: 'home3',
 		text: 'Home',

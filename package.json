@@ -1,7 +1,7 @@
 {
   "name": "blog-mobile",
   "version": "0.1.0",
-  "description": "todo",
+  "description": "blog-mobile",
   "private": true,
   "scripts": {
     "build": "vue-cli-service build --modern --report",
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/ta7sudan/blog-mobile.git"
   },
   "keywords": [
-    "todo"
+    "blog"
   ],
   "author": "ta7sudan",
   "license": "GPL-3.0",
