@@ -149,6 +149,9 @@ module.exports = {
 		// 	}
 		// }]);
 
+		// 暂时还是去掉prefetch, prefetch的页面多了会
+		// 后续ajax请求排队自己从代码层面控制是否预加载会更好一些
+		config.plugins.delete('prefetch');
 		// 这个简直坑爹, vue cli在之后合并的preload插件的配置选项,
 		// 于是如果你用tap修改preload插件的配置选项永远是报错,
 		// 简单讲, 就是在你tap的时候, vue内部还没有use, 于是gg,
