@@ -13,7 +13,7 @@ module.exports = {
 				encoding: 'utf8'
 			});
 			while (n--) {
-				let id = Math.floor(Math.random() * 10000 - 1);
+				let id = Math.floor(Math.random() * 10000 - 1).toString();
 				posts.push({
 					id,
 					title: file.slice(0, -3),

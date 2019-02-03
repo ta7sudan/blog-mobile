@@ -5,7 +5,7 @@ import { report, once } from './util';
 export default function guard() {
 	secan({
 		// TODO
-		debug: '__nodebugger__',
+		debug: DEBUG || '__nodebugger__',
 		debuggerLoop: true,
 		breakIframe: true,
 		hookFn: true,

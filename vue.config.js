@@ -43,7 +43,8 @@ module.exports = {
 			.end();
 		// .alias
 		// .set('@asset', path.resolve(__dirname, './src/assets'));
-		const imgLoader = config.module
+		// const imgLoader = 
+		config.module
 			.rule('images')
 			.use('url-loader')
 			.loader('url-loader')
@@ -183,18 +184,18 @@ module.exports = {
 			}
 		}]);
 		if (process.env.NODE_ENV === 'production') {
-			imgLoader
-				.use('image-webpack-loader')
-				.loader('image-webpack-loader')
-				.options({
-					// 这里只为开启webp, 注意它不负责把其他jpg, png转成webp,
-					// 它只负责把压缩率不到75的webp压到75,
-					// 如果需要将其他格式转webp, 请关掉默认的其他格式压缩器,
-					// 其他压缩器选项有点多, 有空再慢慢调
-					webp: {
-						quality: 75
-					}
-				});
+			// imgLoader
+			// 	.use('image-webpack-loader')
+			// 	.loader('image-webpack-loader')
+			// 	.options({
+			// 		// 这里只为开启webp, 注意它不负责把其他jpg, png转成webp,
+			// 		// 它只负责把压缩率不到75的webp压到75,
+			// 		// 如果需要将其他格式转webp, 请关掉默认的其他格式压缩器,
+			// 		// 其他压缩器选项有点多, 有空再慢慢调
+			// 		webp: {
+			// 			quality: 75
+			// 		}
+			// 	});
 			svgLoader
 				.use('image-webpack-loader')
 				.loader('image-webpack-loader');

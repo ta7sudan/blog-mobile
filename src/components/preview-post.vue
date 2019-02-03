@@ -78,7 +78,7 @@ export default {
 		display: block;
 		width: 80px;
 		height: 3px;
-		border-radius: 50%;
+		border-radius: 3px;
 		background: $previewEndLineColor;
 		position: absolute;
 		bottom: 0;
