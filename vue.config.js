@@ -71,7 +71,8 @@ module.exports = {
 					}
 				}
 			});
-		const svgLoader = config.module
+		// const svgLoader = 
+		config.module
 			.rule('svg')
 			.use('file-loader')
 			.loader('svg-url-loader')
@@ -199,9 +200,9 @@ module.exports = {
 			// 			quality: 75
 			// 		}
 			// 	});
-			svgLoader
-				.use('image-webpack-loader')
-				.loader('image-webpack-loader');
+			// svgLoader
+			// 	.use('image-webpack-loader')
+			// 	.loader('image-webpack-loader');
 			config.plugin('deepscope').use(WebpackDeepScopeAnalysisPlugin);
 			// 这个坑爹的sentry插件在Windows下建议手动下载它的exe放到它自己的bin目录下
 			// 不然谜之卡死
