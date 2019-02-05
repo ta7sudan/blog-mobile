@@ -89,8 +89,8 @@ export default {
 
 .scroll-btn-pos {
 	position: fixed;
-	bottom: 70px;
-	right: 50px;
+	bottom: 100px;
+	right: 80px;
 	z-index: 100;
 }
 </style>

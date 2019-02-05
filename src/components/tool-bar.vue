@@ -54,7 +54,7 @@ export default {
 		},
 		doScroll() {
 			const currentPos = scrollY();
-			this.show = currentPos - this.lastPos < 0;
+			this.show = currentPos - this.lastPos < 0 || currentPos < 1;
 			this.lastPos = currentPos;
 		}
 	},
