@@ -32,20 +32,20 @@ export default {
 		},
 		scrollToTop() {
 			// MMP safari不支持原生是smooth选项
-			// try {
-			// 	window.scrollTo({
-			// 		top: 0,
-			// 		behavior: 'smooth'
-			// 	});
-			// } catch (e) {
-			animate({
-				startPos: scrollY(),
-				endPos: 0,
-				duration: 800,
-				setValue: scrollY,
-				easing: 'easeIn'
-			});
-			// }
+			try {
+				window.scrollTo({
+					top: 0,
+					behavior: 'smooth'
+				});
+			} catch (e) {
+				animate({
+					startPos: scrollY(),
+					endPos: 0,
+					duration: 800,
+					setValue: scrollY,
+					easing: 'easeIn'
+				});
+			}
 		}
 	},
 	beforeMount() {

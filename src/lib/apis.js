@@ -41,12 +41,12 @@ const apis = new APIs({
 		}
 		xhr.setRequestHeader('Authorization', `Bearer ${jwt}`);
 	},
-	afterResponse(resData = {}, xhr, url, reqData) {
+	afterResponse(resData = {}, status, xhr, url, reqData) {
 		// 在响应处理之前
 		// 根据状态码做一些异常处理, 比如JWT过期, 或其他什么的
 		// 不要用HTTP状态码, 虽然这样更符合语义, 但是运营商
 		// 劫持一下你状态码可能就出错, 还是自己自定义状态码吧
-		if (resData.statusCode === Status.TOKEN_EXPIRED) {
+		if (xhr.status === Status.TOKEN_EXPIRED || resData.statusCode === Status.TOKEN_EXPIRED) {
 			// 如果后端认为你JWT过期了, 那管你是真过期没过期,
 			// 都当作过期处理, 那就只能从JWT来源重新获取
 			// 所以这里也只能刷新页面, 但理论上这情况不存在
