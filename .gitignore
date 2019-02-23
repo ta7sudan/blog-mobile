@@ -1,3 +1,4 @@
+.DS_Store
 # Logs
 logs
 *.log
@@ -53,6 +54,14 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
 
 # dotenv environment variables file
 # .env
