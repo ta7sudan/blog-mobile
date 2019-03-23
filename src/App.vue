@@ -76,7 +76,7 @@ export default {
 	top: 0;
 	left: 0;
 	right: 0;
-	transition: all 0.4s linear;
+	transition: all 0.3s linear;
 }
 
 .toolbar-z-level {
