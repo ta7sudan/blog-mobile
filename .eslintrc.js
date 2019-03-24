@@ -1,21 +1,21 @@
 module.exports = {
-	root: true,
-	env: {
+  root: true,
+  env: {
 		es6: true,
 		browser: true,
-		node: true
-	},
+    node: true
+  },
 	globals: {
-		DEBUG: true
-	},
-	extends: ['plugin:vue/essential'],
+    DEBUG: true
+  },
+  extends: ['plugin:vue/essential'],
 	plugins: ['prettier'],
 	parserOptions: {
 		parser: 'babel-eslint',
 		ecmaVersion: 2018,
 		sourceType: 'module'
 	},
-	rules: {
+  rules: {
 		'no-undef': 'error',
 		'no-console': 'off',
 		'no-debugger': 'off',
