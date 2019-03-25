@@ -1,6 +1,6 @@
 <template>
 	<transition name="menubar-fade" type="transition" @enter="enter">
-		<div class="menu-bar-container" v-show="show" @click.self="hide">
+		<div class="menu-bar-container" v-show="show" @touchstart.self="hide">
 			<!-- 不用.self在这里用@click.stop也可以, 而且有时候必须用.stop, 不过这里.self更简单 -->
 			<div class="menu-bar">
 				<div class="frame">

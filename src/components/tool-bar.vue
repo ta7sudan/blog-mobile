@@ -1,6 +1,6 @@
 <template>
 	<div class="tool-bar" :class="{'toolbar-show': show}">
-		<h1 class="logo" @click="$emit('on-logo')">Alor'idal</h1>
+		<h1 class="logo" @touchstart="$emit('on-logo')">Alor'idal</h1>
 		<form 
 			class="search-form"
 			@submit.prevent="submit">
@@ -17,9 +17,9 @@
 				@focus="showSearch=true"
 				@blur="showSearch=false">
 			<label for="search">
-				<i class="icon-search" @click.passive="submit"></i>
+				<i class="icon-search" @touchstart.passive="submit"></i>
 			</label>
-			<i class="icon-list2" @click="$emit('on-menu')"></i>
+			<i class="icon-list2" @touchstart="$emit('on-menu')"></i>
 		</form>
 	</div>
 </template>

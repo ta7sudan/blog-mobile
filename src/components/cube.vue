@@ -1,6 +1,6 @@
 <template>
 	<div class="cube-container">
-		<div class="cube" :class="{colorized}" @click="hideColor">
+		<div class="cube" :class="{colorized}" @touchstart="hideColor">
 			<div class="face" :class="`face-${i}`" v-for="i in 5" :key="i">{{content[i]}}</div>
 		</div>
 		<div class="cube-shadow"></div>

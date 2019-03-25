@@ -1,7 +1,7 @@
 <template>
 	<div class="pagination-wrapper">
 		<ul class="pagination">
-			<li class="item" @click="goPrev">«</li>
+			<li class="item" @touchstart="goPrev">«</li>
 			<router-link
 				class="item"
 				active-class="cur-page"
@@ -10,7 +10,7 @@
 				:key="page"
 				:to="{name: routeName, params: {page}}"
 				exact>{{page}}</router-link>
-			<li class="item" @click="goNext">»</li>
+			<li class="item" @touchstart="goNext">»</li>
 		</ul>
 	</div>
 </template>

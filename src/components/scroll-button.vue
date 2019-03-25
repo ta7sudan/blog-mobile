@@ -3,7 +3,7 @@
 		class="scroll-button"
 		:class="{'scroll-button-show': show}"
 		@transitionend="hide"
-		@click="scrollToTop">
+		@touchstart="scrollToTop">
 		<i class="icon-keyboard_arrow_up"></i>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 	<div class="avatar-container">
-		<div class="avatar-main" @click="rotate=true">
+		<div class="avatar-main" @touchstart="rotate=true">
 			<img class="avatar" :class="{rotate}" src="./images/avatar.png" alt="avatar" @transitionend="revert">
 		</div>
 	</div>

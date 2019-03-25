@@ -3,7 +3,7 @@
 		<div class="friends-page">
 			<div class="title-map"></div>
 			<ul class="friends-links" v-if="friends.length">
-				<li class="link" v-for="(friend, i) in friends" :key="i" @click="go(friend.link)">
+				<li class="link" v-for="(friend, i) in friends" :key="i" @touchstart="go(friend.link)">
 					<div class="avatar" :style="{'background-image': `url(${friend.avatar})`}"></div>
 					<div class="info">
 						<p class="name">{{friend.name}}</p>
