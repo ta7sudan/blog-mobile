@@ -63,12 +63,10 @@ export default {
 @import './styles/size.css';
 
 .page-fade-enter {
-	/* opacity: 0.3; */
 	transform: translate3d(-100%, 0, 0);
 }
 .page-fade-leave-to {
-	/* opacity: 0.3; */
-	transform: translate3d(100%, 0, 0);
+	opacity: 0;
 }
 .page-fade-enter-active, .page-fade-leave-active {
 	/* absolute避免跳动, 否则的话就需要out-in */
@@ -76,7 +74,7 @@ export default {
 	top: 0;
 	left: 0;
 	right: 0;
-	transition: all 0.3s linear;
+	transition: all 0.3s ease-in;
 }
 
 .toolbar-z-level {

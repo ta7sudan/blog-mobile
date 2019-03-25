@@ -29,7 +29,11 @@ export default {
 	padding-bottom: 200px;
 	padding-top: $toolBarHeight;
 	box-sizing: border-box;
-	position: relative;
+	/* 为了页面切换动画更流畅 */
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
 }
 
 </style>
