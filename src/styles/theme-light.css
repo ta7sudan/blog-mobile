@@ -86,3 +86,7 @@ $searchItemBorderColor: rgba(#555, 0.4);
 $searchItemDotColor: #38619d;
 $searchNotFoundColor: #555;
 $errorMsgColor: #363636;
+$donateBtnBgColor: #f96854;
+$donateBtnActiveBgColor: #e52409;
+$qrcodeTitleColor: #333;
+$bitcoinAddrColor: #555;

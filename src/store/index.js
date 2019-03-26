@@ -181,10 +181,13 @@ const store = new Vuex.Store({
 			if (state.userProfile) {
 				return state.userProfile;
 			}
-			const { data: { name, desc, profile }} = await h(apis.getProfile());
+			const { data: { name, desc, profile, alipayQrCode, wechatPayQrCode, bitcoinAddr } } = await h(apis.getProfile());
 			const userProfile = {
 				name,
 				desc,
+				alipayQrCode,
+				wechatPayQrCode,
+				bitcoinAddr,
 				profile: addTableWrapper(marked(profile), 'table-wrapper')
 			};
 			commit(SET_USERPROFILE, userProfile);

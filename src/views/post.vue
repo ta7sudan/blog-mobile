@@ -23,7 +23,10 @@
 				<div class="label">Tags:</div>
 				<tag class="tag-pos" v-for="(tag, i) in post.tags" :route="{name: 'tags-detail', params: {tag}}" :key="i">{{tag}}</tag>
 			</div>
-			<div class="prev-next" v-if="prev || next">
+			<div class="donate-bar" v-if="hasQrCode">
+				<donate :alipay-qrcode="alipayQrCode" :wechat-pay-qrcode="wechatPayQrCode" :bitcoin-addr="bitcoinAddr" />
+			</div>
+			<div class="prev-next" v-if="hasPrevNext">
 				<router-link class="prev" :to="{name: 'posts', params: {id: prev.id}}" v-if="prev">
 					<i class="icon icon-keyboard_arrow_left"></i><span>previous</span>
 				</router-link>
@@ -37,6 +40,7 @@
 
 <script>
 import PageLayout from '../components/page-layout.vue';
+import Donate from '../components/donate.vue';
 import Tag from '../components/tag.vue';
 import { routerLock, getDate } from '../lib/util';
 import { mapState } from 'vuex';
@@ -50,7 +54,10 @@ export default {
 	data() {
 		return {
 			prev: null,
-			next: null
+			next: null,
+			alipayQrCode: null,
+			wechatPayQrCode: null,
+			bitcoinAddr: null
 		};
 	},
 	props: {
@@ -72,18 +79,28 @@ export default {
 				return null;
 			}
 		},
+		hasQrCode() {
+			return this.alipayQrCode || this.wechatPayQrCode || this.bitcoinAddr;
+		},
+		hasPrevNext() {
+			return this.prev || this.next;
+		},
 		...mapState(['postsIdMap'])
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		const id = to.params.id;
 		NProgress.start();
 		const p = store.dispatch('getPrevNextById', id);
+		const d = store.dispatch('getProfile');
 		return store.dispatch('getPostById', id)
 			.then(post => 
 				next(vm => {
 					document.title = `${post.title} | ${TITLE}`;
 					NProgress.done();
 					p.then(({ prev, next }) => (vm.prev = prev, vm.next = next));
+					d.then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
+						(vm.alipayQrCode = alipayQrCode, vm.wechatPayQrCode = wechatPayQrCode, vm.bitcoinAddr = bitcoinAddr)
+					);
 				})
 			);
 	}),
@@ -103,6 +120,7 @@ export default {
 	}),
 	components: {
 		PageLayout,
+		Donate,
 		Tag
 	}
 };
@@ -225,6 +243,11 @@ $contentWidth: 650px;
 
 .next {
 	float: right;
+}
+
+.donate-bar {
+	margin-top: 100px;
+	text-align: center;
 }
 </style>
 

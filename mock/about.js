@@ -12,6 +12,9 @@ module.exports = {
 			errorMessage: 'test',
 			name: 'ta7sudan',
 			desc: 'test test',
+			alipayQrCode: 'http://www.liantu.com/images/2013/liantu.png',
+			wechatPayQrCode: 'http://www.liantu.com/images/2013/liantu.png',
+			bitcoinAddr: '1NUSDCWti9FBJLiUxaLY1zJnwcSDc5Tfci',
 			profile
 		};
 	}
