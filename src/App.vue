@@ -8,7 +8,7 @@
 		<scroll-button class="scroll-btn-pos"></scroll-button>
 		<tool-bar class="toolbar-z-level" @on-search="search" @on-menu="showMenu=true" @on-logo="goHome" />
 		<menu-bar class="menubar-z-level"
-			v-bind="config"
+			v-bind="menuBarOptions"
 			:show.sync="showMenu"
 			:toggle="toggleAvatar" />
 	</div>
@@ -19,6 +19,8 @@
 import './styles/iconfont.css';
 import './styles/logo-font.css';
 import './styles/main.css';
+import { mapState } from 'vuex';
+import { p } from './lib/util';
 import ToolBar from './components/tool-bar.vue';
 import MenuBar from './components/menu-bar.vue';
 import ScrollButton from './components/scroll-button.vue';
@@ -31,6 +33,15 @@ export default {
 			showMenu: false,
 			toggleAvatar: false
 		};
+	},
+	computed: {
+		menuBarOptions() {
+			return {
+				...this.config,
+				desc: p(this).userProfile.desc(this.config.desc)
+			};
+		},
+		...mapState(['userProfile'])
 	},
 	watch: {
 		'$route'(to, from) {

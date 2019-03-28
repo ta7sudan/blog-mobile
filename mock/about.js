@@ -11,7 +11,7 @@ module.exports = {
 			statusCode: 200,
 			errorMessage: 'test',
 			name: 'ta7sudan',
-			desc: 'test test',
+			desc: 'test test aaa',
 			alipayQrCode: 'http://www.liantu.com/images/2013/liantu.png',
 			wechatPayQrCode: 'http://www.liantu.com/images/2013/liantu.png',
 			bitcoinAddr: '1NUSDCWti9FBJLiUxaLY1zJnwcSDc5Tfci',

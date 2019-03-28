@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import loadSentry from './lib/load-sentry';
 import { loadAllArr } from './lib/util';
 import errorRoutes from './routes/_error';
+import store from './store';
 
 Vue.use(Router);
 
@@ -47,6 +48,7 @@ const router = new Router({
 // 就不需要从init里面搞了
 router.onReady(() => {
 	loadSentry();
+	store.dispatch('getProfile');
 	mainLoading.stop();
 });
 

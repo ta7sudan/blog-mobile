@@ -241,6 +241,18 @@ export function addTableWrapper(htmlStr, classStr) {
 	});
 }
 
+const _reqMap = Symbol('reqMap');
+
+export const RequestCache = {
+	[_reqMap]: {},
+	get(name) {
+		return this[_reqMap][name];
+	},
+	set(name, req) {
+		this[_reqMap][name] = req;
+	}
+};
+
 export const isFn = f => typeof f === 'function';
 
 export const loadAllObj = ctx => ctx.keys().reduce((rst, item) => Object.assign(rst, ctx(item).default), {});

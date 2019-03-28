@@ -10,7 +10,7 @@ export default {
 	render(h, context) {
 		return (
 			<footer class='footer-bar' v-show={context.props.show} {...context.data.attrs}>
-				<p class='copyright'>Copyright © 2018 <span>ta7sudan</span>. All rights reserved.</p>
+				<p class='copyright'>Copyright © 2019 <span>ta7sudan</span>. All rights reserved.</p>
 				<p class='poweredby'>Powered by Vuejs.</p>
 				<p class='license'><a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a></p>
 			</footer>

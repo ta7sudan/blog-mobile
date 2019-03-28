@@ -11,7 +11,7 @@ import {
 	SET_USERPROFILE,
 	SET_FRIENDS } from './mutation-types';
 import apis from '../lib/apis';
-import { apizHelper as h, trimHtml, addTableWrapper } from '../lib/util';
+import { apizHelper as h, trimHtml, addTableWrapper, RequestCache } from '../lib/util';
 import marked from '../lib/marked';
 
 Vue.use(Vuex);
@@ -181,7 +181,13 @@ const store = new Vuex.Store({
 			if (state.userProfile) {
 				return state.userProfile;
 			}
-			const { data: { name, desc, profile, alipayQrCode, wechatPayQrCode, bitcoinAddr } } = await h(apis.getProfile());
+			let req = RequestCache.get('userProfile');
+			// 可能存在多个地方同时请求同一份数据, 导致多次请求, 这里缓存一下请求
+			if (!req) {
+				req = h(apis.getProfile());
+				RequestCache.set('userProfile', req);
+			}
+			const { data: { name, desc, profile, alipayQrCode, wechatPayQrCode, bitcoinAddr } } = await req;
 			const userProfile = {
 				name,
 				desc,
