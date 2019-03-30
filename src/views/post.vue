@@ -144,6 +144,11 @@ export default {
 				store.dispatch('getProfile').then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
 					(this.alipayQrCode = alipayQrCode, this.wechatPayQrCode = wechatPayQrCode, this.bitcoinAddr = bitcoinAddr)
 				);
+				this.$apis.addPostViewCount({
+					views: 1
+				}, {
+					id
+				});
 				next();
 				NProgress.done();
 			});
