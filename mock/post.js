@@ -41,5 +41,13 @@ module.exports = {
 			id: '321',
 			title: 'test1'
 		}
+	},
+
+	[`patch /api/${process.env.API_VERSION}/posts/:id`]: async (req, res) => {
+		res.code(500);
+		return {
+			statusCode: 200,
+			errorMessage: 'success'
+		};
 	}
 };

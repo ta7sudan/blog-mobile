@@ -105,6 +105,11 @@ export default {
 					store.dispatch('getProfile').then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
 						(vm.alipayQrCode = alipayQrCode, vm.wechatPayQrCode = wechatPayQrCode, vm.bitcoinAddr = bitcoinAddr)
 					);
+					vm.$apis.addPostViewCount({
+						views: 1
+					}, {
+						id
+					});
 					// Promise.all([
 					// 	// webpackMode: "lazy-once" 好像Vue CLI里面的Webpack还不支持
 					// 	import(

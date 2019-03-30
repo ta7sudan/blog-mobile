@@ -6,5 +6,10 @@ export default {
 	},
 	getPrevNextById: {
 		path: `/api/${API_VERSION}/prev-next`
+	},
+	addPostViewCount: {
+		path: `/api/${API_VERSION}/posts/:id`,
+		pathParams: true,
+		method: 'patch'
 	}
 };
