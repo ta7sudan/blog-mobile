@@ -105,6 +105,23 @@ export default {
 					store.dispatch('getProfile').then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
 						(vm.alipayQrCode = alipayQrCode, vm.wechatPayQrCode = wechatPayQrCode, vm.bitcoinAddr = bitcoinAddr)
 					);
+					// Promise.all([
+					// 	// webpackMode: "lazy-once" 好像Vue CLI里面的Webpack还不支持
+					// 	import(
+					// 		/* webpackChunkName: "vssue"*/
+					// 		'vssue'
+					// 	),
+					// 	import(
+					// 		/* webpackChunkName: "vssue"*/
+					// 		'@vssue/api-github-v3'
+					// 	),
+					// 	import(
+					// 		/* webpackChunkName: "vssue"*/
+					// 		'vssue/dist/vssue.css'
+					// 	)
+					// ]).then(([Vssue, GithubV3]) => {
+					// 	console.log(Vssue);
+					// });
 					NProgress.done();
 				})
 			);

@@ -188,6 +188,7 @@ module.exports = {
 			}
 		}]);
 		if (process.env.NODE_ENV === 'production') {
+			config.performance.hints(false);
 			// imgLoader
 			// 	.use('image-webpack-loader')
 			// 	.loader('image-webpack-loader')

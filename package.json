@@ -10,7 +10,8 @@
     "lint": "vue-cli-service lint",
     "inspect": "jsinspect src",
     "format": "prettier --config .prettierrc.js --write src/**/*.js",
-    "start": "concurrently \"pock\" \"vue-cli-service serve\""
+    "start": "concurrently \"pock\" \"vue-cli-service serve\"",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
   },
   "homepage": "https://github.com/ta7sudan/blog-mobile#readme",
   "dependencies": {
-    "@lowb/apiz-vue": "^0.1.9",
+    "@lowb/apiz-vue": "^0.1.10",
     "@sentry/browser": "^4.6.5",
     "accessible-nprogress": "^2.0.0",
     "alloylever": "^1.0.4",
@@ -45,6 +46,8 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-array-includes": "^2.0.3",
     "concurrently": "^4.1.0",
+    "conventional-changelog-cli": "^2.0.12",
+    "cz-conventional-changelog": "^2.1.0",
     "dotenv-safe": "^6.1.0",
     "eslint": "^5.15.3",
     "eslint-plugin-prettier": "^3.0.1",
@@ -77,5 +80,10 @@
     "*.vue": [
       "vue-cli-service lint"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
