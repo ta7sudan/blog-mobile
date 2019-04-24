@@ -44,7 +44,7 @@ module.exports = {
 	},
 
 	[`patch /api/${process.env.API_VERSION}/posts/:id`]: async (req, res) => {
-		res.code(500);
+		// res.code(500);
 		return {
 			statusCode: 200,
 			errorMessage: 'success'
