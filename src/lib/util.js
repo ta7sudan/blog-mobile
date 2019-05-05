@@ -62,9 +62,12 @@ export function routerLock(fn, timeout) {
 }
 
 export function scrollY(val) {
-	const root = document.documentElement || document.body.parentNode || document.body;
+	const doc = document;
+	const root = doc.documentElement || doc.body.parentNode || doc.body;
 	if (val !== undefined) {
-		root.scrollTop = val;
+		doc.body.scrollTop = val;
+		doc.documentElement && (doc.documentElement.scrollTop = val);
+		doc.body.parentNode && (doc.body.parentNode.scrollTop = val);
 	} else {
 		return (window.pageYOffset !== undefined) ? window.pageYOffset : root.scrollTop;
 	}

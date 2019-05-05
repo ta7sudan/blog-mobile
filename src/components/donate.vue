@@ -91,7 +91,7 @@ export default {
 }
 
 .qrcode-container {
-	width: 50%;
+	width: 40%;
 	margin: auto;
 	position: absolute;
 	top: 50%;
@@ -103,6 +103,7 @@ export default {
 .qrcode-wrapper {
 	width: 100%;
 	padding: 15px;
+	box-sizing: border-box;
 	border-radius: 10px;
 	background: #fff;
 	display: inline-block;

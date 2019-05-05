@@ -11,6 +11,9 @@ import './lib/mixins';
 guard();
 window.NProgress = NProgress;
 
+// for fucking iOS
+document.body.addEventListener('touchstart', () => {}, false);
+
 if (DEBUG) {
 	Vue.config.performance = true;
 	window.router = router;

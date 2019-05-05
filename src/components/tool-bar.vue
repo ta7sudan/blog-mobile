@@ -112,7 +112,6 @@ export default {
 
 $inputFtSize: 14;
 .search-form {
-	padding-right: 20px;
 	display: flex;
 	align-items: center;
 	align-content: center;
@@ -166,10 +165,17 @@ $inputFtSize: 14;
 .icon-search, .icon-list2 {
 	display: inline-block;
 	color: $toolBarIconColor;
-	padding: 20px;
 	@include font(20);
 	&:active {
 		color: $toolBarIconActiveColor;
 	}
+}
+
+.icon-list2 {
+	padding: 30px 40px 30px 20px;
+}
+
+.icon-search {
+	padding: 30px 20px 30px 30px;
 }
 </style>

@@ -1,10 +1,12 @@
 <template>
-	<div
-		class="scroll-button"
-		:class="{'scroll-button-show': show}"
-		@transitionend="hide"
-		@touchstart="scrollToTop">
-		<i class="icon-keyboard_arrow_up"></i>
+	<div class="scroll-button-wrapper">
+		<div
+			class="scroll-button"
+			:class="{'scroll-button-show': show}"
+			@transitionend="hide"
+			@touchstart="scrollToTop">
+			<i class="icon-keyboard_arrow_up"></i>
+		</div>
 	</div>
 </template>
 
@@ -32,20 +34,20 @@ export default {
 		},
 		scrollToTop() {
 			// MMP safari不支持原生是smooth选项
-			try {
-				window.scrollTo({
-					top: 0,
-					behavior: 'smooth'
-				});
-			} catch (e) {
-				animate({
-					startPos: scrollY(),
-					endPos: 0,
-					duration: 800,
-					setValue: scrollY,
-					easing: 'easeIn'
-				});
-			}
+			// try {
+			// 	window.scrollTo({
+			// 		top: 0,
+			// 		behavior: 'smooth'
+			// 	});
+			// } catch (e) {
+			animate({
+				startPos: scrollY(),
+				endPos: 0,
+				duration: 800,
+				setValue: scrollY,
+				easing: 'easeIn'
+			});
+			// }
 		}
 	},
 	beforeMount() {
@@ -75,6 +77,7 @@ export default {
 .scroll-button {
 	width: 110px;
 	height: 110px;
+	padding: 30px;
 	box-sizing: border-box;
 	border: 6px solid $scrollTopBtnColor;
 	border-radius: 50%;
@@ -102,6 +105,10 @@ export default {
 
 .scroll-button-show {
 	transform: scale(1);
+}
+
+.scroll-button-wrapper {
+	padding: 30px;
 }
 
 </style>

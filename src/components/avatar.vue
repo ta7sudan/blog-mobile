@@ -37,6 +37,9 @@ export default {
 	margin: auto;
 	border-radius: 50%;
 	overflow: hidden;
+	/* 以下两个都可以解决transform的子元素溢出overflow: hidden的父元素的问题, 但是opacity更好一点, 前者会导致box-shadow失效 */
+	/* -webkit-mask-image: -webkit-radial-gradient(white, black); */
+	opacity: 0.99;
 	box-shadow: 0 5px 20px 5px $avatarShadowColor;
 	border-width: 8px;
 	border-style: solid;
@@ -50,7 +53,10 @@ export default {
 }
 
 .rotate {
-	transform: rotate3d(0, 0, 1, 400deg);
+	/* 谁能想到傻屌iOS的rotate3d必须配合pespective使用 */
+	/* transform: rotate3d(0, 0, 1, 400deg); */
+	transform: rotate(400deg);
+	will-change: transform;
 }
 
 .avatar {
