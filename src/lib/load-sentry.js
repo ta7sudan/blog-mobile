@@ -1,10 +1,16 @@
 import Vue from 'vue';
 function load() {
-	import('@sentry/browser').then(Sentry => {
+	Promise.all([
+		import(/* webpackChunkName: "sentry" */ '@sentry/browser'),
+		import(/* webpackChunkName: "sentry" */ '@sentry/integrations')
+	]).then(([Sentry, Integrations]) => {
 		Sentry.init({
 			// 这东西应该不算是敏感信息吧, 毕竟你都暴露到js里了
 			dsn: process.env.SENTRY_DSN,
-			integrations: [new Sentry.Integrations.Vue({Vue})],
+			integrations: [new Integrations.Vue({
+				Vue,
+				attachProps: true
+			})],
 			release: process.env.RELEASE_VERSION,
 			environment: process.env.NODE_ENV
 		});
