@@ -93,9 +93,12 @@ const store = new Vuex.Store({
 		async getHomePosts({ commit, getters: { pageMap } }, page) {
 			if (!pageMap[page]) {
 				const { data } = await h(apis.getHomePosts({
-					page
-				}, {
-					limit: 10
+					params: {
+						page
+					},
+					query: {
+						limit: 10
+					}
 				}));
 				data.posts.forEach(post => {
 					if (!post.parsed) {
@@ -123,7 +126,9 @@ const store = new Vuex.Store({
 				}
 			}
 			const { data: { post } } = await h(apis.getPostById({
-				id
+				params: {
+					id
+				}
 			}));
 			if (!post.parsed) {
 				post.content = addTableWrapper(marked(post.content), 'table-wrapper');
@@ -141,7 +146,9 @@ const store = new Vuex.Store({
 				return state.prevNextMap[id];
 			}
 			const { data: { prev, next }} = await h(apis.getPrevNextById({
-				id
+				query: {
+					id
+				}
 			}));
 			commit(ADD_PREVNEXT_MAP, {
 				id,
@@ -168,10 +175,13 @@ const store = new Vuex.Store({
 				return state.archivesPageMap[page];
 			}
 			const { data: { archives, total }} = await h(apis.getArchives({
-				page
-			}, {
-				limit,
-				groupBy: 'month'
+				params: {
+					page
+				},
+				query: {
+					limit,
+					groupBy: 'month'
+				}
 			}));
 			commit(ADD_ARCHIVES_MAP, { page, archives });
 			commit(SET_ARCHIVES_TOTAL, total);

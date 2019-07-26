@@ -35,13 +35,17 @@ export default {
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		NProgress.start();
 		return apis.getSearchResult({
-			query: to.query.query
+			query: {
+				query: to.query.query
+			}
 		}).then(({ data: { result = [] }}) => next(vm => (vm.result = result, NProgress.done())));
 	}),
 	beforeRouteUpdate: routerLock(function (to, from, next) {
 		NProgress.start();
 		return apis.getSearchResult({
-			query: to.query.query
+			query: {
+				query: to.query.query
+			}
 		}).then(({ data: { result = [] }}) => (this.result = result, next(), NProgress.done()));
 	}),
 	components: {

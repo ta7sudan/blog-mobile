@@ -106,9 +106,10 @@ export default {
 						(vm.alipayQrCode = alipayQrCode, vm.wechatPayQrCode = wechatPayQrCode, vm.bitcoinAddr = bitcoinAddr)
 					);
 					vm.$apis.addPostViewCount({
-						views: 1
-					}, {
-						id
+						body: null,
+						params: {
+							id
+						}
 					});
 					// Promise.all([
 					// 	// webpackMode: "lazy-once" 好像Vue CLI里面的Webpack还不支持
@@ -145,9 +146,10 @@ export default {
 					(this.alipayQrCode = alipayQrCode, this.wechatPayQrCode = wechatPayQrCode, this.bitcoinAddr = bitcoinAddr)
 				);
 				this.$apis.addPostViewCount({
-					views: 1
-				}, {
-					id
+					body: null,
+					params: {
+						id
+					}
 				});
 				next();
 				NProgress.done();

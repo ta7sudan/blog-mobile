@@ -1,16 +1,13 @@
-import { loadAllObj, report } from '../lib/util';
+import { report } from '../lib/util';
 import Status from './http-status';
 import auth from './auth';
 import router from '../router';
 import Vue from 'vue';
 import APIs from '@lowb/apiz-vue';
+import meta from '../apis';
 
 Vue.use(APIs);
 
-// 这东西并不能封装成函数, 使得路径为变量
-// 因为这实际上是个编译期的东西, 运行时并不存在
-// 所以不得不每个用到的地方都这么写了
-const meta = loadAllObj(require.context('../apis', true, /\.js$/));
 
 // 这里需要关心的几点
 // * JWT从哪里来 - 可以从页面cookie来, 可以从授权接口响应的body, header来, 可以从授权通过之后重定向的页面cookie来
@@ -54,11 +51,15 @@ const apis = new APIs({
 			location.reload(true);
 		}
 	},
-	complete(resData = {}, xhr, url, reqData) {
+	error(errType, err, resData, xhr) {
 		// 在响应被处理之后, 如果决定交给全局处理, 这里统一处理异常
 		// 理想情况应当是这里提供对异常情况的最终兜底处理, 而优先让API调用处自行处理异常,
 		// 如果调用处不处理, 再回到这里按照默认方案处理, 但是受限于Promise的机制以及自己
 		// API设计有问题, 所以暂时没办法, 先统一处理好了
+		if (errType === 'unrecoverableError') {
+			report(err);
+			return;
+		}
 		if (resData.statusCode === Status.NOT_FOUND || xhr.status === Status.NOT_FOUND) {
 			router.replace({
 				name: 'notFound',
@@ -67,11 +68,7 @@ const apis = new APIs({
 				}
 			});
 		} else if (resData.statusCode >= 400 || xhr.status >= 400) {
-			report(new Error(JSON.stringify({
-				message: 'Request error',
-				data: reqData || xhr.statusText,
-				url
-			})));
+			report(err);
 			router.replace({
 				name: 'error',
 				params: {
