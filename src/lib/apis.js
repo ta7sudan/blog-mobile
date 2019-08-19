@@ -4,7 +4,10 @@ import auth from './auth';
 import router from '../router';
 import Vue from 'vue';
 import APIs from '@lowb/apiz-vue';
+import NProgress from 'accessible-nprogress';
 import meta from '../apis';
+
+/* global mainLoading */
 
 Vue.use(APIs);
 
@@ -17,7 +20,7 @@ Vue.use(APIs);
 const apis = new APIs({
 	meta,
 	retry: 1,
-	beforeSend(xhr) {
+	beforeSend(options) {
 		// 其实没有什么用户授权的需求, 这里只是个前台应用,
 		// 如果是后台的话倒也合理, 不过人总是喜欢给自己加点戏,
 		// 那就假设这是一个较大型的应用, 需要授权吧
@@ -36,7 +39,9 @@ const apis = new APIs({
 			// 如果来源是授权接口或者要重新授权, 那就应当请求授权接口或者重定向授权页面
 			location.reload(true);
 		}
-		xhr.setRequestHeader('Authorization', `Bearer ${jwt}`);
+		options.headers = {
+			Authorization: `Bearer ${jwt}`
+		};
 	},
 	afterResponse(resData = {}, status, xhr, url, reqData) {
 		// 在响应处理之前
@@ -56,6 +61,8 @@ const apis = new APIs({
 		// 理想情况应当是这里提供对异常情况的最终兜底处理, 而优先让API调用处自行处理异常,
 		// 如果调用处不处理, 再回到这里按照默认方案处理, 但是受限于Promise的机制以及自己
 		// API设计有问题, 所以暂时没办法, 先统一处理好了
+		NProgress.done();
+		mainLoading.stop();
 		if (errType === 'unrecoverableError') {
 			report(err);
 			return;
