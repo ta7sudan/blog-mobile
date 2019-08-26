@@ -77,7 +77,6 @@ module.exports = {
 			.use('file-loader')
 			.loader('svg-url-loader')
 			.options({
-				noquotes: true,
 				limit: 10240,
 				stripdeclarations: true,
 				name: 'img/[name].[hash:8].[ext]'

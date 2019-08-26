@@ -1,4 +1,4 @@
-import { report } from '../lib/util';
+import { report } from './util';
 import Status from './http-status';
 import auth from './auth';
 import router from '../router';
