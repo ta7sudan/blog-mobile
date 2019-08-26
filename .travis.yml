@@ -11,6 +11,7 @@ script:
 - npm test
 after_success:
 - npm run build-ci
+- npm run upload
 git:
   depth: 1
 notifications:
