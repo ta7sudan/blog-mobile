@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
-  <head>
-	  <meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-    <style>
-      <%= htmlWebpackPlugin.options.css %>
-    </style>
-    <script>!function(){<%= htmlWebpackPlugin.options.errorScript %>}()</script>
-	  <link rel="dns-prefetch" href="//<%= DOMAIN %>">
-    <title><%= TITLE %></title>
-	  <link href="<%= BASE_URL %>favicon180.png" rel="apple-touch-icon" sizes="180x180">
-	  <link href="<%= BASE_URL %>favicon167.png" rel="apple-touch-icon" sizes="167x167">
-	  <link href="<%= BASE_URL %>favicon152.png" rel="apple-touch-icon" sizes="152x152">
-	  <link href="<%= BASE_URL %>favicon.ico" rel="apple-touch-icon">
-	  <link href="<%= BASE_URL %>favicon192.png" rel="icon" sizes="192x192">
-	  <link href="<%= BASE_URL %>favicon.ico" rel="icon" sizes="32x32">
 
-	  <meta name="theme-color" content="<%= THEME_COLOR %>">
-	  <meta name="application-name" content="<%= APP_NAME %>">
-	  <meta name="author" content="<%= AUTHOR %>">
-	  <meta name="description" content="<%= DESC %>">
-	  <meta name="keywords" content="<%= KEYWORDS %>">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+	<style>
+		<%=htmlWebpackPlugin.options.css %>
+	</style>
+	<script>!function () {<%= htmlWebpackPlugin.options.errorScript %>}()</script>
+	<link rel="dns-prefetch" href="//<%= DOMAIN %>">
+	<title><%= TITLE %></title>
+	<link href="<%= BASE_URL %>favicon180.png" rel="apple-touch-icon" sizes="180x180">
+	<link href="<%= BASE_URL %>favicon167.png" rel="apple-touch-icon" sizes="167x167">
+	<link href="<%= BASE_URL %>favicon152.png" rel="apple-touch-icon" sizes="152x152">
+	<link href="<%= BASE_URL %>favicon.ico" rel="apple-touch-icon">
+	<link href="<%= BASE_URL %>favicon192.png" rel="icon" sizes="192x192">
+	<link href="<%= BASE_URL %>favicon.ico" rel="icon" sizes="32x32">
 
-	  <!-- for uc -->
-	  <meta name="screen-orientation" content="landscape">
-	  <!-- for x5 -->
-	  <meta name="x5-orientation" content="landscape">
-	  <!-- for iOS -->
-	  <meta name="apple-mobile-web-app-title" content="<%= APP_NAME %>">
-    <script>!function(){<%= htmlWebpackPlugin.options.dprScript %>}()</script>
-  </head>
-  <body>
-    <noscript>
-			<h3>提示</h3>
-      <strong>本页面需要 Javascript 的支持, 请开启 Javascript 刷新后重试</strong>
-    </noscript>
-     <%= htmlWebpackPlugin.options.html %>
-    <div id="app"></div>
-    <script>!function(){<%= htmlWebpackPlugin.options.loadingScript %>}()</script>
-    <script><%= htmlWebpackPlugin.options.alloylever %></script>
-		<script>AlloyLever.config({cdn:'<%= ALLOYLEVER_CDN %>'})</script>
-    <!-- built files will be auto injected -->
-  </body>
+	<meta name="theme-color" content="<%= THEME_COLOR %>">
+	<meta name="application-name" content="<%= APP_NAME %>">
+	<meta name="author" content="<%= AUTHOR %>">
+	<meta name="description" content="<%= DESC %>">
+	<meta name="keywords" content="<%= KEYWORDS %>">
+
+	<!-- for uc -->
+	<meta name="screen-orientation" content="landscape">
+	<!-- for x5 -->
+	<meta name="x5-orientation" content="landscape">
+	<!-- for iOS -->
+	<meta name="apple-mobile-web-app-title" content="<%= APP_NAME %>">
+	<script>!function () {<%= htmlWebpackPlugin.options.dprScript %>}()</script>
+</head>
+
+<body>
+	<noscript>
+		<h3>提示</h3>
+		<strong>本页面需要 Javascript 的支持, 请开启 Javascript 刷新后重试</strong>
+	</noscript>
+	<%= htmlWebpackPlugin.options.html %>
+	<div id="app"></div>
+	<script>!function () {<%= htmlWebpackPlugin.options.loadingScript %>}()</script>
+	<script><%= htmlWebpackPlugin.options.alloylever %></script>
+	<script>AlloyLever.config({ cdn: '<%= ALLOYLEVER_CDN %>' })</script>
+	<!-- built files will be auto injected -->
+</body>
+
 </html>
