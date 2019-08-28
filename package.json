@@ -12,7 +12,7 @@
     "format": "prettier --config .prettierrc.js --write src/**/*.js",
     "start": "concurrently \"pock\" \"vue-cli-service serve\"",
     "upload": "oas upload -c .oasrc.js",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "repository": {
     "type": "git",
