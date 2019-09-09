@@ -61,7 +61,7 @@ typings/
 *.ntvs*
 *.njsproj
 *.sln
-*.sw*
+*.sw?
 
 # dotenv environment variables file
 # .env

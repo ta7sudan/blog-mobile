@@ -5,6 +5,7 @@ import store from './store';
 import apis from './lib/apis';
 import guard from './lib/guard';
 import NProgress from 'accessible-nprogress';
+import './registerServiceWorker';
 import 'accessible-nprogress/dist/accessible-nprogress.css';
 import './lib/mixins';
 
