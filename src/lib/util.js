@@ -265,5 +265,3 @@ export const loadAllArr = ctx => ctx.keys().reduce((rst, item) => rst.concat(ctx
 export const rAF = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 export const clearRAF = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
-
-export const apizHelper = p => p.catch(({ next }) => next());

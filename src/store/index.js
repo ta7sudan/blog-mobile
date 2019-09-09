@@ -11,7 +11,7 @@ import {
 	SET_USERPROFILE,
 	SET_FRIENDS } from './mutation-types';
 import apis from '../lib/apis';
-import { apizHelper as h, trimHtml, addTableWrapper, RequestCache } from '../lib/util';
+import { trimHtml, addTableWrapper, RequestCache } from '../lib/util';
 import marked from '../lib/marked';
 
 Vue.use(Vuex);
@@ -92,14 +92,14 @@ const store = new Vuex.Store({
 	actions: {
 		async getHomePosts({ commit, getters: { pageMap } }, page) {
 			if (!pageMap[page]) {
-				const { data } = await h(apis.getHomePosts({
+				const { data } = await apis.getHomePosts({
 					params: {
 						page
 					},
 					query: {
 						limit: 10
 					}
-				}));
+				});
 				data.posts.forEach(post => {
 					if (!post.parsed) {
 						post.content = addTableWrapper(marked(post.content), 'table-wrapper');
@@ -125,11 +125,11 @@ const store = new Vuex.Store({
 					return post;
 				}
 			}
-			const { data: { post } } = await h(apis.getPostById({
+			const { data: { post } } = await apis.getPostById({
 				params: {
 					id
 				}
-			}));
+			});
 			if (!post.parsed) {
 				post.content = addTableWrapper(marked(post.content), 'table-wrapper');
 				post.trimedHtml = trimHtml(post.content, {
@@ -145,11 +145,11 @@ const store = new Vuex.Store({
 			if (state.prevNextMap[id]) {
 				return state.prevNextMap[id];
 			}
-			const { data: { prev, next }} = await h(apis.getPrevNextById({
+			const { data: { prev, next }} = await apis.getPrevNextById({
 				query: {
 					id
 				}
-			}));
+			});
 			commit(ADD_PREVNEXT_MAP, {
 				id,
 				data: {
@@ -166,7 +166,7 @@ const store = new Vuex.Store({
 			if (state.tags.length) {
 				return state.tags;
 			}
-			const { data: { tags }} = await h(apis.getAllTags());
+			const { data: { tags }} = await apis.getAllTags();
 			commit(SET_TAGS, tags);
 			return tags;
 		},
@@ -174,7 +174,7 @@ const store = new Vuex.Store({
 			if (state.archivesPageMap[page]) {
 				return state.archivesPageMap[page];
 			}
-			const { data: { archives, total }} = await h(apis.getArchives({
+			const { data: { archives, total }} = await apis.getArchives({
 				params: {
 					page
 				},
@@ -182,7 +182,7 @@ const store = new Vuex.Store({
 					limit,
 					groupBy: 'month'
 				}
-			}));
+			});
 			commit(ADD_ARCHIVES_MAP, { page, archives });
 			commit(SET_ARCHIVES_TOTAL, total);
 			return archives;
@@ -194,7 +194,7 @@ const store = new Vuex.Store({
 			let req = RequestCache.get('userProfile');
 			// 可能存在多个地方同时请求同一份数据, 导致多次请求, 这里缓存一下请求
 			if (!req) {
-				req = h(apis.getProfile());
+				req = apis.getProfile();
 				RequestCache.set('userProfile', req);
 			}
 			const { data: { name, desc, profile, alipayQrCode, wechatPayQrCode, bitcoinAddr } } = await req;
@@ -213,7 +213,7 @@ const store = new Vuex.Store({
 			if (state.friends.length) {
 				return state.friends;
 			}
-			const { data: { friends }} = await h(apis.getFriends());
+			const { data: { friends }} = await apis.getFriends();
 			commit(SET_FRIENDS, friends);
 			return friends;
 		}

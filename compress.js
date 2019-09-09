@@ -1,3 +1,6 @@
+// eslint-disable-next-line
+'use strict';
+
 const UglifyJS = require('uglify-js');
 const CleanCSS = require('clean-css');
 const fs = require('fs');

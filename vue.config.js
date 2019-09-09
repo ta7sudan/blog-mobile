@@ -1,3 +1,6 @@
+// eslint-disable-next-line
+'use strict';
+
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const PreloadFontPlugin = require('preload-font-plugin');

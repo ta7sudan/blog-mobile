@@ -1,5 +1,5 @@
 import { getCookie } from 'kooky';
-import { report, parseJWT, apizHelper as h } from './util';
+import { report, parseJWT } from './util';
 
 // 解出JWT, 放localstorage, 看过期时间, 根据过期时间, 在快过期的时候用旧JWT换新JWT
 // 实际业务中不应当允许旧token换新token, 不然这等同于JWT永不过期那就失去意义了
@@ -7,7 +7,7 @@ function exchange(jwtStr, refresh) {
 	const jwt = parseJWT(jwtStr), expires = JSON.parse(jwt.payload).exp * 1000, currentTime = Date.now();
 	localStorage.setItem('JWT', jwtStr);
 	// 旧JWT在header中
-	setTimeout(() => h(refresh()).then(({ data }) => exchange(data.jwt, refresh)), expires - currentTime - 300000);
+	setTimeout(() => refresh().then(({ data }) => exchange(data.jwt, refresh)), expires - currentTime - 300000);
 }
 
 export default function auth(apis) {
