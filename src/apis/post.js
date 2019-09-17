@@ -1,13 +1,12 @@
-/* global API_VERSION */
 export default {
 	getPostById: {
-		path: `/api/${API_VERSION}/posts/:id`
+		path: `/api/${process.env.API_VERSION}/posts/:id`
 	},
 	getPrevNextById: {
-		path: `/api/${API_VERSION}/prev-next`
+		path: `/api/${process.env.API_VERSION}/prev-next`
 	},
 	addPostViewCount: {
-		path: `/api/${API_VERSION}/posts/:id`,
+		path: `/api/${process.env.API_VERSION}/posts/:id`,
 		method: 'patch'
 	}
 };

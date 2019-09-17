@@ -35,12 +35,13 @@ import Tag from '../components/tag.vue';
 import { routerLock } from '../lib/util';
 import { mapState } from 'vuex';
 import store from '../store';
+import { GET_ALL_TAGS } from '../store/action-types';
 import '../styles/iconfont.css';
 
-/* global TITLE, NProgress */
+/* global NProgress */
 
 export default {
-	pageTitle: `Tags | ${TITLE}`,
+	pageTitle: `Tags | ${process.env.TITLE}`,
 	data() {
 		return {
 			currentTag: ''
@@ -64,7 +65,7 @@ export default {
 		if (to.name === 'tags-detail') {
 			var tagName = to.params.tag;
 		}
-		return store.dispatch('getAllTags')
+		return store.dispatch(GET_ALL_TAGS)
 			.then(() => next(vm => {
 				vm.currentTag = tagName;
 				NProgress.done();
@@ -75,7 +76,7 @@ export default {
 		if (to.name === 'tags-detail') {
 			var tagName = to.params.tag;
 		}
-		return store.dispatch('getAllTags')
+		return store.dispatch(GET_ALL_TAGS)
 			.then(() => {
 				this.currentTag = tagName;
 				next();

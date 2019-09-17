@@ -1,6 +1,5 @@
-/* global API_VERSION */
 export default {
 	getProfile: {
-		path: `/api/${API_VERSION}/about`
+		path: `/api/${process.env.API_VERSION}/about`
 	}
 };

@@ -1,7 +1,6 @@
 
-/* global API_VERSION */
 export default {
 	exchangeJWT: {
-		path: `/api/${API_VERSION}/jwt/exchange`
+		path: `/api/${process.env.API_VERSION}/jwt/exchange`
 	}
 };

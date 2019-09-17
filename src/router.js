@@ -5,6 +5,7 @@ import loadSentry from './lib/load-sentry';
 import { loadAllArr } from './lib/util';
 import errorRoutes from './routes/_error';
 import store from './store';
+import { GET_PROFILE } from './store/action-types';
 
 Vue.use(Router);
 
@@ -14,7 +15,9 @@ Vue.use(Router);
 // 反正不会被编译进去, 于是我们把_error.js单独提出来放数组最后面, 以免
 // 404路由的*被先匹配到, 导致所有路由都是404页面, 不过其实Vue Router内部已经
 // 把*放到最后面了
-const routes = loadAllArr(require.context('./routes', true, /((?<=\/)[^_]|^[^_])(\w|-)*\.js$/)).concat(errorRoutes);
+const routes = loadAllArr(
+	require.context('./routes', true, /((?<=\/)[^_]|^[^_])(\w|-)*\.js$/)
+).concat(errorRoutes);
 
 const router = new Router({
 	mode: 'history',
@@ -37,10 +40,12 @@ const router = new Router({
 		// 动画看起来跳动一下, 异步滚动则可以等过渡动画结束后
 		// 滚动, 但是也会给人感觉为什么它自己滚动了...目前暂时
 		// 先这样吧
-		return savedPosition || {
-			x: 0,
-			y: 0
-		};
+		return (
+			savedPosition || {
+				x: 0,
+				y: 0
+			}
+		);
 	}
 });
 
@@ -48,7 +53,7 @@ const router = new Router({
 // 就不需要从init里面搞了
 router.onReady(() => {
 	loadSentry();
-	store.dispatch('getProfile');
+	store.dispatch(GET_PROFILE);
 	mainLoading.stop();
 });
 

@@ -17,8 +17,8 @@ export function decodeBase64(str) {
 export function parseJWT(jwt) {
 	const parts = jwt.split('.');
 	return {
-		header: decodeBase64(parts[0]),
-		payload: decodeBase64(parts[1]),
+		header: JSON.parse(decodeBase64(parts[0])),
+		payload: JSON.parse(decodeBase64(parts[1])),
 		signature: parts[2]
 	};
 }
@@ -54,7 +54,7 @@ export function routerLock(fn, timeout) {
 		}
 		const rst = fn.call(this, to, from, runNext);
 		if (typeof p(rst).then() === 'function') {
-			return rst.then(v => (lock = false, v), v => (lock = false, v));
+			return rst.then(v => (lock = false, v), v => (lock = false, Promise.reject(v)));
 		}
 		lock = false;
 		return rst;

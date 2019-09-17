@@ -6,6 +6,9 @@ import Vue from 'vue';
 import APIs from '@lowb/apiz-vue';
 import NProgress from 'accessible-nprogress';
 import meta from '../apis';
+import { TOKEN_KEY } from './constants';
+import { getStorage, setStorage, removeStorage } from './storage';
+import { releaseAllLocks } from './lock';
 
 /* global mainLoading */
 
@@ -27,8 +30,8 @@ const apis = new APIs({
 		// 其实cookie上httponly+secure最安全, 缺点是js无法读取
 		// 以及cookie不能在多个域名共享, 虽然我也没有多个域名,
 		// 不过也假设这是个较大型的应用...
-		const jwt = localStorage.getItem('JWT');
-		if (!jwt) {
+		const jwt = getStorage(TOKEN_KEY);
+		if (!jwt && !/jwt\/exchange$/.test(options.url)) {
 			// 理论上讲, 如果被禁用了cookie, 会出现循环刷新页面,
 			// 但是那就不是我的责任了...
 			// 能够随意刷新的前提是这个动作不太影响用户交互,
@@ -37,11 +40,16 @@ const apis = new APIs({
 			// 准确来说, 这里是意外情况, 比如用户手动清除了持久化的数据, 
 			// 则应当从JWT来源重新获取, 这里来源就是页面cookie, 所以只能刷新
 			// 如果来源是授权接口或者要重新授权, 那就应当请求授权接口或者重定向授权页面
-			location.reload(true);
+			NProgress.done();
+			if (process.env.DEBUG) {
+				apis.exchangeJWT().then(({ data }) => setStorage(TOKEN_KEY, data.jwt));
+				console.warn('TOKEN已过期, 重新获取TOKEN');
+			} else {
+				location.reload(true);
+				return false;
+			}
 		}
-		options.headers = {
-			Authorization: `Bearer ${jwt}`
-		};
+		options.headers.Authorization = `Bearer ${jwt}`;
 	},
 	afterResponse(resData = {}, status, xhr, url, reqData) {
 		// 在响应处理之前
@@ -52,15 +60,19 @@ const apis = new APIs({
 			// 如果后端认为你JWT过期了, 那管你是真过期没过期,
 			// 都当作过期处理, 那就只能从JWT来源重新获取
 			// 所以这里也只能刷新页面, 但理论上这情况不存在
+			removeStorage(TOKEN_KEY);
 			alert('Token谜之失效, 页面稍后自动刷新', '__secan__');
 			location.reload(true);
+			// 终止后续操作
+			throw new Error('noop');
 		}
 	},
-	error(errType, err, resData, xhr) {
+	async error(errType, err, resData, xhr) {
 		// 在响应被处理之后, 如果决定交给全局处理, 这里统一处理异常
 		// 理想情况应当是这里提供对异常情况的最终兜底处理, 而优先让API调用处自行处理异常,
 		// 如果调用处不处理, 再回到这里按照默认方案处理, 但是受限于Promise的机制以及自己
 		// API设计有问题, 所以暂时没办法, 先统一处理好了
+		releaseAllLocks();
 		NProgress.done();
 		mainLoading.stop();
 		if (errType === 'unrecoverableError') {
@@ -68,7 +80,7 @@ const apis = new APIs({
 			return;
 		}
 		if (resData.statusCode === Status.NOT_FOUND || xhr.status === Status.NOT_FOUND) {
-			router.replace({
+			await router.replace({
 				name: 'notFound',
 				params: {
 					errorMessage: resData.errorMessage || xhr.statusText
@@ -76,7 +88,7 @@ const apis = new APIs({
 			});
 		} else if (resData.statusCode >= 400 || xhr.status >= 400) {
 			report(err);
-			router.replace({
+			await router.replace({
 				name: 'error',
 				params: {
 					errorMessage: resData.errorMessage || xhr.statusText

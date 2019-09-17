@@ -1,6 +1,5 @@
-/* global API_VERSION */
 export default {
 	getSearchResult: {
-		path: `/api/${API_VERSION}/search`
+		path: `/api/${process.env.API_VERSION}/search`
 	}
 };

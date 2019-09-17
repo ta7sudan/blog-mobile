@@ -14,18 +14,19 @@ import PageLayout from '../components/page-layout.vue';
 import { routerLock } from '../lib/util';
 import { mapState } from 'vuex';
 import store from '../store';
+import { GET_PROFILE } from '../store/action-types';
 import '../styles/post-content.css';
 
-/* global TITLE, NProgress */
+/* global NProgress */
 
 export default {
-	pageTitle: `About | ${TITLE}`,
+	pageTitle: `About | ${process.env.TITLE}`,
 	computed: {
 		...mapState(['userProfile'])
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		NProgress.start();
-		return store.dispatch('getProfile')
+		return store.dispatch(GET_PROFILE)
 		 .then(() => next(() => NProgress.done()));
 	}),
 	components: {

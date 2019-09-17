@@ -21,11 +21,12 @@ import PageLayout from '../components/page-layout.vue';
 import { routerLock } from '../lib/util';
 import { mapState } from 'vuex';
 import store from '../store';
+import { GET_FRIENDS } from '../store/action-types';
 
-/* global TITLE, NProgress */
+/* global NProgress */
 
 export default {
-	pageTitle: `Friends | ${TITLE}`,
+	pageTitle: `Friends | ${process.env.TITLE}`,
 	computed: {
 		...mapState(['friends'])
 	},
@@ -36,7 +37,7 @@ export default {
 	},
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		NProgress.start();
-		return store.dispatch('getFriends')
+		return store.dispatch(GET_FRIENDS)
 		 .then(() => next(() => NProgress.done()));
 	}),
 	components: {

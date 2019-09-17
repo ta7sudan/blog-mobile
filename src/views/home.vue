@@ -13,11 +13,12 @@ import PreviewPost from '../components/preview-post.vue';
 import Pagination from '../components/pagination.vue';
 import { mapGetters, mapState } from 'vuex';
 import store from '../store';
+import { GET_HOME_POSTS } from '../store/action-types';
 import { routerLock } from '../lib/util';
 
 export default {
-	/* global TITLE, NProgress */
-	pageTitle: `Home | ${TITLE}`,
+	/* global NProgress */
+	pageTitle: `Home | ${process.env.TITLE}`,
 	props: {
 		page: {
 			type: Number,
@@ -34,7 +35,7 @@ export default {
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		const page = to.params.page;
 		NProgress.start();
-		return store.dispatch('getHomePosts', page)
+		return store.dispatch(GET_HOME_POSTS, page)
 			.then(() => 
 				next(vm => NProgress.done())
 			);
@@ -44,7 +45,7 @@ export default {
 		// 让人都不想map出action来
 		const page = to.params.page;
 		NProgress.start();
-		return store.dispatch('getHomePosts', page)
+		return store.dispatch(GET_HOME_POSTS, page)
 			.then(() => {
 				next();
 				NProgress.done();

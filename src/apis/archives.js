@@ -1,6 +1,5 @@
-/* global API_VERSION */
 export default {
 	getArchives: {
-		path: `/api/${API_VERSION}/archives/:page`
+		path: `/api/${process.env.API_VERSION}/archives/:page`
 	}
 };

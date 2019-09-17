@@ -4,6 +4,7 @@ cors:
   origin: true
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD']
   allowedHeaders: ['Authorization', 'Content-Type']
+  credentials: true
 port: 3000
 proxy:
   prefix: /error

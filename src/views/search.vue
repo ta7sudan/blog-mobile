@@ -14,13 +14,13 @@
 
 <script>
 import PageLayout from '../components/page-layout.vue';
-import apis from '../lib/apis';
+import apis from '../lib/http';
 import { routerLock } from '../lib/util';
 
-/* global TITLE, NProgress */
+/* global NProgress */
 
 export default {
-	pageTitle: `Search | ${TITLE}`,
+	pageTitle: `Search | ${process.env.TITLE}`,
 	data() {
 		return {
 			result: []

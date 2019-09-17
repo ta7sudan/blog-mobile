@@ -1,17 +1,16 @@
 import secan from 'secan';
 import { report, once } from './util';
-/* global DEBUG, DOMAIN */
 
 export default function guard() {
 	secan({
 		// TODO
-		debug: DEBUG || '__nodebugger__',
+		debug: process.env.DEBUG || '__nodebugger__',
 		debuggerLoop: true,
 		breakIframe: true,
 		hookFn: true,
-		baitURL: `https://${DOMAIN}/test.js`,
-		scriptDomain: DOMAIN,
-		pageDomain: DOMAIN
+		baitURL: `https://${process.env.DOMAIN}/test.js`,
+		scriptDomain: process.env.DOMAIN,
+		pageDomain: process.env.DOMAIN
 	});
 	// 目前先简单了解下情况, 暂时收集不到太多有用信息,
 	// 考虑到时候优化下secan多提供一些有用的信息

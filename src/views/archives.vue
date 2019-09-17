@@ -18,13 +18,14 @@ import Pagination from '../components/pagination.vue';
 import { routerLock } from '../lib/util';
 import { mapState } from 'vuex';
 import store from '../store';
+import { GET_ARCHIVES_BY_PAGE } from '../store/action-types';
 import '../styles/iconfont.css';
 
-/* global TITLE, NProgress */
+/* global NProgress */
 const PAGE_LIMIT = 4;
 
 export default {
-	pageTitle: `Archives | ${TITLE}`,
+	pageTitle: `Archives | ${process.env.TITLE}`,
 	data() {
 		return {
 			limit: PAGE_LIMIT
@@ -50,7 +51,7 @@ export default {
 	beforeRouteEnter: routerLock(function (to, from, next) {
 		NProgress.start();
 		const page = to.params.page;
-		return store.dispatch('getArchivesByPage', {
+		return store.dispatch(GET_ARCHIVES_BY_PAGE, {
 			page,
 			limit: PAGE_LIMIT
 		}).then(() => next(() => NProgress.done()));
@@ -58,7 +59,7 @@ export default {
 	beforeRouteUpdate: routerLock(function (to, from, next) {
 		NProgress.start();
 		const page = to.params.page;
-		return store.dispatch('getArchivesByPage', {
+		return store.dispatch(GET_ARCHIVES_BY_PAGE, {
 			page,
 			limit: PAGE_LIMIT
 		}).then(() => (next(), NProgress.done()));

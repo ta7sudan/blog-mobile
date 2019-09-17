@@ -10,15 +10,16 @@ import {
 	SET_ARCHIVES_TOTAL,
 	SET_USERPROFILE,
 	SET_FRIENDS } from './mutation-types';
-import apis from '../lib/apis';
+import apis from '../lib/http';
 import { trimHtml, addTableWrapper, RequestCache } from '../lib/util';
 import marked from '../lib/marked';
+import { GET_HOME_POSTS, GET_POST_BY_ID, GET_PREV_NEXT_BY_ID, GET_ALL_TAGS, GET_ARCHIVES_BY_PAGE, GET_PROFILE, GET_FRIENDS } from './action-types';
 
 Vue.use(Vuex);
 
 // 暂时还不需要分模块
 const store = new Vuex.Store({
-	strict: DEBUG,
+	strict: process.env.DEBUG,
 	state: {
 		// 命名没起好...不过为了兼容性算了不改了..
 		total: 0,
@@ -90,7 +91,7 @@ const store = new Vuex.Store({
 	// 所以暂时不考虑缓存失效的策略, 另一方面数据对实时性要求不高, 即便
 	// 后台更新了, 在一次session中前端内容没有更新也没太大关系
 	actions: {
-		async getHomePosts({ commit, getters: { pageMap } }, page) {
+		async [GET_HOME_POSTS]({ commit, getters: { pageMap } }, page) {
 			if (!pageMap[page]) {
 				const { data } = await apis.getHomePosts({
 					params: {
@@ -115,7 +116,7 @@ const store = new Vuex.Store({
 			}
 			return pageMap[page];
 		},
-		async getPostById({ commit, state }, id) {
+		async [GET_POST_BY_ID]({ commit, state }, id) {
 			if (state.postsIdMap[id]) {
 				return state.postsIdMap[id];
 			}
@@ -141,7 +142,7 @@ const store = new Vuex.Store({
 			commit(ADD_POSTS_MAP, post);
 			return post;
 		},
-		async getPrevNextById({ commit, state }, id) {
+		async [GET_PREV_NEXT_BY_ID]({ commit, state }, id) {
 			if (state.prevNextMap[id]) {
 				return state.prevNextMap[id];
 			}
@@ -162,7 +163,7 @@ const store = new Vuex.Store({
 				next
 			};
 		},
-		async getAllTags({ commit, state }) {
+		async [GET_ALL_TAGS]({ commit, state }) {
 			if (state.tags.length) {
 				return state.tags;
 			}
@@ -170,7 +171,7 @@ const store = new Vuex.Store({
 			commit(SET_TAGS, tags);
 			return tags;
 		},
-		async getArchivesByPage({ commit, state }, { page, limit }) {
+		async [GET_ARCHIVES_BY_PAGE]({ commit, state }, { page, limit }) {
 			if (state.archivesPageMap[page]) {
 				return state.archivesPageMap[page];
 			}
@@ -187,7 +188,7 @@ const store = new Vuex.Store({
 			commit(SET_ARCHIVES_TOTAL, total);
 			return archives;
 		},
-		async getProfile({ commit, state }) {
+		async [GET_PROFILE]({ commit, state }) {
 			if (state.userProfile) {
 				return state.userProfile;
 			}
@@ -209,7 +210,7 @@ const store = new Vuex.Store({
 			commit(SET_USERPROFILE, userProfile);
 			return userProfile;
 		},
-		async getFriends({ commit, state }) {
+		async [GET_FRIENDS]({ commit, state }) {
 			if (state.friends.length) {
 				return state.friends;
 			}

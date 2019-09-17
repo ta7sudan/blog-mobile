@@ -45,10 +45,11 @@ import Tag from '../components/tag.vue';
 import { routerLock, getDate } from '../lib/util';
 import { mapState } from 'vuex';
 import store from '../store';
+import { GET_PREV_NEXT_BY_ID, GET_POST_BY_ID, GET_PROFILE } from '../store/action-types';
 import '../styles/post-content.css';
 import '../styles/iconfont.css';
 
-/* global TITLE, NProgress */
+/* global NProgress */
 
 export default {
 	data() {
@@ -92,17 +93,17 @@ export default {
 		NProgress.start();
 		// const p = store.dispatch('getPrevNextById', id);
 		// const d = store.dispatch('getProfile');
-		return store.dispatch('getPostById', id)
+		return store.dispatch(GET_POST_BY_ID, id)
 			.then(post => 
 				next(vm => {
-					document.title = `${post.title} | ${TITLE}`;
+					document.title = `${post.title} | ${process.env.TITLE}`;
 					// 本来下面两个请求应该可以是并行的, 不过考虑到这里已经有三个请求了,
 					// 如果算上跨域协商, 最多可能有六个, 而且如果是刷新页面, 页面本身还有
 					// 一个请求, 那就是七个, 超出了浏览器的单域名并发限制, 而如果这两个
 					// 请求放上面, 大概率阻塞获取文章内容的请求, 所以还是先请求文章内容
 					// 比较保险
-					store.dispatch('getPrevNextById', id).then(({ prev, next }) => (vm.prev = prev, vm.next = next));
-					store.dispatch('getProfile').then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
+					store.dispatch(GET_PREV_NEXT_BY_ID, id).then(({ prev, next }) => (vm.prev = prev, vm.next = next));
+					store.dispatch(GET_PROFILE).then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
 						(vm.alipayQrCode = alipayQrCode, vm.wechatPayQrCode = wechatPayQrCode, vm.bitcoinAddr = bitcoinAddr)
 					);
 					vm.$apis.addPostViewCount({
@@ -138,11 +139,11 @@ export default {
 		const id = to.params.id;
 		NProgress.start();
 		// const p = store.dispatch('getPrevNextById', id);
-		return store.dispatch('getPostById', id)
+		return store.dispatch(GET_POST_BY_ID, id)
 			.then(post => {
-				document.title = `${post.title} | ${TITLE}`;
-				store.dispatch('getPrevNextById', id).then(({ prev, next }) => (this.prev = prev, this.next = next));
-				store.dispatch('getProfile').then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
+				document.title = `${post.title} | ${process.env.TITLE}`;
+				store.dispatch(GET_PREV_NEXT_BY_ID, id).then(({ prev, next }) => (this.prev = prev, this.next = next));
+				store.dispatch(GET_PROFILE).then(({ alipayQrCode, wechatPayQrCode, bitcoinAddr }) => 
 					(this.alipayQrCode = alipayQrCode, this.wechatPayQrCode = wechatPayQrCode, this.bitcoinAddr = bitcoinAddr)
 				);
 				this.$apis.addPostViewCount({

@@ -1,8 +1,11 @@
-/* global r */
+/* global r, releaseAllLocks */
 var w = window, handler;
 w.isSentryLoaded = false;
 w.errorPool = [];
 function errHandler(o) {
+	if (typeof w.releaseAllLocks === 'function') {
+		releaseAllLocks();
+	}
 	if (w.isSentryLoaded) {
 		return;
 	}

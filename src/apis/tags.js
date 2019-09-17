@@ -1,7 +1,5 @@
-/* global API_VERSION */
-
 export default {
 	getAllTags: {
-		path: `/api/${API_VERSION}/tags`
+		path: `/api/${process.env.API_VERSION}/tags`
 	}
 };

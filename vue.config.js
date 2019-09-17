@@ -102,22 +102,27 @@ module.exports = {
 			// .init(() => gitRevisionPlugin)
 			.before('vue-loader');
 		config.plugin('define').tap(args => {
-			args[0]['process.env'].RELEASE_VERSION = JSON.stringify(gitRevisionPlugin.commithash());
-			args[0]['process.env'].SENTRY_DSN = JSON.stringify(process.env.SENTRY_DSN);
+			const env = {
+				...args[0]['process.env'],
+				RELEASE_VERSION: JSON.stringify(gitRevisionPlugin.commithash()),
+				SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN),
+				DEBUG: JSON.stringify(process.env.NODE_ENV !== 'production'),
+				TITLE: JSON.stringify(process.env.TITLE),
+				DOMAIN: JSON.stringify(process.env.DOMAIN || '/'),
+				THEME_COLOR: JSON.stringify(process.env.THEME_COLOR),
+				AUTHOR: JSON.stringify(process.env.AUTHOR),
+				DESC: JSON.stringify(process.env.DESC),
+				KEYWORDS: JSON.stringify(process.env.KEYWORDS),
+				APP_NAME: JSON.stringify(process.env.APP_NAME),
+				API_HOST: JSON.stringify(process.env.API_HOST),
+				API_VERSION: JSON.stringify(process.env.API_VERSION),
+				ALLOYLEVER_CDN: JSON.stringify(process.env.ALLOYLEVER_CDN)
+			};
+			args[0]['process.env'] = env;
 			return [
 				{
 					...args[0],
-					DEBUG: JSON.stringify(process.env.NODE_ENV !== 'production'),
-					TITLE: JSON.stringify(process.env.TITLE),
-					DOMAIN: JSON.stringify(process.env.DOMAIN || '/'),
-					THEME_COLOR: JSON.stringify(process.env.THEME_COLOR),
-					AUTHOR: JSON.stringify(process.env.AUTHOR),
-					DESC: JSON.stringify(process.env.DESC),
-					KEYWORDS: JSON.stringify(process.env.KEYWORDS),
-					APP_NAME: JSON.stringify(process.env.APP_NAME),
-					API_HOST: JSON.stringify(process.env.API_HOST),
-					API_VERSION: JSON.stringify(process.env.API_VERSION),
-					ALLOYLEVER_CDN: JSON.stringify(process.env.ALLOYLEVER_CDN)
+					...env
 				}
 			];
 		});
