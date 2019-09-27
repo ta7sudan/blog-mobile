@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 Vue.mixin({
-	created() {
+	activated() {
 		if (this.$options.pageTitle) {
 			document.title = this.$options.pageTitle;
 		}

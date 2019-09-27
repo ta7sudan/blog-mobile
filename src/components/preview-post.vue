@@ -3,65 +3,40 @@ import { getDate } from '../lib/util';
 import '../styles/post-content.css';
 import '../styles/iconfont.css';
 
-export default {
-	functional: true,
-	props: {
-		id: String,
-		img: String,
-		title: {
-			type: String,
-			required: true
-		},
-		views: {
-			type: Number,
-			required: true
-		},
-		createdTime: {
-			type: Number,
-			required: true
-		},
-		trimedHtml: {
-			type: String,
-			required: true
-		},
-		author: {
-			type: String,
-			required: true
-		},
-		route: {
-			default: '/'
+export default ({ props: {
+	id,
+	img,
+	title,
+	views,
+	createdTime,
+	trimedHtml,
+	author
+} }) => (
+	<article class="preview-post">
+		<RouterLink class="title" tag="h1" to={{name: 'posts', params: { id }}}>{title}</RouterLink>
+		<div class="info">
+			<div class="item">
+				<i class="icon icon-calendar-o"></i>
+				<span class="date">{getDate(createdTime)}</span>
+			</div>
+			<div class="item">
+				<i class="icon icon-eye"></i>
+				<span class="views">{views} views</span>
+			</div>
+			<div class="item">
+				<i class="icon icon-user"></i>
+				<span class="author">{author}</span>
+			</div>
+		</div>
+		{
+			img ?
+				<div class="title-map" style={{background: `url(${img}) center/cover`}}></div> :
+				null
 		}
-	},
-	render(h, context) {
-		const props = context.props;
-		return (
-			<article class="preview-post">
-				<router-link class="title" tag="h1" to={{name: 'posts', params: {id: props.id}}}>{props.title}</router-link>
-				<div class="info">
-					<div class="item">
-						<i class="icon icon-calendar-o"></i>
-						<span class="date">{getDate(props.createdTime)}</span>
-					</div>
-					<div class="item">
-						<i class="icon icon-eye"></i>
-						<span class="views">{props.views} views</span>
-					</div>
-					<div class="item">
-						<i class="icon icon-user"></i>
-						<span class="author">{props.author}</span>
-					</div>
-				</div>
-				{
-					props.img ?
-						<div class="title-map" style={{background: `url(${props.img}) center/cover`}}></div> :
-						null
-				}
-				<div class="post-content" domPropsInnerHTML={props.trimedHtml}></div>
-				<router-link class="read-more" tag="div" to={{name: 'posts', params: {id: props.id}}}>Read more »</router-link>
-			</article>
-		);
-	}
-};
+		<div class="post-content" domPropsInnerHTML={trimedHtml}></div>
+		<RouterLink class="read-more" tag="div" to={{name: 'posts', params: { id }}}>Read more »</RouterLink>
+	</article>
+);
 </script>
 
 <style lang="postcss" scoped>

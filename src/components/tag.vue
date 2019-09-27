@@ -1,19 +1,9 @@
 <script>
-export default {
-	functional: true,
-	props: {
-		route: {
-			required: true
-		}
-	},
-	render(h, context) {
-		return (
-			<router-link class={['tag', context.data.staticClass]} active-class="active-tag" tag="div" to={context.props.route} exact>
-				{context.children}
-			</router-link>
-		);
-	}
-};
+export default ({ props, data: { staticClass }, children }) => (
+	<RouterLink class={['tag', staticClass]} active-class="active-tag" tag="div" to={props.route} exact>
+		{children}
+	</RouterLink>
+);
 </script>
 
 

@@ -1,3 +1,5 @@
+import { createLock } from './lock';
+
 export function report(error) {
 	if (window.Sentry) {
 		window.Sentry.captureException(error);
@@ -36,27 +38,27 @@ export function once(fn) {
 }
 
 export function routerLock(fn, timeout) {
-	let lock = false, timer = null, nextQueue = [], runNext = function (cb) {
+	let lock = createLock(), timer = null, nextQueue = [], runNext = function (cb) {
 		while (nextQueue.length) nextQueue.shift()(nextQueue.length === 0 ? cb : undefined);
 	};
 	return function (to, from, next) {
 		nextQueue.push(next);
-		if (lock) {
+		if (lock.check()) {
 			return;
 		}
-		lock = true;
+		lock.set();
 		if (timer) {
 			clearTimeout(timer);
 			timer = null;
 		}
 		if (timeout) {
-			timer = setTimeout(() => lock = false, timeout);
+			timer = setTimeout(() => lock.release(), timeout);
 		}
 		const rst = fn.call(this, to, from, runNext);
 		if (typeof p(rst).then() === 'function') {
-			return rst.then(v => (lock = false, v), v => (lock = false, Promise.reject(v)));
+			return rst.then(v => (lock.release(), v), v => (lock.release(), Promise.reject(v)));
 		}
-		lock = false;
+		lock.release();
 		return rst;
 	};
 }

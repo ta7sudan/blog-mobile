@@ -1,23 +1,12 @@
 <script>
 import FooterBar from './footer-bar.vue';
 
-export default {
-	functional: true,
-	props: {
-		hasFooterbar: {
-			type: Boolean,
-			default: true
-		}
-	},
-	render(h, context) {
-		return (
-			<div class="page-layout">
-				{context.children}
-				<FooterBar show={context.props.hasFooterbar} />
-			</div>
-		);
-	}
-};
+export default ({ props: { hasFooterbar }, children }) => (
+	<div class="page-layout">
+		{children}
+		<FooterBar show={hasFooterbar} />
+	</div>
+);
 </script>
 
 

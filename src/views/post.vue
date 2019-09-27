@@ -1,5 +1,5 @@
 <template>
-	<page-layout>
+	<page-layout :has-footerbar="true">
 		<div class="post-page">
 			<img class="title-map" :src="post.img" alt="title-map" v-if="post.img">
 			<h1 class="title">{{post.title}}</h1>

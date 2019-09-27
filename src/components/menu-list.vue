@@ -1,32 +1,21 @@
 <script>
 import '../styles/iconfont.css';
 
-export default {
-	functional: true,
-	props: {
-		menu: {
-			type: Array,
-			required: true
-		}
-	},
-	render(h, context) {
-		return (
-			<ul class={['menu-list', context.data.staticClass]}>
-				{context.props.menu.map((item, i) => (
-					<router-link
-						class='menu-list-item'
-						active-class='active-menu-item'
-						tag='li'
-						key={i}
-						to={item.route}
-						exact={item.exact || false}>
-						<i class={`icon-${item.icon}`}></i><a>{item.text}</a>
-					</router-link>
-				))}
-			</ul>
-		);
-	}
-};
+export default ({ props: { menu }, data: { staticClass } }) => (
+	<ul class={['menu-list', staticClass]}>
+		{menu.map((item, i) => (
+			<RouterLink
+				class='menu-list-item'
+				active-class='active-menu-item'
+				tag='li'
+				key={i}
+				to={item.route}
+				exact={item.exact || false}>
+				<i class={`icon-${item.icon}`}></i><a>{item.text}</a>
+			</RouterLink>
+		))}
+	</ul>
+);
 </script>
 
 <style lang="postcss">
