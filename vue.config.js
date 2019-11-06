@@ -116,6 +116,8 @@ module.exports = {
 				APP_NAME: JSON.stringify(process.env.APP_NAME),
 				API_HOST: JSON.stringify(process.env.API_HOST),
 				API_VERSION: JSON.stringify(process.env.API_VERSION),
+				TOKEN_STORAGE_KEY: JSON.stringify(process.env.TOKEN_STORAGE_KEY),
+				TOKEN_COOKIE_KEY: JSON.stringify(process.env.TOKEN_COOKIE_KEY),
 				ALLOYLEVER_CDN: JSON.stringify(process.env.ALLOYLEVER_CDN)
 			};
 			args[0]['process.env'] = env;

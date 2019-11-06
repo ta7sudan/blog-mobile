@@ -6,7 +6,6 @@ import Vue from 'vue';
 import APIs from '@lowb/apiz-vue';
 import NProgress from 'accessible-nprogress';
 import meta from '../apis';
-import { TOKEN_KEY } from './constants';
 import { getStorage, setStorage, removeStorage } from './storage';
 import { releaseAllLocks } from './lock';
 
@@ -30,7 +29,7 @@ const apis = new APIs({
 		// 其实cookie上httponly+secure最安全, 缺点是js无法读取
 		// 以及cookie不能在多个域名共享, 虽然我也没有多个域名,
 		// 不过也假设这是个较大型的应用...
-		const jwt = getStorage(TOKEN_KEY);
+		const jwt = getStorage(process.env.TOKEN_STORAGE_KEY);
 		if (!jwt && !/jwt\/exchange$/.test(options.url)) {
 			// 理论上讲, 如果被禁用了cookie, 会出现循环刷新页面,
 			// 但是那就不是我的责任了...
@@ -42,7 +41,7 @@ const apis = new APIs({
 			// 如果来源是授权接口或者要重新授权, 那就应当请求授权接口或者重定向授权页面
 			NProgress.done();
 			if (process.env.DEBUG) {
-				apis.exchangeJWT().then(({ data }) => setStorage(TOKEN_KEY, data.jwt));
+				apis.exchangeJWT().then(({ data }) => setStorage(process.env.TOKEN_STORAGE_KEY, data.jwt));
 				console.warn('TOKEN已过期, 重新获取TOKEN');
 			} else {
 				location.reload(true);
@@ -60,7 +59,7 @@ const apis = new APIs({
 			// 如果后端认为你JWT过期了, 那管你是真过期没过期,
 			// 都当作过期处理, 那就只能从JWT来源重新获取
 			// 所以这里也只能刷新页面, 但理论上这情况不存在
-			removeStorage(TOKEN_KEY);
+			removeStorage(process.env.TOKEN_STORAGE_KEY);
 			alert('Token谜之失效, 页面稍后自动刷新', '__secan__');
 			location.reload(true);
 			// 终止后续操作
