@@ -48,7 +48,7 @@
     "@vue/cli-plugin-pwa": "^4.0.5",
     "@vue/cli-plugin-router": "^4.0.5",
     "@vue/cli-plugin-vuex": "^4.0.5",
-    "@vue/cli-service": "^4.0.5",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-array-includes": "^2.0.3",
@@ -73,7 +73,7 @@
     "precss": "^3.1.2",
     "preload-font-plugin": "^0.1.5",
     "prettier": "^1.18.2",
-    "svg-url-loader": "^3.0.2",
+    "svg-url-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10",
     "webpack-deep-scope-plugin": "^1.6.2"
   },
