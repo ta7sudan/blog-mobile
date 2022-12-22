@@ -59,7 +59,7 @@
     "eslint": "^6.5.1",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.2.3",
-    "fastify-jwt": "^1.1.0",
+    "fastify-jwt": "^4.2.0",
     "git-revision-webpack-plugin": "^3.0.4",
     "html-tag-attributes-plugin": "^0.1.6",
     "lint-staged": "^9.4.2",
